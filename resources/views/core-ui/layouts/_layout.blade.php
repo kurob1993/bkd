@@ -1,0 +1,12 @@
+@push('navbar')
+    @include('core-ui.layouts._navbar')
+@endpush
+@push('menukiri')
+    @include('core-ui.layouts._menukiri')
+@endpush
+@push('menukanan')
+    @include('core-ui.layouts._MenuKanan')
+@endpush
+@push('footer')
+    @include('core-ui.layouts._footer')
+@endpush
