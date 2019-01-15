@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -33,10 +34,20 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Materi');
     }
-
+    public function reporters()
+    {
+        return $this->hasMany('App\Reporter','user_id');
+    }
     public function scopeGetForSelect2($query,$request)
     {
-        $user = $query->where('name','like','%'.$request->q.'%')
+        // dapatkan semua username yang mempunyai role administrator
+        $allUserOfRule = User::select('username')->role('administrator')->get();
+
+        // tampilkan data username dari table users yang role selain administrator
+        $user = $query->where(function ($query) use ($allUserOfRule,$request){
+                $query->whereNotIn('username',$allUserOfRule)
+                ->where('name', 'like','%'.$request->q.'%');
+            })
             ->limit(15)
             ->get()
             ->map(function ($value,$key) {

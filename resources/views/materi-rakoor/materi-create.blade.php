@@ -75,7 +75,7 @@
                         <div class="form-group row">
                             <label for="tanggal" class="col-sm-2 col-form-label">Tanggal : </label>
                             <div class="col-sm-10">
-                                <input type="text" name="tanggal" value="{{ old('tanggal') }}" class="form-control" id="tanggal" required>
+                                <input type="text" name="date" value="{{ old('date') }}" class="form-control" id="tanggal" required>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -87,10 +87,10 @@
                         <div class="form-group row">
                             <label for="agenda" class="col-sm-2 col-form-label">Agenda ke : </label>
                             <div class="col-sm-10">
-                                <select class="form-control" required name="agenda">
+                                <select class="form-control" required name="agenda_no">
                                     <option value=""> .: Pilih Agenda :. </option>
                                     @for ($i=0; $i < 10 ; $i++)
-                                        @if( old('agenda') == $i+1 )
+                                        @if( old('agenda_no') == $i+1 )
                                             <option value="{{ $i+1 }}" selected> {{ $i+1 }} </option>
                                         @else
                                             <option value="{{ $i+1 }}"> {{ $i+1 }} </option>

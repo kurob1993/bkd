@@ -41,12 +41,9 @@ class MateriRakoorController extends Controller
      */
     public function store(StoreMateri $request)
     {
-        // Retrieve the validated input data...
-        $validated = $request->validated();
-
         $materi = new Materi;
-        $materi->date = $request->tanggal;
-        $materi->agenda_no = $request->agenda;
+        $materi->date = $request->date;
+        $materi->agenda_no = $request->agenda_no;
         $materi->username = Auth::user()->username;
         $materi->mulai = $request->jam_mulai;
         $materi->keluar = $request->jam_keluar;
@@ -84,7 +81,27 @@ class MateriRakoorController extends Controller
      */
     public function show($id)
     {
-        $materi = Materi::with('files');
+        $administrator = Auth::user()->hasRole('administrator');
+        $username = Auth::user()->username;
+
+        /*
+        menampilkan data materi dan data file yang terkait dengan materi.
+        di filter berdasarak role : 
+            - bukan administrator maka filter berdasrkan colom username 
+            pada tabel materis ATAU filter berdasarkan kolom username 
+            yang ada pada tabel users (relasi dengan tabel materis)
+
+            - administrator tampilkan semua data materi.
+        */
+        $materi = Materi::where(function ($query) use ($administrator,$username){
+            if(!$administrator){
+                $query->where('username',$username)
+                ->orWhereHas('users', function ($query) use ($username) {
+                    $query->where('username',$username);
+                });
+            }
+        })->with(['files']);
+
         $ret = datatables($materi)
                 ->addColumn('action', 'materi-rakoor._actionBtn')
                 ->order(function ($query) {

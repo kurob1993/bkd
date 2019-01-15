@@ -1,23 +1,23 @@
 <ol style="font-weight: bold">
-    @foreach ($users as $item)
+    @foreach ($reporters as $item)
         <li>
-            @can('delete partisipans')
-                <button class="btn btn-danger btn-sm my-1" data-toggle="modal" data-target=".partisipan{{ $item['id'] }}">
+            @can('delete notuliss')
+                <button class="btn btn-warning btn-sm my-1" data-toggle="modal" data-target=".notulis">
                     <i class="fa fa-times-circle"></i>
                 </button>
-                <div  id="modal-delete" class="modal partisipan{{ $item['id'] }}"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div  id="modal-delete" class="modal fade notulis"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm ">
                         <div class="modal-content">
 
                             <div class="modal-header">
-                                <h5 class="modal-title">Hapus Partisipan {{ ucfirst($item['name']) }} ?</h5>
+                                <h5 class="modal-title">Hapus Notulis ?</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
 
                             <div class="modal-body">
-                                <form action="{{ route('partisipan.destroy',$item['id']) }}" method="post" class="d-flex justify-content-center">
+                                <form action="{{ route('notulis.destroy',$item['id']) }}" method="post" class="d-flex justify-content-center">
                                     {{ method_field('DELETE') }}
                                     @csrf
                                     <button class="btn btn-primary btn-sm mr-1" type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -34,8 +34,7 @@
                     </div>
                 </div>
             @endcan
-
-            {{ ucfirst($item['name']) }}
+            {{ $item['users']['name'] }}
         </li>
     @endforeach
 </ol>

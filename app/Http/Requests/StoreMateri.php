@@ -24,10 +24,17 @@ class StoreMateri extends FormRequest
      */
     public function rules()
     {
+        $var = str_replace('/', '-', $this->request->get('date'));
+        $date = date('Y-m-d',strtotime($var) );
+
         return [
-            'tanggal' => 'required|unique:materis,date,null,id',
+            'agenda_no' => [
+                'required',
+                Rule::unique('materis')->where(function ($query) use ($date){
+                    $query->where('date',$date);
+                })
+            ],
             'no_dokumen' => 'required',
-            'agenda' => 'required|unique:materis,agenda_no,null,id',
             'judul' => 'required',
             'presenter' => 'required',
         ];

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePartisipanTable extends Migration
+class Reporters extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreatePartisipanTable extends Migration
      */
     public function up()
     {
-        Schema::create('materi_user', function (Blueprint $table) {
-            $table->integer('materi_id')->unsigned();
-            $table->integer('user_id')->unsigned();
-            $table->primary(array('materi_id', 'user_id'));
+        Schema::create('reporters', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id'); // notuis user
+            $table->integer('materi_id'); // materi
+            $table->timestamps();
         });
     }
 
@@ -27,6 +28,6 @@ class CreatePartisipanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('materi_user');
+        Schema::dropIfExists('reporters');
     }
 }

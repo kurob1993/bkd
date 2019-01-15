@@ -25,6 +25,11 @@ class UserTable extends Seeder
         $materiPermission = Permission::create(['name' => 'update partisipans']);
         $materiPermission = Permission::create(['name' => 'delete partisipans']);
 
+        $notulisPermission = Permission::create(['name' => 'create notuliss']);
+        $notulisPermission = Permission::create(['name' => 'read notuliss']);
+        $notulisPermission = Permission::create(['name' => 'update notuliss']);
+        $notulisPermission = Permission::create(['name' => 'delete notuliss']);
+
         //role administrator mendapat semua permission
         $adminisRole = Role::create(['name' => 'administrator'])
         ->givePermissionTo( Permission::all() );
@@ -49,7 +54,11 @@ class UserTable extends Seeder
             'create partisipans',
             'read partisipans',
             'update partisipans',
-            'delete partisipans'
+            'delete partisipans',
+            'create notuliss',
+            'read notuliss',
+            'update notuliss',
+            'delete notuliss'
         ]);
         $materiPermission->assignRole($adminRole);
 

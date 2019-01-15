@@ -9,7 +9,7 @@
 <script src="{{ asset('vendors/select2/js/select2.min.js') }}"></script>
 <script>
 $(document).ready(function () {
-    $('#partisipan').select2({
+    $('#notulis').select2({
         theme: 'bootstrap4',
         ajax: {
             url: "{{ route('partisipan.user') }}",
@@ -54,7 +54,7 @@ function removeButton(params) {
             <div class="card" style="width: 100%;">
 
                 <div class="card-header">
-                    Tambah Data Partisipan Rapat Koordinasi
+                    Tambah Data Notulis Rapat Koordinasi
                 </div>
                 
                 <div class="card-body">
@@ -67,19 +67,19 @@ function removeButton(params) {
                         </ul>
                     </div>
                     @endif
-                    <form method="post" enctype="multipart/form-data" action="{{ route('partisipan.store') }}">
+                    <form method="post" enctype="multipart/form-data" action="{{ route('notulis.store') }}">
                         @csrf
                         <div class="form-group row">
                             <label for="judul" class="col-sm-2 col-form-label">Judul Rakoor: </label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" readonly value="{{ $materi->judul }}">
-                                <input type="hidden" class="form-control" value="{{ $materi->id }}" name="judul" id="judul">
+                                <input type="text" class="form-control" readonly value="{{ $materi->judul }}" id="judul">
+                                <input type="hidden" class="form-control" value="{{ $materi->id }}" name="materi" id="materi">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="partisipan" class="col-sm-2 col-form-label">Partisipan : </label>
+                            <label for="notulis" class="col-sm-2 col-form-label">Notulis : </label>
                             <div class="col-10 addfile">
-                                <select class="select2 form-control" name="partisipan[]" id="partisipan" multiple="multiple"></select>
+                                <select class="select2 form-control" name="notulis" id="notulis"></select>
                             </div>
                         </div>
                         <div class="form-group row">

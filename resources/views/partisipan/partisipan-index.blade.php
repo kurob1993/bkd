@@ -18,7 +18,9 @@ $(document).ready(function() {
                 }
             },
             {data: 'judul'},
-            {data: 'partisipan'}
+            {data: 'partisipan'},
+            {data: 'notulis'},
+            {data: 'action'}
         ]
     });
 });
@@ -38,14 +40,6 @@ function pdf(file) {
 
                 <div class="card-header">
                     Partisipan Rapat Koordinasi
-                    @can('create materis')
-                    <div class="float-right">
-                        <a class="btn btn-outline-danger btn-sm mx-1" href="{{ route('partisipan.create') }}">
-                            <i class="fa fa-plus-circle fa-lg"></i>
-                            Tambah Data
-                        </a>
-                    </div>
-                    @endcan
                 </div>
 
                 <div class="card-body">
@@ -56,6 +50,8 @@ function pdf(file) {
                                     <th>No</th>
                                     <th>Judul</th>
                                     <th>Partisipan</th>
+                                    <th>Notulis</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                         </table>

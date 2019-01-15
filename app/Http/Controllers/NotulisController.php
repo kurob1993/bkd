@@ -3,18 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use Illuminate\Support\Facades\Auth;
-use App\Absen;
-use App\Emp;
-use App\User;
-use DataTables;
 use App\Materi;
-use App\File;
-use App\Role;
 use App\Reporter;
 
-class DebugController extends Controller
+class NotulisController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,36 +15,7 @@ class DebugController extends Controller
      */
     public function index()
     {
-
-        // $administrator = Auth::user()->hasRole('administrator');
-        // $username = Auth::user()->username;
-
-        // $materi = Materi::where(function ($query) use ($administrator,$username){
-        //     if(!$administrator){
-        //         $query->where('username',$username)
-        //         ->orWhereHas('users', function ($query) use ($username) {
-        //             $query->where('username',$username);
-        //         });
-        //     }
-        // })->with(['files']);
-        
-        // $role = User::role('administrator')->get();
-        // dd($role);
-        
-        // $emp = Emp::with(['absens' => function ($query) {
-        //     $query->orderBy('time','desc')
-        //         ->groupBy('date','emp_id','inout');
-        // }])->get();
-        // // dd($emp);
-        // return view('absen',compact('emp'));
-
-
-        // $login = Auth::user()->hasRole('administrator');
-        // dd($login);
-
-
-        $materi = Reporter::find(1);
-        return ($materi->name);
+        //
     }
 
     /**
@@ -60,9 +23,10 @@ class DebugController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $materi = Materi::find($request->id);
+        return view('notulis.notulis-create',compact('materi'));
     }
 
     /**
@@ -73,7 +37,12 @@ class DebugController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $notulis = new Reporter;
+        $notulis->user_id = $request->notulis;
+        $notulis->materi_id = $request->materi;
+        $notulis->save();
+
+        return redirect()->route('partisipan.index');
     }
 
     /**
@@ -118,6 +87,8 @@ class DebugController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $reporter = Reporter::destroy($id);
+
+        return redirect()->route('partisipan.index');
     }
 }

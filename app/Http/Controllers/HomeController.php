@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         $materi = Materi::where(function ($query) {
-            $last = $query->orderBy('id','desc')->first();
+            $last = $query->orderBy('date','desc')->first();
             $last = $last?$last->date:'';
             $query->where('date', $last);
         })

@@ -12,7 +12,11 @@ $(document).ready(function() {
         serverSide: true,
         ajax: "{{ route('materi.show','') }}/all",
         columns: [
-            {data: 'id'},
+            {data: 'id',
+                render: function ( data, type, row, meta ) {
+                    return meta.row+1;
+                }
+            },
             {data: 'judul'},
             {data: 'agenda_no'},
             {data: 'date'},
@@ -69,13 +73,13 @@ function pdf(file) {
                     @can('create materis')
                     <div class="float-right">
                         <a class="btn btn-outline-danger btn-sm mx-1" href="{{ route('materi.create') }}">
-                                    <i class="fa fa-plus-circle fa-lg"></i>
-                                    Tambah Data
-                                </a>
-                        <button class="btn btn-outline-warning btn-sm mx-1" type="button">
-                                    <i class="fa fa-users fa-lg"></i>
-                                    Tambah Partisipan
-                                </button>
+                            <i class="fa fa-plus-circle fa-lg"></i>
+                            Tambah Data
+                        </a>
+                        <a class="btn btn-outline-warning btn-sm mx-1" href="{{ route('partisipan.index') }}">
+                            <i class="fa fa-users fa-lg"></i>
+                            Tambah Partisipan
+                        </a>
                     </div>
                     @endcan
                 </div>

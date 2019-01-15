@@ -16,7 +16,7 @@ class MateriRakoorTabels extends Seeder
         $materi = new Materi;
         $materi->date = date('Y-m-d');
         $materi->agenda_no = 1;
-        $materi->username = 'admin';
+        $materi->username = 'kurob';
         $materi->mulai = '08:00';
         $materi->keluar = '10;00';
         $materi->judul = 'Test rakoor';
