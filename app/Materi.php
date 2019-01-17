@@ -20,7 +20,7 @@ class Materi extends Model
     }
     public function reporters()
     {
-        return $this->hasMany('App\Reporter');
+        return $this->hasMany('App\Reporter','materi_id');
     }
     public function getDmyDateAttribute()
     {

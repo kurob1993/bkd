@@ -8,7 +8,7 @@ class reporter extends Model
 {
     public function Materis()
     {
-        return $this->belongsTo('App\Materi');
+        return $this->belongsTo('App\Materi','materi_id');
     }
     public function users()
     {

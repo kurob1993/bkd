@@ -26,6 +26,8 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('notulen/user/{q?}','NotulenController@user')->name('notulen.user');
+    Route::resource('notulen', 'NotulenController');
 });
 
 Route::group(['middleware' => ['auth','role:administrator|admin']], function() {
@@ -44,14 +46,13 @@ Route::group(['middleware' => ['auth','role:administrator|admin']], function() {
         'index','show'
     ]);
 });
-Route::group(['middleware' => ['auth','role_or_permission:administrator|read materis']], function() {
+Route::group(['middleware' => ['auth','role_or_permission:administrator|admin|read materis']], function() {
     Route::resource('materi', 'MateriRakoorController')
     ->parameters([
         'materi' => 'id'
     ])
     ->only([
         'index','show'
-    ]);;
+    ]);
 });
-
 Route::get('/debug','DebugController@index');

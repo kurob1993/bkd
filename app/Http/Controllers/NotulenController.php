@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Materi;
+use Illuminate\Support\Facades\Auth;
+use DataTables;
 use App\Reporter;
+use App\Materi;
+use App\User;
+use App\Notulen;
 
-class NotulisController extends Controller
+class NotulenController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +19,7 @@ class NotulisController extends Controller
      */
     public function index()
     {
-        //
+        return view('notulen.notulen-index');
     }
 
     /**
@@ -25,8 +29,7 @@ class NotulisController extends Controller
      */
     public function create(Request $request)
     {
-        $materi = Materi::find($request->id);
-        return view('notulis.notulis-create',compact('materi'));
+        return view('notulen.notulen-create',['id'=>$request->id]);
     }
 
     /**
@@ -37,19 +40,15 @@ class NotulisController extends Controller
      */
     public function store(Request $request)
     {
-        $reporter = reporter::where('materi_id',$request->materi)->first();
-        if(!$reporter){
-            $notulis = new Reporter;
-            $notulis->user_id = $request->notulis;
-            $notulis->materi_id = $request->materi;
-            $notulis->save();
-        }else{
-            $reporter->user_id = $request->notulis;
-            $reporter->materi_id = $request->materi;
-            $reporter->update();
-        }
-
-        return redirect()->route('partisipan.index');
+        dd($request->pic);
+        $notulen = new Notulen;
+        $notulen->materi_id = $request->materi_id;
+        $notulen->start = $request->start;
+        $notulen->end = $request->end;
+        $notulen->note = $request->note;
+        $notulen->pic = $request->pic;
+        $notulen->save();
+        return redirect()->route('notulen.index'); 
     }
 
     /**
@@ -60,7 +59,19 @@ class NotulisController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+        $role = $user->hasRole('administrator');
+        if($role){
+            $materis = Materi::with('Reporters')->get();
+        }else{
+            $materis = Materi::with(['Reporters'=>function($query) use ($user) {
+                $query->where('user_id',$user->id);
+            }])->get();
+        }
+        $ret = datatables($materis)
+                ->addColumn('action','notulen._action')
+                ->toJson();
+        return $ret;
     }
 
     /**
@@ -94,8 +105,10 @@ class NotulisController extends Controller
      */
     public function destroy($id)
     {
-        $reporter = Reporter::destroy($id);
-
-        return redirect()->route('partisipan.index');
+        //
+    }
+    public function user(Request $request)
+    {
+        return User::getForSelect2($request);
     }
 }

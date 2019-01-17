@@ -24,10 +24,12 @@
                 <i class="nav-icon icon-drop"></i> Partisipan</a>
             </li>
             @endcan
+            @if ($notulen)
             <li class="nav-item">
-                <a class="nav-link" href="colors.html">
+                <a class="nav-link" href="{{ route('notulen.index') }}">
                 <i class="nav-icon icon-drop"></i> Notulen</a>
             </li>
+            @endif
             <li class="nav-item">
                 <a class="nav-link" href="colors.html">
                 <i class="nav-icon icon-drop"></i> Progres Kerja</a>

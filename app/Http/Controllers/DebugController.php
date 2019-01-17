@@ -24,6 +24,7 @@ class DebugController extends Controller
     public function index()
     {
 
+        $user =  Auth::user();
         // $administrator = Auth::user()->hasRole('administrator');
         // $username = Auth::user()->username;
 
@@ -36,23 +37,30 @@ class DebugController extends Controller
         //     }
         // })->with(['files']);
         
+
+        // Tanpilkan semua user yang role administrator
         // $role = User::role('administrator')->get();
         // dd($role);
         
+
         // $emp = Emp::with(['absens' => function ($query) {
         //     $query->orderBy('time','desc')
         //         ->groupBy('date','emp_id','inout');
         // }])->get();
         // // dd($emp);
         // return view('absen',compact('emp'));
+        
+        // Tampilkan semua permission user yang sedang login
+        // $login = Auth::user()->getAllPermissions();
+
+        // Tampilkan role user yang sedang login
+        // $login = Auth::user()->getRoleNames();
+        $login = $user->hasRole('user');
+        dd($login);
 
 
-        // $login = Auth::user()->hasRole('administrator');
-        // dd($login);
-
-
-        $materi = Reporter::find(1);
-        return ($materi->name);
+        // $materi = Reporter::where('user_id',$login->id)->first();
+        // return ($materi);
     }
 
     /**
