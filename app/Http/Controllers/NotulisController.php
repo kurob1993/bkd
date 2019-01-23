@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 use App\Materi;
 use App\Reporter;
 
@@ -37,21 +38,32 @@ class NotulisController extends Controller
      */
     public function store(Request $request)
     {
-        $reporter = reporter::where('materi_id',$request->materi)->first();
-        if(!$reporter){
-            $notulis = new Reporter;
-            $notulis->user_id = $request->notulis;
-            $notulis->materi_id = $request->materi;
-            $notulis->save();
+        $x = reporter::where('materi_id',$request->materi_id)->first();
+        if(!$x){
+            $reporter = new Reporter;
+            $reporter->user_id = $request->user_id;
+            $reporter->materi_id = $request->materi_id;
+            $reporter->save();
         }else{
-            $reporter->user_id = $request->notulis;
-            $reporter->materi_id = $request->materi;
+            $reporter = reporter::find($x->id);
+            $reporter->user_id = $request->user_id;
+            $reporter->materi_id = $request->materi_id;
             $reporter->update();
+            if($this->CountNotulis($x->user_id) == 0 ){
+                $user = User::find($x->user_id);
+                $user->removeRole('notulis');
+            }   
+            
         }
-
+        $user = User::find($request->user_id);
+        $user->assignRole('notulis');
         return redirect()->route('partisipan.index');
     }
-
+    public function CountNotulis($user_id)
+    {
+        $count = reporter::where('user_id',$user_id)->count();
+        return $count;
+    }
     /**
      * Display the specified resource.
      *
@@ -94,8 +106,25 @@ class NotulisController extends Controller
      */
     public function destroy($id)
     {
-        $reporter = Reporter::destroy($id);
+        //sebelum delete ambil user_id pada tabel reporters sesusi id yang dikirim
+        $reporter = Reporter::find($id)->user_id;
+
+        //delete data di tabel reporter sesuai id yang dikirm
+        Reporter::destroy($id);
+
+        //cek jumlah user_id pada tabel reporters
+        $countNotulis = Reporter::where('user_id',$reporter)->count();
+        echo $countNotulis;
+        // jika NOL maka hapus role notulis
+        if($countNotulis == 0){
+            $user = User::find($reporter);
+            $user->removeRole('notulis');
+        }
 
         return redirect()->route('partisipan.index');
+    }
+    public function user(Request $request)
+    {
+        return User::getForSelect2($request);
     }
 }

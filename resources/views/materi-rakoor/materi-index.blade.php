@@ -78,7 +78,7 @@ function pdf(file) {
                         </a>
                         <a class="btn btn-outline-warning btn-sm mx-1" href="{{ route('partisipan.index') }}">
                             <i class="fa fa-users fa-lg"></i>
-                            Tambah Partisipan
+                            Partisipan
                         </a>
                     </div>
                     @endcan

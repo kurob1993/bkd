@@ -17,7 +17,7 @@ class CreateNotulensTable extends Migration
             $table->increments('id');
             $table->integer('materi_id');
             $table->longText('note');
-            $table->integer('user_id');//pic user
+            $table->integer('user_id')->comment('PIC');//pic user
             $table->date('start');
             $table->date('end');
             $table->integer('pic');

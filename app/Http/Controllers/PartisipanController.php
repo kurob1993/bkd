@@ -59,25 +59,22 @@ class PartisipanController extends Controller
     {
         $administrator = Auth::user()->hasRole('administrator');
         $username = Auth::user()->username;
+        $user_id = Auth::user()->id;
 
-        /*
-        menampilkan data materi yang terkait dengan partisipan.
-        di filter berdasarak role : 
-            - bukan administrator maka filter berdasrkan colom username 
-            pada tabel materis
-
-            - administrator tampilkan semua data materi.
-        */
-        $materi = Materi::where(function ($query) use ($administrator,$username){
+        $materi = Materi::whereHas('users',function($query) use ($user_id,$administrator){
             if(!$administrator){
-                $query->where('username',$username)
-                ->orWhereHas('users',function ($query) use ($username){
-                    $query->where('username',$username);
-                });
+                $query->where('user_id',$user_id);
             }
+        })->orWhereHas('reporters',function($query) use ($user_id,$administrator){
+            if(!$administrator){
+                $query->where('user_id',$user_id);
+            }
+        })->orWhere(function($query) use ($username) {
+            $query->where('username',$username);
         })->with(['users','reporters'=>function ($query) {
             $query->with('users');
         }]);
+
         $ret = datatables($materi)
                 ->addColumn('partisipan', 'partisipan._listPartisipan')
                 ->addColumn('notulis', 'partisipan._listNotulis')
@@ -122,13 +119,8 @@ class PartisipanController extends Controller
         $user->materis()->detach();
         return redirect()->route('partisipan.index');
     }
-
     public function user(Request $request)
     {
         return User::getForSelect2($request);
-    }
-    public function judul(Request $request)
-    {
-        return Materi::getForSelect2($request);
     }
 }

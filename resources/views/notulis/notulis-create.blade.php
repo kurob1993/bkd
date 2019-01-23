@@ -12,7 +12,7 @@ $(document).ready(function () {
     $('#notulis').select2({
         theme: 'bootstrap4',
         ajax: {
-            url: "{{ route('partisipan.user') }}",
+            url: "{{ route('notulis.user') }}",
             dataType: 'json'
         }
     });
@@ -73,13 +73,13 @@ function removeButton(params) {
                             <label for="judul" class="col-sm-2 col-form-label">Judul Rakoor: </label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" readonly value="{{ $materi->judul }}" id="judul">
-                                <input type="hidden" class="form-control" value="{{ $materi->id }}" name="materi" id="materi">
+                                <input type="hidden" class="form-control" value="{{ $materi->id }}" name="materi_id" id="materi">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="notulis" class="col-sm-2 col-form-label">Notulis : </label>
                             <div class="col-10 addfile">
-                                <select class="select2 form-control" name="notulis" id="notulis"></select>
+                                <select class="select2 form-control" name="user_id" id="notulis"></select>
                             </div>
                         </div>
                         <div class="form-group row">

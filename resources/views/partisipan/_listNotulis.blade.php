@@ -1,10 +1,12 @@
 <ol style="font-weight: bold">
     @foreach ($reporters as $item)
         <li>
-            @can('delete notuliss')
-                <button class="btn btn-warning btn-sm my-1" data-toggle="modal" data-target=".notulis">
-                    <i class="fa fa-times-circle"></i>
-                </button>
+            @can('delete notulens')
+                @if ( $username == Auth::user()->username )
+                    <button class="btn btn-warning btn-sm my-1" data-toggle="modal" data-target=".notulis">
+                        <i class="fa fa-times-circle"></i>
+                    </button>
+                @endif
                 <div  id="modal-delete" class="modal fade notulis"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm ">
                         <div class="modal-content">

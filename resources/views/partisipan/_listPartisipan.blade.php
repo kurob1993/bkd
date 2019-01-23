@@ -2,9 +2,11 @@
     @foreach ($users as $item)
         <li>
             @can('delete partisipans')
-                <button class="btn btn-danger btn-sm my-1" data-toggle="modal" data-target=".partisipan{{ $item['id'] }}">
-                    <i class="fa fa-times-circle"></i>
-                </button>
+                @if ( $username == Auth::user()->username )
+                    <button class="btn btn-danger btn-sm my-1" data-toggle="modal" data-target=".partisipan{{ $item['id'] }}">
+                        <i class="fa fa-times-circle"></i>
+                    </button>
+                @endif
                 <div  id="modal-delete" class="modal partisipan{{ $item['id'] }}"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm ">
                         <div class="modal-content">

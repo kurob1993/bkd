@@ -25,13 +25,36 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $materi = Materi::where(function ($query) {
-            $last = $query->orderBy('date','desc')->first();
-            $last = $last?$last->date:'';
-            $query->where('date', $last);
-        })
-        ->with('files')
-        ->get();
+        $administrator = Auth::user()->hasRole('administrator');
+        $username = Auth::user()->username;
+        $user_id = Auth::user()->id;
+
+        /*
+            Menampilkan data materi sesuai username di tabel materis
+            atau
+            Menampilkan data sesuai user_id pada tabel materi_user
+            atau
+            Menampilkan data sesuai user_id pada tabel reporters
+
+            sesuai tanggal terahir
+        */
+
+        $materi = Materi::whereHas('users',function($query) use ($user_id,$administrator){
+            $query->where('user_id',$user_id)
+            ->whereHas('materis',function($q) use ($user_id) {
+                $lastday = Materi::lastRecodeOfUser($user_id)->first();
+                $q->where('date',$lastday['date']);
+            });
+        })->orWhereHas('reporters',function($query) use ($user_id,$administrator){
+            $query->where('user_id',$user_id)
+            ->whereHas('materis',function($q) use ($user_id) {
+                $lastday = Materi::lastRecodeOfReporter($user_id)->first();
+                $q->where('date',$lastday['date']);
+            }); 
+        })->orWhere(function($query) use ($username) {
+            $query->where('username',$username)
+            ->where('date',$query->max('date'));
+        })->with(['files'])->get();
         return view('backdrop.backdrop',compact('materi') );
     }
     public function test(Request $request)

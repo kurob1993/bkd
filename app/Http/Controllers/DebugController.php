@@ -25,6 +25,11 @@ class DebugController extends Controller
     {
 
         $user =  Auth::user();
+        $roles = $user->getRoleNames();
+
+        // $materi = Materi::lastRecodeOfUser('6')->first();
+        $materi = Materi::lastRecodeOfReporter('7')->first();
+        dd($materi->date);
         // $administrator = Auth::user()->hasRole('administrator');
         // $username = Auth::user()->username;
 
@@ -55,12 +60,27 @@ class DebugController extends Controller
 
         // Tampilkan role user yang sedang login
         // $login = Auth::user()->getRoleNames();
-        $login = $user->hasRole('user');
-        dd($login);
+        // $login = $user->hasRole('user');
+        // dd($login);
 
 
         // $materi = Reporter::where('user_id',$login->id)->first();
         // return ($materi);
+        $arry = [
+            ['nik'=>'10001','nama'=>'kurob'],
+            ['nik'=>'10002','nama'=>'gugum'],
+            ['nik'=>'10003','nama'=>'dhani'],
+            ['nik'=>'10005','nama'=>'ukon']
+        ];
+        $collection = collect($arry);
+
+        $filtered = $collection->filter(function ($value, $key) {
+            return str_is('*gu*',$value['nama']);
+        });
+        
+        $filtered->all();
+
+        dd($arry);
     }
 
     /**

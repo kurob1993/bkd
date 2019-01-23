@@ -83,23 +83,25 @@ class MateriRakoorController extends Controller
     {
         $administrator = Auth::user()->hasRole('administrator');
         $username = Auth::user()->username;
+        $user_id = Auth::user()->id;
 
         /*
-        menampilkan data materi dan data file yang terkait dengan materi.
-        di filter berdasarak role : 
-            - bukan administrator maka filter berdasrkan colom username 
-            pada tabel materis ATAU filter berdasarkan kolom username 
-            yang ada pada tabel users (relasi dengan tabel materis)
-
-            - administrator tampilkan semua data materi.
+            Menampilkan data materi sesuai username di tabel materis
+            atau
+            Menampilkan data sesuai user_id pada tabel materi_user
+            atau
+            Menampilkan data sesuai user_id pada tabel reporters
         */
-        $materi = Materi::where(function ($query) use ($administrator,$username){
+        $materi = Materi::whereHas('users',function($query) use ($user_id,$administrator){
             if(!$administrator){
-                $query->where('username',$username)
-                ->orWhereHas('users', function ($query) use ($username) {
-                    $query->where('username',$username);
-                });
+                $query->where('user_id',$user_id);
             }
+        })->orWhereHas('reporters',function($query) use ($user_id,$administrator){
+            if(!$administrator){
+                $query->where('user_id',$user_id);
+            }
+        })->orWhere(function($query) use ($username) {
+            $query->where('username',$username);
         })->with(['files']);
 
         $ret = datatables($materi)

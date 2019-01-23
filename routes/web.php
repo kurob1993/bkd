@@ -26,33 +26,25 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('notulen/user/{q?}','NotulenController@user')->name('notulen.user');
-    Route::resource('notulen', 'NotulenController');
 });
 
 Route::group(['middleware' => ['auth','role:administrator|admin']], function() {
-    Route::resource('materi', 'MateriRakoorController')
-    ->parameters([
-        'materi' => 'id'
-    ])
-    ->except([
-        'index','show'
-    ]);
+    Route::resource('materi', 'MateriRakoorController')->parameters(['materi' => 'id']);
     
-    Route::get('partisipan/judul/{q?}','PartisipanController@judul')->name('partisipan.judul');
-    Route::get('partisipan/user/{q?}','PartisipanController@user')->name('partisipan.user');
-    Route::resource('partisipan', 'PartisipanController');
-    Route::resource('notulis', 'NotulisController')->except([
-        'index','show'
-    ]);
+    Route::get('partisipan/user','PartisipanController@user')->name('partisipan.user');
+    Route::resource('partisipan', 'PartisipanController')->parameters(['partisipan' => 'id']);
+    
+    Route::get('notulis/user','NotulisController@user')->name('notulis.user');
+    Route::resource('notulis', 'NotulisController')->parameters(['notulis' => 'id']);
+    Route::get('notulen/user/{q?}','NotulenController@user')->name('notulen.user');
 });
-Route::group(['middleware' => ['auth','role_or_permission:administrator|admin|read materis']], function() {
-    Route::resource('materi', 'MateriRakoorController')
-    ->parameters([
-        'materi' => 'id'
-    ])
-    ->only([
-        'index','show'
-    ]);
+
+Route::group(['middleware' => ['auth','role:notulis|administrator|admin']], function() {
+    Route::resource('notulen', 'NotulenController')->parameters(['notulen' => 'id']);
+});
+
+Route::group(['middleware' => ['auth','permission:read materis|read partisipans']], function() {
+    Route::resource('materi', 'MateriRakoorController')->parameters(['materi'=>'id'])->only(['index','show']);
+    Route::resource('partisipan', 'PartisipanController')->parameters(['partisipan'=>'id'])->only(['index','show']);
 });
 Route::get('/debug','DebugController@index');

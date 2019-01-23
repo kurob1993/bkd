@@ -29,7 +29,8 @@ class NotulenController extends Controller
      */
     public function create(Request $request)
     {
-        return view('notulen.notulen-create',['id'=>$request->id]);
+        $materi = Materi::find($request->id);
+        return view('notulen.notulen-create',compact('materi'));
     }
 
     /**

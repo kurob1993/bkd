@@ -69,7 +69,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'username' => $username[0],
             'password' => Hash::make($data['password']),
-        ]);
+        ])->assignRole('user');
     }
 
     public function showRegistrationForm()
