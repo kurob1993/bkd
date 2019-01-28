@@ -117,9 +117,10 @@ class PartisipanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        $user = User::find($id);
-        $user->materis()->detach();
+    {   
+        $materi_user = explode("-",$id);
+        $materi = Materi::find($materi_user[0]);
+        $materi->users()->detach($materi_user[1]);
         return redirect()->route('partisipan.index');
     }
     public function user(Request $request)
