@@ -26,13 +26,13 @@
                         <span style="color: white;font-size:18px">RAPAT KOORDINASI DIREKSI PT KRAKATAU INFORMATION TECHNOLOGY.</span>
                     </div>
 
-                    <div class="text-center m-b-15 m-t-15">
+                    <div class="text-center my-3">
                         <span style="color: black;font-size:22px; ">MEETING SCHEDULE</span>
                     </div>
                     <div class="">
-                        <table class="table" style="width:100%;color: black;font-size:13px;border-top:1px solid #e2e7eb;">
+                        <table class="table table-bordered" style="width:100%">
                             <thead>
-                                <tr>
+                                <tr class="bg-primary">
                                     <th width="10%">NO</th>
                                     <th>TIME</th>
                                     <th>AGENDA</th>
@@ -40,35 +40,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
-                                @php($tanggal = date('Y-m-d') )
-                                @foreach ($materi as $item)
-                                    <tr>
-                                        <td>{{ $item->agenda_no }}</td>
-                                        <td>{{ $item->mulai }} - {{ $item->keluar }}</td>
+                                @foreach ($materi as $key=>$item)
+                                    <tr class="{{ fmod($key,2) == 0 ? 'bg-dark':'bg-white'}}">
+                                        <td>{{ $key+1 }}</td>
+                                        <td>{{ $item->dmyDate }} {{ $item->mulai }} - {{ $item->keluar }}</td>
                                         <td>{{ $item->judul }}</td>
                                         <td>
                                             @foreach ($item->files as $file)
                                                 @if($file->materi_id == $item->id)
                                                     @if(substr($file->name,-3,3) == 'pdf')
-                                                    <a title="{{ $file->name }}" href="{{ $file->path }}" target="_blank" class="fa fa-file-pdf-o fa-lg m-r-5"></a>
+                                                    <a title="{{ $file->name }}" href="{{ $file->path }}" 
+                                                        target="_blank" class="fa fa-file-pdf-o fa-2x mr-2 text-white"></a>
                                                     @else
-                                                    <a title="{{ $file->name }}" href="{{ $file->path }}" target="_blank" class="fa fa-file-text-o fa-lg m-r-5"></a>
+                                                    <a title="{{ $file->name }}" href="{{ $file->path }}" 
+                                                        target="_blank" class="fa fa-file-text-o fa-2x mr-2 text-white"></a>
                                                     @endif
                                                 @endif
                                             @endforeach
                                         </td>
                                     </tr>
-                                    @php($tanggal = $item->date)
                                 @endforeach
-                                
                             </tbody>
                         </table>
                     </div>
-                    <div class="p-2" style="background-color : blue;">
-                        <h4 style="color: white;">{{ \Carbon\Carbon::parse($tanggal)->formatLocalized('%A, %d %B %Y') }}</h4>
-                    </div>
-
                 </div>
             </div>
         </div>

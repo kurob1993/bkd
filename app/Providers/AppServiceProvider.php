@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use App\Observers\ReporterObserver;
+use App\Reporter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
     {
         config(['app.locale' => 'id']);
         setLocale(LC_TIME, $this->app->getLocale());
+        Reporter::observe(ReporterObserver::class);
     }
 
     /**

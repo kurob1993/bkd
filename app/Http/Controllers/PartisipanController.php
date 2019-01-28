@@ -79,6 +79,9 @@ class PartisipanController extends Controller
                 ->addColumn('partisipan', 'partisipan._listPartisipan')
                 ->addColumn('notulis', 'partisipan._listNotulis')
                 ->addColumn('action', 'partisipan._actionBtn')
+                ->addColumn('tanggal', function($materi){
+                    return $materi->dmyDate;
+                })
                 ->toJson();
         return $ret;
     }

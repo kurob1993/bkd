@@ -38,23 +38,18 @@ class HomeController extends Controller
 
             sesuai tanggal terahir
         */
+        $date = date('Y-m-d');
+        $materi = Materi::whereHas('users',function($query) use ($user_id,$administrator,$date){
+            $query->where('user_id',$user_id)->where('materis.date','>=',$date);
 
-        $materi = Materi::whereHas('users',function($query) use ($user_id,$administrator){
-            $query->where('user_id',$user_id)
-            ->whereHas('materis',function($q) use ($user_id) {
-                $lastday = Materi::lastRecodeOfUser($user_id)->first();
-                $q->where('date',$lastday['date']);
-            });
-        })->orWhereHas('reporters',function($query) use ($user_id,$administrator){
-            $query->where('user_id',$user_id)
-            ->whereHas('materis',function($q) use ($user_id) {
-                $lastday = Materi::lastRecodeOfReporter($user_id)->first();
-                $q->where('date',$lastday['date']);
-            }); 
-        })->orWhere(function($query) use ($username) {
+        })->orWhereHas('reporters',function($query) use ($user_id,$administrator,$date){
+            $query->where('user_id',$user_id)->where('materis.date','>=',$date);
+
+        })->orWhere(function($query) use ($username,$date) {
             $query->where('username',$username)
-            ->where('date',$query->max('date'));
+            ->where('date','>=',$date);
         })->with(['files'])->get();
+        // return $materi;
         return view('backdrop.backdrop',compact('materi') );
     }
     public function test(Request $request)

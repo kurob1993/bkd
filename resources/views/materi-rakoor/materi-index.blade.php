@@ -19,7 +19,11 @@ $(document).ready(function() {
             },
             {data: 'judul'},
             {data: 'agenda_no'},
-            {data: 'date'},
+            {data: 'date',
+                render: function(data, type, row, meta) {                    
+                    return row.tanggal;
+                }
+            },
             {data: 'mulai'},
             {data: 'keluar'},
             {data: 'presenter'},

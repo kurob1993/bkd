@@ -39,13 +39,18 @@ class User extends Authenticatable
         return $this->hasMany('App\Reporter','user_id');
     }
     public function scopeGetForSelect2($query,$request)
-    {
+    {   
+        $auth = Auth::user()->username;
         // dapatkan semua username yang mempunyai role administrator
-        $allUserOfRule = User::select('username')->role('administrator')->get();
-
+        // dan username user yang login
+        $filtterUser = User::select('username')
+            ->role('administrator')
+            ->orWhere('username',$auth)
+            ->get();
+        
         // tampilkan data username dari table users yang role selain administrator
-        $user = $query->where(function ($query) use ($allUserOfRule,$request){
-                $query->whereNotIn('username',$allUserOfRule)
+        $user = $query->where(function ($query) use ($filtterUser,$request){
+                $query->whereNotIn('username',$filtterUser)
                 ->where('name', 'like','%'.$request->q.'%');
             })
             ->limit(15)

@@ -25,7 +25,7 @@ class Materi extends Model
     public function getDmyDateAttribute()
     {
         $date = strtotime($this->date);
-        $formatDate = date('d/m/Y',$date);
+        $formatDate = date('d-m-Y',$date);
         return $formatDate;
     }
     public function setDateAttribute($value)
@@ -33,17 +33,5 @@ class Materi extends Model
         $var = str_replace('/', '-', $value);
         $tanggal = date('Y-m-d',strtotime($var) );
         $this->attributes['date'] = $tanggal;
-    }
-    public function scopeLastRecodeOfUser($query,$user_id)
-    {
-        return $query->whereHas('users',function($q) use ($user_id) {
-            $q->where('user_id',$user_id);
-        })->orderBy('date','desc');
-    }
-    public function scopeLastRecodeOfReporter($query,$user_id)
-    {
-        return $query->whereHas('reporters',function($q) use ($user_id) {
-            $q->where('user_id',$user_id);
-        })->orderBy('date','desc');
     }
 }

@@ -106,6 +106,9 @@ class MateriRakoorController extends Controller
 
         $ret = datatables($materi)
                 ->addColumn('action', 'materi-rakoor._actionBtn')
+                ->addColumn('tanggal', function($materi){
+                    return $materi->dmyDate;
+                })
                 ->order(function ($query) {
                     $query->orderBy('date', 'desc');
                 })

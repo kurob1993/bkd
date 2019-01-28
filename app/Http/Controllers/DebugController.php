@@ -28,8 +28,14 @@ class DebugController extends Controller
         $roles = $user->getRoleNames();
 
         // $materi = Materi::lastRecodeOfUser('6')->first();
-        $materi = Materi::lastRecodeOfReporter('7')->first();
-        dd($materi->date);
+        // $materi = Materi::lastRecodeOfReporter('7')->first();
+
+        $filtterUser = User::select('username')
+            ->role('administrator')
+            ->orWhere('username',$user->username)
+            ->get();
+
+        dd($filtterUser);
         // $administrator = Auth::user()->hasRole('administrator');
         // $username = Auth::user()->username;
 
