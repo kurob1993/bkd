@@ -20,6 +20,11 @@ $(document).ready(function() {
                 }
             },
             {data: 'judul'},
+            {data: 'date',
+                render: function ( data, type, row, meta ) {
+                    return row.tanggal;
+                }
+            },
             {data: 'action'}
             
         ]
@@ -49,6 +54,7 @@ $(document).ready(function() {
                                 <tr>
                                     <th width="5%">No</th>
                                     <th>Judul</th>
+                                    <th>Tanggal</th>
                                     <th width="10%">Aksi</th>
                                 </tr>
                             </thead>

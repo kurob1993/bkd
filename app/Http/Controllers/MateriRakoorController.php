@@ -84,7 +84,6 @@ class MateriRakoorController extends Controller
         $administrator = Auth::user()->hasRole('administrator');
         $username = Auth::user()->username;
         $user_id = Auth::user()->id;
-
         /*
             Menampilkan data materi sesuai username di tabel materis
             atau
@@ -93,15 +92,17 @@ class MateriRakoorController extends Controller
             Menampilkan data sesuai user_id pada tabel reporters
         */
         $materi = Materi::whereHas('users',function($query) use ($user_id,$administrator){
-            if(!$administrator){
-                $query->where('user_id',$user_id);
-            }
+            $query->where('user_id',$user_id);
         })->orWhereHas('reporters',function($query) use ($user_id,$administrator){
+            $query->where('user_id',$user_id);
+        })->orWhere(function($query) use ($username,$administrator) {
             if(!$administrator){
-                $query->where('user_id',$user_id);
+                $query->where('username',$username);
+            }else{
+                $query->where('username','<>',$username)
+                ->orWhere('username',$username);
             }
-        })->orWhere(function($query) use ($username) {
-            $query->where('username',$username);
+            
         })->with(['files']);
 
         $ret = datatables($materi)

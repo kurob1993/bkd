@@ -71,6 +71,9 @@ class NotulenController extends Controller
         }
         $ret = datatables($materis)
                 ->addColumn('action','notulen._action')
+                ->addColumn('tanggal', function($materi){
+                    return $materi->dmyDate;
+                })
                 ->toJson();
         return $ret;
     }

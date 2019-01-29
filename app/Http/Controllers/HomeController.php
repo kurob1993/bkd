@@ -39,13 +39,22 @@ class HomeController extends Controller
             sesuai tanggal terahir
         */
         $date = date('Y-m-d');
-        $materi = Materi::whereHas('users',function($query) use ($user_id,$administrator,$date){
-            $query->where('user_id',$user_id)->where('materis.date','>=',$date);
+        $materi = Materi::whereHas('users',function($query) use ($user_id,$date){
+            $query->where('user_id',$user_id)
+            ->where('materis.date','>=',$date);
+        })->orWhereHas('reporters',function($query) use ($user_id,$date){
+            $query->where('user_id',$user_id)
+            ->where('materis.date','>=',$date);
+        })->orWhere(function($query) use ($username,$date,$administrator) {
+            if(!$administrator){
+                $query->where('username',$username)
+                ->where('date','>=',$date);
+            }else{
+                $query->where('username','<>',$username)
+                ->orWhere('username',$username)
+                ->where('date','>=',$date);
+            }
 
-        })->orWhereHas('reporters',function($query) use ($user_id,$administrator,$date){
-            $query->where('user_id',$user_id)->where('materis.date','>=',$date);
-
-        })->orWhere(function($query) use ($username,$date) {
             $query->where('username',$username)
             ->where('date','>=',$date);
         })->with(['files'])->get();

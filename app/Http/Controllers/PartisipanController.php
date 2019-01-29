@@ -61,16 +61,17 @@ class PartisipanController extends Controller
         $username = Auth::user()->username;
         $user_id = Auth::user()->id;
 
-        $materi = Materi::whereHas('users',function($query) use ($user_id,$administrator){
+        $materi = Materi::whereHas('users',function($query) use ($user_id){
+            $query->where('user_id',$user_id);
+        })->orWhereHas('reporters',function($query) use ($user_id){
+            $query->where('user_id',$user_id);
+        })->orWhere(function($query) use ($username,$administrator) {
             if(!$administrator){
-                $query->where('user_id',$user_id);
+                $query->where('username',$username);
+            }else{
+                $query->where('username','<>',$username)
+                ->orWhere('username',$username);
             }
-        })->orWhereHas('reporters',function($query) use ($user_id,$administrator){
-            if(!$administrator){
-                $query->where('user_id',$user_id);
-            }
-        })->orWhere(function($query) use ($username) {
-            $query->where('username',$username);
         })->with(['users','reporters'=>function ($query) {
             $query->with('users');
         }]);
@@ -81,6 +82,9 @@ class PartisipanController extends Controller
                 ->addColumn('action', 'partisipan._actionBtn')
                 ->addColumn('tanggal', function($materi){
                     return $materi->dmyDate;
+                })
+                ->order(function ($query) {
+                    $query->orderBy('date', 'desc');
                 })
                 ->toJson();
         return $ret;
