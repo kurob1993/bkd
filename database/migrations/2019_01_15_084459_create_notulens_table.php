@@ -20,7 +20,6 @@ class CreateNotulensTable extends Migration
             $table->integer('user_id')->comment('PIC');//pic user
             $table->date('start');
             $table->date('end');
-            $table->integer('pic');
             $table->timestamps();
         });
     }

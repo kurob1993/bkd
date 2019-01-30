@@ -13,6 +13,7 @@ use App\Materi;
 use App\File;
 use App\Role;
 use App\Reporter;
+use App\Notulen;
 
 class DebugController extends Controller
 {
@@ -24,18 +25,19 @@ class DebugController extends Controller
     public function index()
     {
 
-        $user =  Auth::user();
-        $roles = $user->getRoleNames();
+        // $user =  Auth::user();
+        // $roles = $user->getRoleNames();
 
         // $materi = Materi::lastRecodeOfUser('6')->first();
         // $materi = Materi::lastRecodeOfReporter('7')->first();
 
-        $filtterUser = User::select('username')
-            ->role('administrator')
-            ->orWhere('username',$user->username)
-            ->get();
+        // $filtterUser = User::select('username')
+        //     ->role('administrator')
+        //     ->orWhere('username',$user->username)
+        //     ->get();
 
-        dd($filtterUser);
+        $notulen = Notulen::find(1);
+        return $notulen->users;
         // $administrator = Auth::user()->hasRole('administrator');
         // $username = Auth::user()->username;
 

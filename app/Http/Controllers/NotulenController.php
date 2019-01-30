@@ -41,15 +41,15 @@ class NotulenController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->pic);
         $notulen = new Notulen;
         $notulen->materi_id = $request->materi_id;
         $notulen->start = $request->start;
         $notulen->end = $request->end;
         $notulen->note = $request->note;
-        $notulen->pic = $request->pic;
+        $notulen->user_id = $request->pic;
         $notulen->save();
-        return redirect()->route('notulen.index'); 
+
+        return redirect()->back();
     }
 
     /**
@@ -60,16 +60,25 @@ class NotulenController extends Controller
      */
     public function show($id)
     {
-        $user = Auth::user();
-        $role = $user->hasRole('administrator');
-        if($role){
-            $materis = Materi::with('Reporters')->get();
-        }else{
-            $materis = Materi::with(['Reporters'=>function($query) use ($user) {
-                $query->where('user_id',$user->id);
-            }])->get();
-        }
-        $ret = datatables($materis)
+        $administrator = Auth::user()->hasRole('administrator');
+        $username = Auth::user()->username;
+        $user_id = Auth::user()->id;
+
+        $materi = Materi::whereHas('users',function($query) use ($user_id,$administrator){
+            $query->where('user_id',$user_id);
+        })->orWhereHas('reporters',function($query) use ($user_id,$administrator){
+            $query->where('user_id',$user_id);
+        })->orWhere(function($query) use ($username,$administrator) {
+            if(!$administrator){
+                $query->where('username',$username);
+            }else{
+                $query->where('username','<>',$username)
+                ->orWhere('username',$username);
+            }
+        })->with(['reporters']);
+
+        // return $materi->get();
+        $ret = datatables($materi)
                 ->addColumn('action','notulen._action')
                 ->addColumn('tanggal', function($materi){
                     return $materi->dmyDate;
@@ -78,6 +87,21 @@ class NotulenController extends Controller
         return $ret;
     }
 
+    public function viewNotulen($id)
+    {
+        $notulen = Notulen::where('materi_id',$id)
+        ->with(['users']);
+        $ret = datatables($notulen)
+                ->addColumn('pic',function($notulen){
+                    return $notulen->users->name;
+                })
+                ->toJson();
+        return $ret;
+    }
+    public function view($id)
+    {
+        return view('notulen.notulen-view',compact('id'));
+    }
     /**
      * Show the form for editing the specified resource.
      *

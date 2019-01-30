@@ -36,15 +36,17 @@ Route::group(['middleware' => ['auth','role:administrator|admin']], function() {
     
     Route::get('notulis/user','NotulisController@user')->name('notulis.user');
     Route::resource('notulis', 'NotulisController')->parameters(['notulis' => 'id']);
-    Route::get('notulen/user/{q?}','NotulenController@user')->name('notulen.user');
 });
 
 Route::group(['middleware' => ['auth','role:notulis|administrator|admin']], function() {
+    Route::get('notulen/user/{q?}','NotulenController@user')->name('notulen.user');
     Route::resource('notulen', 'NotulenController')->parameters(['notulen' => 'id']);
 });
 
 Route::group(['middleware' => ['auth','permission:read materis|read partisipans']], function() {
     Route::resource('materi', 'MateriRakoorController')->parameters(['materi'=>'id'])->only(['index','show']);
     Route::resource('partisipan', 'PartisipanController')->parameters(['partisipan'=>'id'])->only(['index','show']);
+    Route::get('notulen/view-notulen/{id?}','NotulenController@viewNotulen')->name('notulen.viewNotulen');
+    Route::get('notulen/view/{id?}','NotulenController@view')->name('notulen.view');
 });
 Route::get('/debug','DebugController@index');

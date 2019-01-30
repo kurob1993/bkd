@@ -47,58 +47,55 @@ function removeButton(params) {
 
 @section('content')
 <input type="hidden" id="index" value="1">
+<div class="row justify-content-center">
+    <div class="col m-3">
+        <div class="card" style="width: 100%;">
 
-<div class="container mt-1">
-    <div class="row justify-content-center">
-        <div class="col">
-            <div class="card" style="width: 100%;">
-
-                <div class="card-header">
-                    Tambah Data Partisipan Rapat Koordinasi
-                </div>
-                
-                <div class="card-body">
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
-                    <form method="post" enctype="multipart/form-data" action="{{ route('partisipan.store') }}">
-                        @csrf
-                        <div class="form-group row">
-                            <label for="judul" class="col-sm-2 col-form-label">Judul Rakoor: </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" readonly value="{{ $materi->judul }}">
-                                <input type="hidden" class="form-control" value="{{ $materi->id }}" name="judul" id="judul">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="partisipan" class="col-sm-2 col-form-label">Partisipan : </label>
-                            <div class="col-10 addfile">
-                                <select class="select2 form-control" name="partisipan[]" id="partisipan" multiple="multiple"></select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-10">
-                                <a class="btn btn-outline-danger" href="{{ Route('partisipan.index') }}">
-                                    <i class="fa fa-arrow-left"></i>
-                                    Kembali
-                                </a>
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-save"></i>
-                                    Simpan
-                                </button>
-                                
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
+            <div class="card-header">
+                Tambah Data Partisipan Rapat Koordinasi
             </div>
+            
+            <div class="card-body">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                <form method="post" enctype="multipart/form-data" action="{{ route('partisipan.store') }}">
+                    @csrf
+                    <div class="form-group row">
+                        <label for="judul" class="col-sm-2 col-form-label">Judul Rakoor: </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" readonly value="{{ $materi->judul }}">
+                            <input type="hidden" class="form-control" value="{{ $materi->id }}" name="judul" id="judul">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="partisipan" class="col-sm-2 col-form-label">Partisipan : </label>
+                        <div class="col-10 addfile">
+                            <select class="select2 form-control" name="partisipan[]" id="partisipan" multiple="multiple"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <a class="btn btn-outline-danger" href="{{ Route('partisipan.index') }}">
+                                <i class="fa fa-arrow-left"></i>
+                                Kembali
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-save"></i>
+                                Simpan
+                            </button>
+                            
+                        </div>
+                    </div>
+                </form>
+            </div>
+
         </div>
     </div>
 </div>

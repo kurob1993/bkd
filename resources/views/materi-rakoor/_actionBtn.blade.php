@@ -41,3 +41,7 @@
     </div>
     @endcan
 @endif
+<a class="btn btn-sm btn-success" href="{{ route('notulen.view',$id) }}">
+    <i class="fa fa-eye"></i>
+    Notulen
+</a>

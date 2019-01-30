@@ -102,7 +102,6 @@ class MateriRakoorController extends Controller
                 $query->where('username','<>',$username)
                 ->orWhere('username',$username);
             }
-            
         })->with(['files']);
 
         $ret = datatables($materi)

@@ -67,48 +67,46 @@ function pdf(file) {
 @endpush
     @include('core-ui.layouts._layout') 
 @section('content')
-<div class="container mt-1">
-    <div class="row justify-content-center">
-        <div class="col">
-            <div class="card" style="width: 100%;">
+<div class="row justify-content-center">
+    <div class="col m-3">
+        <div class="card" style="width: 100%;">
 
-                <div class="card-header">
-                    Materi Rapat Koordinasi
-                    @can('create materis')
-                    <div class="float-right">
-                        <a class="btn btn-outline-danger btn-sm mx-1" href="{{ route('materi.create') }}">
-                            <i class="fa fa-plus-circle fa-lg"></i>
-                            Tambah Data
-                        </a>
-                        <a class="btn btn-outline-warning btn-sm mx-1" href="{{ route('partisipan.index') }}">
-                            <i class="fa fa-users fa-lg"></i>
-                            Partisipan
-                        </a>
-                    </div>
-                    @endcan
+            <div class="card-header">
+                Materi Rapat Koordinasi
+                @can('create materis')
+                <div class="float-right">
+                    <a class="btn btn-outline-danger btn-sm mx-1" href="{{ route('materi.create') }}">
+                        <i class="fa fa-plus-circle fa-lg"></i>
+                        Tambah Data
+                    </a>
+                    <a class="btn btn-outline-warning btn-sm mx-1" href="{{ route('partisipan.index') }}">
+                        <i class="fa fa-users fa-lg"></i>
+                        Partisipan
+                    </a>
                 </div>
-
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover responsive no-wrap" id="materis-table" width="100%">
-                            <thead>
-                                <tr>
-                                    <th data-priority="1">No</th>
-                                    <th>Judul</th>
-                                    <th>Agenda</th>
-                                    <th width="10%">Tanggal</th>
-                                    <th>Mulai</th>
-                                    <th>Keluar</th>
-                                    <th>Presenter</th>
-                                    <th width="15%">File</th>
-                                    <th width="15%" data-priority="2">Aksi</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-
+                @endcan
             </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover responsive no-wrap" id="materis-table" width="100%">
+                        <thead>
+                            <tr>
+                                <th data-priority="1">No</th>
+                                <th>Judul</th>
+                                <th>Agenda</th>
+                                <th width="10%">Tanggal</th>
+                                <th>Mulai</th>
+                                <th>Keluar</th>
+                                <th>Presenter</th>
+                                <th width="15%">File</th>
+                                <th width="15%" data-priority="2">Aksi</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

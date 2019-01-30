@@ -29,7 +29,11 @@
     <link href="{{ asset('vendors/flag-icon-css/css/flag-icon.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet">
-
+    <style>
+        .select2 {
+            width:100%!important;
+        }
+    </style>
     @stack('style')
 
     <!-- Main styles for this application-->

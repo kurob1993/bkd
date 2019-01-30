@@ -34,10 +34,17 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Materi');
     }
+
     public function reporters()
     {
         return $this->hasMany('App\Reporter','user_id');
     }
+
+    public function notulens()
+    {
+        return $this->hasMany('App\Notulen','user_id');
+    }
+
     public function scopeGetForSelect2($query,$request)
     {   
         $auth = Auth::user()->username;

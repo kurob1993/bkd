@@ -38,33 +38,31 @@ function pdf(file) {
 @endpush
     @include('core-ui.layouts._layout') 
 @section('content')
-<div class="container mt-1">
-    <div class="row justify-content-center">
-        <div class="col">
-            <div class="card" style="width: 100%;">
+<div class="row justify-content-center">
+    <div class="col m-3">
+        <div class="card" style="width: 100%;">
 
-                <div class="card-header">
-                    Partisipan Rapat Koordinasi
-                </div>
-
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover responsive no-wrap" id="table" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Judul</th>
-                                    <th>Tanggal</th>
-                                    <th>Partisipan</th>
-                                    <th>Notulis</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-
+            <div class="card-header">
+                Partisipan Rapat Koordinasi
             </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover responsive no-wrap" id="table" width="100%">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Judul</th>
+                                <th>Tanggal</th>
+                                <th>Partisipan</th>
+                                <th>Notulis</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
