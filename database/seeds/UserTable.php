@@ -55,15 +55,7 @@ class UserTable extends Seeder
             'update partisipans',
             'delete partisipans',
 
-            'create notulens',
-            'read notulens',
-            'update notulens',
-            'delete notulens',
-            
-            'create pic',
-            'read pic',
-            'update pic',
-            'delete pic'
+            'create notulens'
         ]);
 
         //role user
