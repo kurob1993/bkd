@@ -64,9 +64,7 @@ class NotulenController extends Controller
         $username = Auth::user()->username;
         $user_id = Auth::user()->id;
 
-        $materi = Materi::whereHas('users',function($query) use ($user_id,$administrator){
-            $query->where('user_id',$user_id);
-        })->orWhereHas('reporters',function($query) use ($user_id,$administrator){
+        $materi = Materi::whereHas('reporters',function($query) use ($user_id,$administrator){
             $query->where('user_id',$user_id);
         })->orWhere(function($query) use ($username,$administrator) {
             if(!$administrator){

@@ -102,7 +102,7 @@ class MateriRakoorController extends Controller
                 $query->where('username','<>',$username)
                 ->orWhere('username',$username);
             }
-        })->with(['files']);
+        })->with(['files','reporters']);
 
         $ret = datatables($materi)
                 ->addColumn('action', 'materi-rakoor._actionBtn')
