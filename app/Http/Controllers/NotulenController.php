@@ -98,7 +98,8 @@ class NotulenController extends Controller
     }
     public function view($id)
     {
-        return view('notulen.notulen-view',compact('id'));
+        $materi = Materi::find($id);
+        return view('notulen.notulen-view',compact('id','materi'));
     }
     /**
      * Show the form for editing the specified resource.

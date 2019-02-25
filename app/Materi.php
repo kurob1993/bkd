@@ -25,7 +25,7 @@ class Materi extends Model
     public function getDmyDateAttribute()
     {
         $date = strtotime($this->date);
-        $formatDate = date('d-m-Y',$date);
+        $formatDate = date('d/m/Y',$date);
         return $formatDate;
     }
     public function setDateAttribute($value)

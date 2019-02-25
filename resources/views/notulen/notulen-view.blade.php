@@ -41,7 +41,7 @@ $(document).ready(function() {
     <div class="col m-3">
         <div class="card" style="width: 100%;">
             <div class="card-header">
-                Data Notulen
+                {{ $materi->judul }}
             </div>
             <div class="card-body">
                 <div class="table-responsive">

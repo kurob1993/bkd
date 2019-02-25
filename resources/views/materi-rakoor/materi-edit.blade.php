@@ -65,8 +65,9 @@
                         </ul>
                     </div>
                     @endif
-                    <form method="post" enctype="multipart/form-data" action="{{ route('materi.store') }}">
+                    <form method="post" enctype="multipart/form-data" action="{{ route('materi.update',$materi[0]->id) }}">
                         @csrf
+                        {{ method_field('PUT') }}
                         <div class="form-group row">
                             <label for="judul" class="col-sm-2 col-form-label">Judul : </label>
                             <div class="col-sm-10">

@@ -140,7 +140,36 @@ class MateriRakoorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($request);
+        // $materi = Materi::find($id);
+        // $materi->date = $request->date;
+        // $materi->agenda_no = $request->agenda_no;
+        // $materi->username = Auth::user()->username;
+        // $materi->mulai = $request->jam_mulai;
+        // $materi->keluar = $request->jam_keluar;
+        // $materi->judul = $request->judul;
+        // $materi->no_dokumen = $request->no_dokumen;
+        // $materi->presenter = $request->presenter;
+        // $materi->save();
+        
+        // if($request->file && $materi->id){
+        //     foreach ($request->file as $key => $value) {
+        //         $path          = $value->storeAs( 'public/files/'
+        //                         . Auth::user()->username.'/'
+        //                         . $request->tanggal.'/'
+        //                         . $request->agenda, 
+        //                         $value->getClientOriginalName() );
+            
+        //         $realName      = $value->getClientOriginalName();
+
+        //         $file = new File;
+        //         $file->materi_id = $materi->id;
+        //         $file->name = $realName;
+        //         $file->path = $path;
+        //         $file->save();
+        //     }
+        // }
+        return redirect()->route('materi.index');
     }
 
     /**
