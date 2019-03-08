@@ -11,46 +11,33 @@
             @role('administrator')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('home') }}">
-                    <i class="nav-icon icon-drop"></i> User</a>
+                    <i class="nav-icon icon-people"></i> User</a>
             </li>
             @endrole
             @can('read materis')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('materi.index') }}">
-                    <i class="nav-icon icon-drop"></i> Materi</a>
+                    <i class="nav-icon icon-list"></i> Materi</a>
             </li>
             @endcan
             @can('read partisipans')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('partisipan.index') }}">
-                    <i class="nav-icon icon-drop"></i> Partisipan & Notulis</a>
+                    <i class="nav-icon icon-user-follow"></i> Partisipan & Notulis</a>
             </li>
             @endcan
             @can('read notulens')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('notulen.index') }}">
-                    <i class="nav-icon icon-drop"></i> Notulen</a>
+                    <i class="nav-icon icon-note"></i> Notulen</a>
             </li>
             @endcan
             @can('read pic')
             <li class="nav-item">
-                <a class="nav-link" href="colors.html">
-                    <i class="nav-icon icon-drop"></i> Progres Kerja</a>
+                <a class="nav-link" href="{{ route('progres-kerja.index') }}">
+                    <i class="nav-icon icon-pie-chart"></i> Progres Kerja</a>
             </li>
             @endcan
-
-            {{-- <li class="nav-title">Components</li>
-            <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#">
-                    <i class="nav-icon icon-puzzle"></i> Base
-                </a>
-                <ul class="nav-dropdown-items">
-                    <li class="nav-item">
-                        <a class="nav-link" href="base/breadcrumb.html">
-                            <i class="nav-icon icon-puzzle"></i> Breadcrumb</a>
-                    </li>
-                </ul>
-            </li> --}}
         </ul>
     </nav>
 

@@ -5,17 +5,17 @@
 @endpush
 
 @push('script')
-<script src="{{ asset('vendors/DataTables/datatables.min.js') }}"></script> 
+<script src="{{ asset('vendors/DataTables/datatables.min.js') }}"></script>
 <script>
 $(document).ready(function() {
-    $('#table').DataTable({
+    $('#notulen-table').DataTable({
         responsive: true,
         processing: true,
         serverSide: true,
-        ajax: "{{ route('notulen.viewNotulen',$id) }}",
+        ajax: "{{ route('progres-kerja.show','') }}/all",
         columns: [
             {data: 'id',
-                render: function(data, type, row, meta) {
+                render: function ( data, type, row, meta ) {
                     return meta.row+1;
                 }
             },
@@ -26,11 +26,11 @@ $(document).ready(function() {
                 }
             },
             {data: 'pic'},
-            {data: 'progres'}
-
+            {data: 'progres'},
+            {data: 'action'}
+            
         ]
     });
-
 });
 </script>
 @endpush
@@ -41,24 +41,29 @@ $(document).ready(function() {
 <div class="row justify-content-center">
     <div class="col m-3">
         <div class="card" style="width: 100%;">
+
             <div class="card-header">
-                {{ $materi->judul }}
+                Progres Kerja
             </div>
+            
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover responsive no-wrap table-striped" id="table" width="100%">
+                    <table class="table no-wrap" id="notulen-table" width="100%">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Catatan</th>
+                                <th width="5%">No</th>
+                                <th>Notulen</th>
                                 <th>Due Date</th>
-                                <th>PIC</th>
-                                <th>Progres</th>
+                                <th>Pic</th>
+                                <th>Progress</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                     </table>
                 </div>
+                
             </div>
+
         </div>
     </div>
 </div>

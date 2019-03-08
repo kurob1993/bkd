@@ -76,17 +76,6 @@ function submit(){
         <div class="card" style="width: 100%;">
             <div class="card-header">
                 Notulen Rapat Koordinasi ( {{$materi->judul}} )
-                <div class="float-right">
-                    <a class="btn btn-danger btn-sm" href="{{ route('notulen.index') }}">
-                        <i class="fa fa-arrow-left"></i>
-                        Kembali
-                    </a>
-
-                    <button class="btn btn-primary btn-sm" type="button" onclick="submit()">
-                        <i class="fa fa-save"></i>
-                        Simpan
-                    </button>
-                </div>
             </div>
             <div class="card-body">
                 <form id="form" method="post" enctype="multipart/form-data" action="{{ route('notulen.store') }}">
@@ -108,11 +97,22 @@ function submit(){
                             </div>
                             <div class="col-sm-12">
                                 <label for="pic">PIC</label>
-                                <select class="select2 form-control" name="pic" id="pic" ></select>
+                                <select class="select2 form-control mb-1" name="pic" id="pic" ></select>
                             </div>
                         </div>
                     </div>
                 </form>
+                <div class="float-right mr-3 mt-2">
+                    <a class="btn btn-danger btn-sm" href="{{ route('notulen.index') }}">
+                        <i class="fa fa-arrow-left"></i>
+                        Kembali
+                    </a>
+
+                    <button class="btn btn-primary btn-sm" type="button" onclick="submit()">
+                        <i class="fa fa-save"></i>
+                        Simpan
+                    </button>
+                </div>
             </div>
         </div>
     </div>

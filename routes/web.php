@@ -49,4 +49,11 @@ Route::group(['middleware' => ['auth','permission:read materis|read partisipans'
     Route::get('notulen/view-notulen/{id?}','NotulenController@viewNotulen')->name('notulen.viewNotulen');
     Route::get('notulen/view/{id?}','NotulenController@view')->name('notulen.view');
 });
+
+Route::group(['middleware' => ['auth','role:pic|administrator']], function() {
+    Route::get('progres-kerja/view/{id?}','ProgresKerjaController@view')->name('progres-kerja.view');
+    Route::get('progres-kerja/user/{id?}','ProgresKerjaController@user')->name('progres-kerja.user');
+    Route::get('progres-kerja/list-proker','ProgresKerjaController@listProker')->name('progres-kerja.listproker');
+    Route::resource('progres-kerja', 'ProgresKerjaController')->parameters(['progres-kerja'=>'id']);
+});
 Route::get('/debug','DebugController@index');

@@ -91,9 +91,11 @@ class MateriRakoorController extends Controller
             atau
             Menampilkan data sesuai user_id pada tabel reporters
         */
-        $materi = Materi::whereHas('users',function($query) use ($user_id,$administrator){
+        $materi = Materi::whereHas('users',function($query) use ($user_id){
             $query->where('user_id',$user_id);
-        })->orWhereHas('reporters',function($query) use ($user_id,$administrator){
+        })->orWhereHas('reporters',function($query) use ($user_id){
+            $query->where('user_id',$user_id);
+        })->orWhereHas('notulens',function($query) use ($user_id){
             $query->where('user_id',$user_id);
         })->orWhere(function($query) use ($username,$administrator) {
             if(!$administrator){
@@ -140,17 +142,16 @@ class MateriRakoorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request);
-        // $materi = Materi::find($id);
-        // $materi->date = $request->date;
-        // $materi->agenda_no = $request->agenda_no;
-        // $materi->username = Auth::user()->username;
-        // $materi->mulai = $request->jam_mulai;
-        // $materi->keluar = $request->jam_keluar;
-        // $materi->judul = $request->judul;
-        // $materi->no_dokumen = $request->no_dokumen;
-        // $materi->presenter = $request->presenter;
-        // $materi->save();
+        $materi = Materi::find($id);
+        $materi->date = $request->tanggal;
+        $materi->agenda_no = $request->agenda;
+        $materi->username = Auth::user()->username;
+        $materi->mulai = $request->jam_mulai;
+        $materi->keluar = $request->jam_keluar;
+        $materi->judul = $request->judul;
+        $materi->no_dokumen = $request->no_dokumen;
+        $materi->presenter = $request->presenter;
+        $materi->save();
         
         // if($request->file && $materi->id){
         //     foreach ($request->file as $key => $value) {
@@ -181,7 +182,7 @@ class MateriRakoorController extends Controller
     public function destroy($id)
     {
         $d = Materi::destroy($id);
-        $df = File::where('materi_id', $d)->delete();
+        File::where('materi_id', $d)->delete();
         if($d){
             return redirect()->back();
         }

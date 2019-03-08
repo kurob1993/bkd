@@ -45,6 +45,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Notulen','user_id');
     }
 
+    public function progresses()
+    {
+        return $this->hasMany('App\Progress','user_id');
+    }
+
     public function scopeGetForSelect2($query,$request)
     {   
         $auth = Auth::user()->username;
@@ -52,7 +57,7 @@ class User extends Authenticatable
         // dan username user yang login
         $filtterUser = User::select('username')
             ->role('administrator')
-            ->orWhere('username',$auth)
+            // ->orWhere('username',$auth)
             ->get();
         
         // tampilkan data username dari table users yang role selain administrator

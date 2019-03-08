@@ -5,7 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Observers\ReporterObserver;
+use App\Observers\NotulenObserver;
 use App\Reporter;
+use App\Notulen;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
         config(['app.locale' => 'id']);
         setLocale(LC_TIME, $this->app->getLocale());
         Reporter::observe(ReporterObserver::class);
+        Notulen::observe(NotulenObserver::class);
     }
 
     /**

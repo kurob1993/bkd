@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use DataTables;
-use App\Reporter;
-use App\Materi;
-use App\User;
+use Illuminate\Http\Request;
 use App\Notulen;
+use App\User;
+use App\Progress;
 
-class NotulenController extends Controller
+class ProgresKerjaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +17,7 @@ class NotulenController extends Controller
      */
     public function index()
     {
-        return view('notulen.notulen-index');
+        return view('progres-kerja.progres-index');
     }
 
     /**
@@ -29,8 +27,9 @@ class NotulenController extends Controller
      */
     public function create(Request $request)
     {
-        $materi = Materi::find($request->id);
-        return view('notulen.notulen-create',compact('materi'));
+        $id = $request->id;
+        $notulen = Notulen::find($id);
+        return view('progres-kerja.progres-create',compact('notulen') );
     }
 
     /**
@@ -41,13 +40,12 @@ class NotulenController extends Controller
      */
     public function store(Request $request)
     {
-        $notulen = new Notulen;
-        $notulen->materi_id = $request->materi_id;
-        $notulen->start = $request->start;
-        $notulen->end = $request->end;
-        $notulen->note = $request->note;
-        $notulen->user_id = $request->pic;
-        $notulen->save();
+        $progress = new Progress;
+        $progress->notulen_id = $request->notulen_id;
+        $progress->proker = $request->proker;
+        $progress->user_id = $request->pic;
+        $progress->realisasi = $request->realisasi;
+        $progress->save();
 
         return redirect()->back();
     }
@@ -60,34 +58,8 @@ class NotulenController extends Controller
      */
     public function show($id)
     {
-        $administrator = Auth::user()->hasRole('administrator');
-        $username = Auth::user()->username;
         $user_id = Auth::user()->id;
-
-        $materi = Materi::whereHas('reporters',function($query) use ($user_id,$administrator){
-            $query->where('user_id',$user_id);
-        })->orWhere(function($query) use ($username,$administrator) {
-            if(!$administrator){
-                $query->where('username',$username);
-            }else{
-                $query->where('username','<>',$username)
-                ->orWhere('username',$username);
-            }
-        })->with(['reporters']);
-
-        // return $materi->get();
-        $ret = datatables($materi)
-                ->addColumn('action','notulen._action')
-                ->addColumn('tanggal', function($materi){
-                    return $materi->dmyDate;
-                })
-                ->toJson();
-        return $ret;
-    }
-
-    public function viewNotulen($id)
-    {
-        $notulen = Notulen::where('materi_id',$id)
+        $notulen = Notulen::where('user_id',$user_id)
         ->with(['users']);
         $ret = datatables($notulen)
                 ->addColumn('pic',function($notulen){
@@ -98,14 +70,11 @@ class NotulenController extends Controller
                     $sum = $notulen->progress->sum('realisasi') ? $notulen->progress->sum('realisasi') : 0;
                     return  round($sum/$count,2) . ' %';
                 })
+                ->addColumn('action', 'progres-kerja._actionBtn')
                 ->toJson();
         return $ret;
     }
-    public function view($id)
-    {
-        $materi = Materi::find($id);
-        return view('notulen.notulen-view',compact('id','materi'));
-    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -114,7 +83,8 @@ class NotulenController extends Controller
      */
     public function edit($id)
     {
-        //
+        $progress = Progress::where('id',$id)->with('users')->first();
+        return view('progres-kerja.progres-edit',compact('progress') );
     }
 
     /**
@@ -126,7 +96,12 @@ class NotulenController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $progress = Progress::find($id);
+        $progress->proker = $request->proker;
+        $progress->user_id = $request->pic;
+        $progress->realisasi = $request->realisasi;
+        $progress->save();
+        return redirect()->route('progres-kerja.create','id='.$request->notulen_id);
     }
 
     /**
@@ -137,10 +112,31 @@ class NotulenController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Progress::destroy($id);
+        return redirect()->back();
     }
+
     public function user(Request $request)
     {
-        return User::getForSelect2($request);
+        $user = User::getForSelect2($request);
+        return $user;
+    }
+
+    public function listProker(Request $request)
+    {
+        $id = $request->id;
+        $progress = Progress::where('notulen_id',$id)->with(['users']);
+        $ret = datatables($progress)
+        ->addColumn('pic',function($progress){
+            return $progress->users['name'];
+        })->addColumn('action', 'progres-kerja._actionBtnList')
+        ->toJson();
+        return $ret;
+    }
+
+    public function view($id)
+    {
+        $notulen = Notulen::find($id);
+        return view('progres-kerja.progres-view',compact('notulen'));
     }
 }

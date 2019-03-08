@@ -65,6 +65,8 @@ class PartisipanController extends Controller
             $query->where('user_id',$user_id);
         })->orWhereHas('reporters',function($query) use ($user_id){
             $query->where('user_id',$user_id);
+        })->orWhereHas('notulens',function($query) use ($user_id){
+            $query->where('user_id',$user_id);
         })->orWhere(function($query) use ($username,$administrator) {
             if(!$administrator){
                 $query->where('username',$username);

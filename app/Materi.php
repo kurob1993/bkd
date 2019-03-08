@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class Materi extends Model
 {
@@ -21,6 +20,10 @@ class Materi extends Model
     public function reporters()
     {
         return $this->hasMany('App\Reporter','materi_id');
+    }
+    public function notulens()
+    {
+        return $this->hasMany('App\Notulen','materi_id');
     }
     public function getDmyDateAttribute()
     {

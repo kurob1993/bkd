@@ -7,11 +7,11 @@
     @endcan
 
     @can('delete materis')
-    <button class="btn btn-danger btn-sm my-1" data-toggle="modal" data-target=".bd-example-modal-sm">
-        <i class="fa fa-remove"></i>
+    <button class="btn btn-danger btn-sm my-1" data-toggle="modal" data-target="#modal-delete{{$id}}">
+        <i class="fa fa-trash"></i>
         Hapus
     </button>
-    <div  id="modal-delete" class="modal fade bd-example-modal-sm"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div  id="modal-delete{{$id}}" class="modal fade bd-example-modal-sm"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm ">
             <div class="modal-content">
 
@@ -43,7 +43,7 @@
 @endif
 @foreach ($reporters as $item)
 <a class="btn btn-sm btn-success" href="{{ route('notulen.view',$id) }}">
-    <i class="fa fa-eye"></i>
+    <i class="fa fa-book"></i>
     Notulen
 </a>
 @endforeach
