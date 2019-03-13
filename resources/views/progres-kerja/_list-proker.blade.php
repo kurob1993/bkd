@@ -15,6 +15,8 @@ $(document).ready(function() {
             {data: 'proker'},
             {data: 'pic'},
             {data: 'realisasi'},
+            {data: 'issue'},
+            {data: 'action_plan'},
             {data: 'action'}
             
         ]
@@ -38,6 +40,8 @@ $(document).ready(function() {
                             <th>Proker</th>
                             <th>Pic</th>
                             <th>Progress (%)</th>
+                            <th>Issue</th>
+                            <th>Plan</th>
                             <th>Action</th>
                         </tr>
                     </thead>

@@ -13,7 +13,7 @@ class Notulen extends Model
 
     public function progress()
     {
-        return $this->hasMany('App\Progress');
+        return $this->hasMany('App\Progress','notulen_id');
     }
 
     public function setStartAttribute($value)

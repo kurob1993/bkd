@@ -1,5 +1,6 @@
 <ul style="font-weight: bold">
     @foreach ($reporters as $item)
+        @if ($item['users']['name'])
         <li>
             @can('delete notulens')
                 @if ( $username == Auth::user()->username )
@@ -38,5 +39,6 @@
             @endcan
             {{ $item['users']['name'] }}
         </li>
+        @endif
     @endforeach
 </ul>

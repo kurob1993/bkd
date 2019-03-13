@@ -64,11 +64,18 @@ $(document).ready(function() {
                         <div class="col-md">
                             <span class="badge badge-success mb-2">PIC</span>
                             <select class="select2 form-control mt-1" name="pic" id="pic" value="" required>
-                                <option value="{{$progress->user_id}}" selected="selected">{{$progress->users->name}}</option>
+                                <option value="{{$progress->user_id}}" selected="selected">{{$progress->users['name']}}</option>
                             </select>
 
                             <span class="badge badge-success mb-2">Progres <span id="value" class="ml-3"></span> % </span>
                             <input type="range" class="custom-range" id="customRange1" name="realisasi" value="{{ $progress->realisasi }}" required>
+                            
+                            <span class="badge badge-success">Issue </span>
+                            <input type="text" class="form-control" name="issue" value="{{ $progress->issue }}" required>
+
+                            <span class="badge badge-success">Action Plan </span>
+                            <input type="text" class="form-control" name="action_plan" value="{{ $progress->action_plan }}" required>
+
                             <div class="float-right mr-3 mt-2">
                                 <a class="btn btn-danger btn-sm" href="{{ route('progres-kerja.create','id='.$progress->notulen_id) }}">
                                     <i class="fa fa-arrow-left"></i>

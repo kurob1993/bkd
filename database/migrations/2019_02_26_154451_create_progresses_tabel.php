@@ -17,6 +17,8 @@ class CreateProgressesTabel extends Migration
             $table->increments('id');
             $table->integer('notulen_id');
             $table->text('proker');
+            $table->text('issue');
+            $table->text('action_plan');
             $table->integer('user_id')->comment('PIC');//pic user
             $table->integer('realisasi');
             $table->timestamps();

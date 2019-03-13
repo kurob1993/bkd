@@ -26,7 +26,8 @@ $(document).ready(function() {
                 }
             },
             {data: 'pic'},
-            {data: 'progres'}
+            {data: 'progres'},
+            {data: 'action'}
 
         ]
     });
@@ -54,6 +55,7 @@ $(document).ready(function() {
                                 <th>Due Date</th>
                                 <th>PIC</th>
                                 <th>Progres</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                     </table>

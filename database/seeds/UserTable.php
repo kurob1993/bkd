@@ -115,9 +115,6 @@ class UserTable extends Seeder
             $user->email_verified_at = date('Y-m-d H:i:s');
             $user->password = Hash::make('1');
             $user->save();
-            if($i == 0){
-                $user->assignRole($adminRole);//hanya mendapat permission read materis
-            }
             $user->assignRole($userRole);//hanya mendapat permission read materis
         }
 

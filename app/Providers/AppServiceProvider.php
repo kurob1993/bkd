@@ -20,6 +20,8 @@ class AppServiceProvider extends ServiceProvider
     {
         config(['app.locale' => 'id']);
         setLocale(LC_TIME, $this->app->getLocale());
+        date_default_timezone_set("Asia/Bangkok");
+        
         Reporter::observe(ReporterObserver::class);
         Notulen::observe(NotulenObserver::class);
     }

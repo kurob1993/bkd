@@ -45,6 +45,8 @@ class ProgresKerjaController extends Controller
         $progress->proker = $request->proker;
         $progress->user_id = $request->pic;
         $progress->realisasi = $request->realisasi;
+        $progress->issue = $request->issue;
+        $progress->action_plan = $request->action_plan;
         $progress->save();
 
         return redirect()->back();
@@ -63,7 +65,7 @@ class ProgresKerjaController extends Controller
         ->with(['users']);
         $ret = datatables($notulen)
                 ->addColumn('pic',function($notulen){
-                    return $notulen->users->name;
+                    return $notulen->users['name'];
                 })
                 ->addColumn('progres', function($notulen){
                     $count = $notulen->progress->count() ? $notulen->progress->count() : 1;
@@ -100,6 +102,8 @@ class ProgresKerjaController extends Controller
         $progress->proker = $request->proker;
         $progress->user_id = $request->pic;
         $progress->realisasi = $request->realisasi;
+        $progress->issue = $request->issue;
+        $progress->action_plan = $request->action_plan;
         $progress->save();
         return redirect()->route('progres-kerja.create','id='.$request->notulen_id);
     }
@@ -125,7 +129,7 @@ class ProgresKerjaController extends Controller
     public function listProker(Request $request)
     {
         $id = $request->id;
-        $progress = Progress::where('notulen_id',$id)->with(['users']);
+        $progress = Progress::where('notulen_id',$id)->with(['users','notulens']);
         $ret = datatables($progress)
         ->addColumn('pic',function($progress){
             return $progress->users['name'];

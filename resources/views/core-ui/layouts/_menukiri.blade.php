@@ -10,7 +10,7 @@
             <li class="nav-title">Menu</li>
             @role('administrator')
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('home') }}">
+                <a class="nav-link" href="{{ route('user.index') }}">
                     <i class="nav-icon icon-people"></i> User</a>
             </li>
             @endrole

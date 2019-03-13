@@ -19,7 +19,7 @@
                                         <i class="icon-user"></i>
                                     </span>
                                 </div>
-                                <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" type="text" placeholder="Username" name="email"  value="{{ old('email') }}" required autofocus>
+                                <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" type="text" placeholder="Username or Email" name="email"  value="{{ old('email') }}" required autofocus>
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>

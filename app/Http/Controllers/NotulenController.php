@@ -91,13 +91,14 @@ class NotulenController extends Controller
         ->with(['users']);
         $ret = datatables($notulen)
                 ->addColumn('pic',function($notulen){
-                    return $notulen->users->name;
+                    return $notulen->users['name'];
                 })
                 ->addColumn('progres', function($notulen){
                     $count = $notulen->progress->count() ? $notulen->progress->count() : 1;
                     $sum = $notulen->progress->sum('realisasi') ? $notulen->progress->sum('realisasi') : 0;
                     return  round($sum/$count,2) . ' %';
                 })
+                ->addColumn('action','notulen._actionView')
                 ->toJson();
         return $ret;
     }

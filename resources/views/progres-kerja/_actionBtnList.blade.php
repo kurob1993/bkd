@@ -1,3 +1,4 @@
+@if ($notulens['user_id'] == Auth::user()->id)
 <a class="btn btn-sm btn-primary" href="{{ route('progres-kerja.edit',$id) }}">
     <i class="fa fa-pencil-square"></i>
     Edit
@@ -34,3 +35,4 @@
         </div>
     </div>
 </div>
+@endif

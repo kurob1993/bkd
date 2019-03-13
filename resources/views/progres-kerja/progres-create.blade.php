@@ -31,7 +31,7 @@ $(document).ready(function() {
     }
     
     $('#proker').summernote({
-        height: 90, 
+        height: 120, 
     });
 });
 </script>
@@ -51,9 +51,9 @@ $(document).ready(function() {
             <div class="card-body">
                 <div class="alert alert-dark" role="alert">
                     <span>Notulen : </span><br>
-                    {{ $notulen->note }} 
-                    ( <strong>{{ $notulen->start }}</strong> 
-                    s.d  <strong>{{ $notulen->end }}</strong>)
+                    {!! $notulen->note !!} 
+                    Due Date :  <strong>{{ $notulen->start }}</strong> 
+                    s.d  <strong>{{ $notulen->end }}</strong>
                 </div>
                 <form action="{{ route('progres-kerja.store') }}" method="POST">
                     @csrf
@@ -70,6 +70,12 @@ $(document).ready(function() {
 
                             <span class="badge badge-success">Progres <span id="value"></span> % </span>
                             <input type="range" class="custom-range" id="customRange1" name="realisasi" required>
+
+                            <span class="badge badge-success">Issue </span>
+                            <input type="text" class="form-control" name="issue" required>
+
+                            <span class="badge badge-success">Action Plan </span>
+                            <input type="text" class="form-control" name="action_plan" required>
 
                             <div class="float-right mr-3 mt-2">
                                 <a class="btn btn-danger btn-sm" href="{{ route('progres-kerja.index') }}">

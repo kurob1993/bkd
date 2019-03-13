@@ -13,6 +13,6 @@ class Progress extends Model
 
     public function notulens()
     {
-        return $this->belongsTo('App\Notules');
+        return $this->belongsTo('App\Notulen','notulen_id');
     }
 }
