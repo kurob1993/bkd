@@ -1,4 +1,6 @@
-<h1>Aplikasi Rapat Koordinasi</h1>
+<h1>Aplikasi Rapat Koordinasi <br>
+    Base on Laravel 5.7
+</h1>
 
 Tutorial Install : 
 <p>Jalankan pada terminal/cmd </p>
