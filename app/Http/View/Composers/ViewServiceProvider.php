@@ -15,9 +15,9 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         // Using class based composers...
-        View::composer(
-            'core-ui.layouts._menukiri', 'App\Http\View\Composers\ReporterComposer'
-        );
+        // View::composer(
+        //     'core-ui.layouts._menukiri', 'App\Http\View\Composers\ReporterComposer'
+        // );
 
     }
 

@@ -3,7 +3,7 @@
         <ul class="nav">
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('home') }}">
-                    <i class="nav-icon icon-speedometer"></i> Backdrop
+                    <i class="nav-icon icon-speedometer"></i> DASHBOARD
                 </a>
             </li>
 
@@ -11,10 +11,10 @@
             @role('administrator')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('user.index') }}">
-                    <i class="nav-icon icon-people"></i> User</a>
+                    <i class="nav-icon icon-people"></i> Pengguna</a>
             </li>
             @endrole
-            @can('read materis')
+            {{-- @can('read materis')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('materi.index') }}">
                     <i class="nav-icon icon-list"></i> Materi</a>
@@ -37,7 +37,7 @@
                 <a class="nav-link" href="{{ route('progres-kerja.index') }}">
                     <i class="nav-icon icon-pie-chart"></i> Progres Kerja</a>
             </li>
-            @endcan
+            @endcan --}}
         </ul>
     </nav>
 

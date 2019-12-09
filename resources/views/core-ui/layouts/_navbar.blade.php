@@ -3,7 +3,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="#">
-        <img class="navbar-brand-full" src="img/logo.png" width="100" height="30" alt="CoreUI Logo">
+        <img class="navbar-brand-full" src="img/logo.png" height="30" alt="CoreUI Logo">
         <img class="navbar-brand-minimized" src="img/logo-mini.png" width="30" height="30" alt="CoreUI Logo">
     </a>
     <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
@@ -11,7 +11,7 @@
     </button>
 
     <div class="col d-md-down-none">
-        <h3 class="text-center">APLIKASI RAPAT KOORDINASI</h3>
+        <h3 class="text-left">{{ config('app.name') }}</h3>
     </div>
     
     {{-- <ul class="nav navbar-nav d-md-down-none">

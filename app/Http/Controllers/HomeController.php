@@ -25,41 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $administrator = Auth::user()->hasRole('administrator');
-        $username = Auth::user()->username;
-        $user_id = Auth::user()->id;
-
-        /*
-            Menampilkan data materi sesuai username di tabel materis
-            atau
-            Menampilkan data sesuai user_id pada tabel materi_user
-            atau
-            Menampilkan data sesuai user_id pada tabel reporters
-
-            sesuai tanggal terahir
-        */
-        $date = date('Y-m-d');
-        $materi = Materi::whereHas('users',function($query) use ($user_id,$date){
-            $query->where('user_id',$user_id)
-            ->where('materis.date','>=',$date);
-        })->orWhereHas('reporters',function($query) use ($user_id,$date){
-            $query->where('user_id',$user_id)
-            ->where('materis.date','>=',$date);
-        })->orWhere(function($query) use ($username,$date,$administrator) {
-            if(!$administrator){
-                $query->where('username',$username)
-                ->where('date','>=',$date);
-            }else{
-                $query->where('username','<>',$username)
-                ->orWhere('username',$username)
-                ->where('date','>=',$date);
-            }
-
-            $query->where('username',$username)
-            ->where('date','>=',$date);
-        })->with(['files'])->get();
-        // return $materi;
-        return view('backdrop.backdrop',compact('materi') );
+        return view('dashboard.index');
     }
     public function test(Request $request)
     {

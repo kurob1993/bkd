@@ -17,28 +17,13 @@ class UserTable extends Seeder
         // Reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        //materi
+        //Membuat Data Permision
         Permission::create(['name' => 'create materis']);
         Permission::create(['name' => 'read materis']);
         Permission::create(['name' => 'update materis']);
         Permission::create(['name' => 'delete materis']);
-        //partisipan
-        Permission::create(['name' => 'create partisipans']);
-        Permission::create(['name' => 'read partisipans']);
-        Permission::create(['name' => 'update partisipans']);
-        Permission::create(['name' => 'delete partisipans']);
-        //notulis
-        Permission::create(['name' => 'create notulens']);
-        Permission::create(['name' => 'read notulens']);
-        Permission::create(['name' => 'update notulens']);
-        Permission::create(['name' => 'delete notulens']);
-        //pic
-        Permission::create(['name' => 'create pic']);
-        Permission::create(['name' => 'read pic']);
-        Permission::create(['name' => 'update pic']);
-        Permission::create(['name' => 'delete pic']);
 
-        //role administrator mendapat semua permission
+        //role administrator diberika semua permission
         $adminisRole = Role::create(['name' => 'administrator'])
         ->givePermissionTo( Permission::all() );
 
@@ -48,44 +33,7 @@ class UserTable extends Seeder
             'create materis',
             'read materis',
             'update materis',
-            'delete materis',
-
-            'create partisipans',
-            'read partisipans',
-            'update partisipans',
-            'delete partisipans',
-
-            'create notulens',
-            'delete notulens'
-        ]);
-
-        //role user
-        $userRole = Role::create(['name' => 'user'])
-        ->givePermissionTo([
-            'read materis',
-            'read partisipans'
-        ]);
-
-        //role notulis
-        $notulisRole = Role::create(['name' => 'notulis'])
-        ->givePermissionTo([
-            'read materis',
-            'read partisipans',
-            'create notulens',
-            'read notulens',
-            'update notulens',
-            'delete notulens'
-        ]);
-
-        //role pic
-        $picRole = Role::create(['name' => 'pic'])
-        ->givePermissionTo([
-            'read materis',
-            'read partisipans',
-            'create pic',
-            'read pic',
-            'update pic',
-            'delete pic'
+            'delete materis'
         ]);
 
         $user = new User;
@@ -105,18 +53,6 @@ class UserTable extends Seeder
         $user->password = Hash::make('1');
         $user->save();
         $user->assignRole($adminRole);//tandai sebagai admin
-
-        // user anonimus1
-        for ($i=0; $i < 5; $i++) { 
-            $user = new User;
-            $user->name = 'user'.($i+1);
-            $user->username = 'user'.($i+1);
-            $user->email = 'user'.($i+1).'@gmail.com';
-            $user->email_verified_at = date('Y-m-d H:i:s');
-            $user->password = Hash::make('1');
-            $user->save();
-            $user->assignRole($userRole);//hanya mendapat permission read materis
-        }
 
     }
 }
