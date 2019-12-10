@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pengguna;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use App\User;
 use App\Role;
@@ -26,7 +27,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   $role = Role::whereNotIn('id',['1','4','5'])->get();
+    {   $role = Role::all();
         return view('user.user-create',compact('role') );
     }
 

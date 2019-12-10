@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pengguna;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\Materi;
-use App\Reporter;
+use App\Http\Controllers\Controller;
 
-class NotulisController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +14,7 @@ class NotulisController extends Controller
      */
     public function index()
     {
-        //
+        return view('role.index');
     }
 
     /**
@@ -24,10 +22,9 @@ class NotulisController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        $materi = Materi::find($request->id);
-        return view('notulis.notulis-create',compact('materi'));
+        //
     }
 
     /**
@@ -38,17 +35,9 @@ class NotulisController extends Controller
      */
     public function store(Request $request)
     {
-        $reporter = Reporter::updateOrCreate(
-            [ 'materi_id' => $request->materi_id ],
-            [ 'user_id' => $request->user_id ]
-        );
-        return redirect()->route('partisipan.index');
+        //
     }
-    public function CountNotulis($user_id)
-    {
-        $count = reporter::where('user_id',$user_id)->count();
-        return $count;
-    }
+
     /**
      * Display the specified resource.
      *
@@ -91,12 +80,6 @@ class NotulisController extends Controller
      */
     public function destroy($id)
     {
-        //delete data di tabel reporter sesuai id yang dikirm
-        $delete = Reporter::destroy($id);
-        return redirect()->route('partisipan.index');
-    }
-    public function user(Request $request)
-    {
-        return User::getForSelect2($request);
+        //
     }
 }

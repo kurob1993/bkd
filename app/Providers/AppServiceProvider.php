@@ -4,10 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
-use App\Observers\ReporterObserver;
-use App\Observers\NotulenObserver;
-use App\Reporter;
-use App\Notulen;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,8 +19,8 @@ class AppServiceProvider extends ServiceProvider
         setLocale(LC_TIME, $this->app->getLocale());
         date_default_timezone_set("Asia/Bangkok");
         
-        Reporter::observe(ReporterObserver::class);
-        Notulen::observe(NotulenObserver::class);
+        // Aliasing Components
+        Blade::component('components.card-default', 'CardDefault');
     }
 
     /**

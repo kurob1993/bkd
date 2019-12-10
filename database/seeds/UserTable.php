@@ -28,7 +28,7 @@ class UserTable extends Seeder
         ->givePermissionTo( Permission::all() );
 
         //role admin
-        $adminRole = Role::create(['name' => 'admin'])
+        $adminRole = Role::create(['name' => 'admin opd'])
         ->givePermissionTo([
             'create materis',
             'read materis',

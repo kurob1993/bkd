@@ -9,15 +9,28 @@
 
             <li class="nav-title">Menu</li>
             @role('administrator')
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('user.index') }}">
-                    <i class="nav-icon icon-people"></i> Pengguna</a>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle " href="#">
+                    <i class="nav-icon icon-people"></i> Pengguna
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ route('user.index') }}">
+                            Akun Pengguna
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ route('role.index') }}">
+                            Role
+                        </a>
+                    </li>
+                </ul>
             </li>
             @endrole
             {{-- @can('read materis')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('materi.index') }}">
-                    <i class="nav-icon icon-list"></i> Materi</a>
+            <i class="nav-icon icon-list"></i> Materi</a>
             </li>
             @endcan
             @can('read partisipans')

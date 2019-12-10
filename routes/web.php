@@ -28,8 +28,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/home', 'HomeController@index')->name('home');
 });
 
-Route::group(['middleware' => ['auth','role:administrator']], function() {
-    Route::resource('user', 'UserController')->parameters(['user' => 'id']);
+Route::group(['prefix'=>'pengguna','middleware' => ['auth','role:administrator']], function() {
+    Route::resource('user', 'Pengguna\UserController')->parameters(['user' => 'id']);
+    Route::resource('role', 'Pengguna\RoleController')->parameters(['role' => 'id']);
 });
 
 // Route::group(['middleware' => ['auth','role:administrator|admin']], function() {
