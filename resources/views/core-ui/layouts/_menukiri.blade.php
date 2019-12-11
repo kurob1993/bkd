@@ -19,11 +19,6 @@
                             Akun Pengguna
                         </a>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="{{ route('role.index') }}">
-                            Role
-                        </a>
-                    </li>
                 </ul>
             </li>
             @endrole

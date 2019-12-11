@@ -17,7 +17,7 @@ class UserTable extends Seeder
         // Reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        //Membuat Data Permision
+        //  Membuat Data Permision
         Permission::create(['name' => 'create materis']);
         Permission::create(['name' => 'read materis']);
         Permission::create(['name' => 'update materis']);
