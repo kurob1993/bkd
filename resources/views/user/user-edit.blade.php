@@ -5,7 +5,24 @@
 @endpush
 
 @push('script')
+<script>
+    $(document).ready(function() {
+        $('#opd').hide();
+        if('{{ $user->roles[0]->id }}' == 3){
+            $('#opd').show();
+        }else{
+            $('#opd').hide();
+        }
+    });
 
+    function roleChange(opd) {
+        if(opd == 3){
+            $('#opd').show();
+        }else{
+            $('#opd').hide();
+        }
+    }
+</script>
 @endpush
 
 @include('core-ui.layouts._layout')
@@ -52,13 +69,31 @@
                                 @endif
                             @endforeach
 
-                            <label>
-                                <input type="radio" name="role" value="{{$item->name}}" {{ $cek }}>
+                            <label class="mr-3">
+                                <input type="radio" name="role" value="{{$item->name}}" {{ $cek }}
+                                onchange="roleChange({{$item->id}})">
                                 {{$item->name}}
-                            </label><br>
+                            </label>
                         @endforeach
-
-                        
+                    </div>
+                </div>
+                <div class="form-group row" id="opd">
+                    <label for="opd" class="col-sm-2 col-form-label">OPD : </label>
+                    <div class="col-sm-10">
+                        @php($opdId = '')
+                        @if ($user->opds)
+                            @php($opdId = $user->opds->id)
+                        @endif
+                        <select name="opd" class="form-control">
+                            <option value="">.:: Pilih Data OPD ::.</option>
+                            @foreach ($masterOpd as $item)
+                            <option value="{{$item->id}}" 
+                                {{ $opdId == $item->id ? 'selected' : '' }}
+                            >
+                                {{$item->text}}
+                            </option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">

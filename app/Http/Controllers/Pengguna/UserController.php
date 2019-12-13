@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use App\User;
 use App\Role;
+use App\Models\MasterOpd;
 
 class UserController extends Controller
 {
@@ -29,7 +30,8 @@ class UserController extends Controller
     public function create()
     {   
         $role = Role::all();
-        return view('user.user-create',compact('role') );
+        $masterOpd = MasterOpd::all();
+        return view('user.user-create',compact('role','masterOpd') );
     }
 
     /**
@@ -41,6 +43,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = new User();
+        $user->master_opd_id = $request->opd;
         $user->name = $request->nama;
         $user->email = $request->email;
         $user->username = Str::before($request->email, '@');
@@ -59,7 +62,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::with('roles');
+        $user = User::with(['roles','opds']);
 
         $ret = datatables($user)
             ->addColumn('roles', 'user._listRole')
@@ -78,7 +81,8 @@ class UserController extends Controller
     {
         $user = User::where('id',$id)->with('roles')->first();
         $role = Role::whereNotIn('id',['1','4','5'])->get();
-        return view('user.user-edit',compact('user','role'));
+        $masterOpd = MasterOpd::all();
+        return view('user.user-edit',compact('user','role','masterOpd'));
     }
 
     /**
@@ -91,13 +95,14 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
+        $user->master_opd_id = $request->opd;
         $user->name = $request->nama;
         $user->email = $request->email;
         $user->username = Str::before($request->email, '@');
         $user->save();
 
-        $user->removeRole('admin');
-        $user->removeRole('user');
+        $user->removeRole('admin super');
+        $user->removeRole('admin opd');
         $user->assignRole($request->role);
         return redirect()->route('user.index');
     }

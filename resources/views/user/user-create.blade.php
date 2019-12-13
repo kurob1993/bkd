@@ -5,7 +5,19 @@
 @endpush
 
 @push('script')
+<script>
+    $(document).ready(function() {
+        $('#opd').hide();
+    });
 
+    function roleChange(opd) {
+        if(opd == 3){
+            $('#opd').show();
+        }else{
+            $('#opd').hide();
+        }
+    }
+</script>
 @endpush
 
 @include('core-ui.layouts._layout')
@@ -43,18 +55,31 @@
                     <div class="form-group row">
                         <label for="password" class="col-sm-2 col-form-label">Password : </label>
                         <div class="col-sm-10">
-                            <input type="text" name="password" value="{{ old('password')?old('password'):'initial.1' }}" class="form-control" id="password" placeholder="Password" required>
+                            <input type="text" name="password" value="{{ old('password') }}" class="form-control" id="password" placeholder="Password" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="role" class="col-sm-2 col-form-label">Role : </label>
                         <div class="col-sm-10">
                             @foreach ($role as $key => $item)
-                                <label>
-                                    <input type="radio" name="role" value="{{$item->name}}" required>
+                                <label class="mr-3">
+                                    <input type="radio" name="role" value="{{$item->name}}" required
+                                        onchange="roleChange({{$item->id}})"
+                                    >
                                     {{$item->name}}
-                                </label><br>
+                                </label>
                             @endforeach
+                        </div>
+                    </div>
+                    <div class="form-group row" id="opd">
+                        <label for="opd" class="col-sm-2 col-form-label">OPD : </label>
+                        <div class="col-sm-10">
+                            <select name="opd" class="form-control">
+                                <option value="">.:: Pilih Data OPD ::.</option>
+                                @foreach ($masterOpd as $item)
+                                <option value="{{$item->id}}">{{$item->text}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">

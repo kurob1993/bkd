@@ -12,14 +12,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
 {
     use Notifiable,HasRoles;
-    use SoftDeletes;
+    // use SoftDeletes;
 
     /**
      * The attributes that should be mutated to dates.
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    // protected $dates = ['deleted_at'];
     /**
      * The attributes that are mass assignable.
      *
@@ -38,24 +38,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function materis()
+    public function opds()
     {
-        return $this->belongsToMany('App\Materi');
-    }
-
-    public function reporters()
-    {
-        return $this->hasMany('App\Reporter','user_id');
-    }
-
-    public function notulens()
-    {
-        return $this->hasMany('App\Notulen','user_id');
-    }
-
-    public function progresses()
-    {
-        return $this->hasMany('App\Progress','user_id');
+        return $this->belongsTo('App\Models\MasterOpd','master_opd_id');
     }
 
     public function scopeGetForSelect2($query,$request)

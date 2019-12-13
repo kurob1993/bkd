@@ -4,6 +4,7 @@ namespace App\Http\Controllers\TenagaKerja;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 
 class HonorerController extends Controller
 {
@@ -46,7 +47,11 @@ class HonorerController extends Controller
      */
     public function show($id)
     {
-        //
+        $emp = Employee::all();
+
+        $ret = datatables($emp)
+            ->toJson();
+        return $ret;
     }
 
     /**

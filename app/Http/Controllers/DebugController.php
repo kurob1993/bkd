@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\MasterOpd;
+use App\User;
 
 class DebugController extends Controller
 {
@@ -16,7 +17,8 @@ class DebugController extends Controller
     {
         // $MasterOpd = MasterOpd::all();
         // $ret = datatables($MasterOpd)->toJson();
-        return route('opd.show','all');
+        $user = User::with(['roles','opds'])->get();
+        return $user;
     }
 
     /**

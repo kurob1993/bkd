@@ -7,24 +7,26 @@
         <script src="{{ asset('vendors/DataTables/datatables.min.js') }}"></script>
         <script>
             $(document).ready(function() {
-                // $('#dataTable').DataTable({
-                //     responsive: true,
-                //     processing: true,
-                //     serverSide: true,
-                //     ajax: "{{ route('user.show','') }}/all",
-                //     columns: [
-                //         {data: 'id',
-                //             render: function(data, type, row, meta) {
-                //                 return meta.row+1;
-                //             }
-                //         },
-                //         {data: 'name'},
-                //         {data: 'username'},
-                //         {data: 'email'},
-                //         {data: 'roles'},
-                //         {data: 'action'}
-                //     ]
-                // });
+                $('#dataTable').DataTable({
+                    responsive: true,
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('honorer.show','') }}/all",
+                    columns: [
+                        {data: 'id',
+                            render: function(data, type, row, meta) {
+                                return meta.row+1;
+                            }
+                        },
+                        {data: 'nama'},
+                        {data: 'tanggal_lahir'},
+                        {data: 'jenis_kelamin'},
+                        {data: 'tmt'},
+                        {data: 'status_tkk'},
+                        {data: 'master_opd_id'},
+                        {data: 'keterangan'}
+                    ]
+                });
             });
         </script>
     @endpush
@@ -37,7 +39,7 @@
 
         @CardDefault(['title' => 'Tenaga Kerja Honorer'])
             @push('card-button')
-            <a class="btn btn-outline-danger btn-sm mx-1" href="{{ route('user.create') }}">
+            <a class="btn btn-outline-danger btn-sm mx-1" href="{{ route('honorer.create') }}">
                 <i class="fa fa-plus-circle fa-lg"></i>
                 Tambah Data Tenaga Kerja
             </a>

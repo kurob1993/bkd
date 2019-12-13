@@ -8,10 +8,10 @@
             </li>
 
             <li class="nav-title">Menu</li>
-            @role('administrator')
+            @role('administrator|admin super')
             <li class="nav-item nav-dropdown {{ 
                 (
-                    (Request::segment(1) == 'user')
+                    (Request::segment(1) == 'pengguna')
                 ) 
                     ? 
                 'active open' : '' 
@@ -21,7 +21,8 @@
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item ">
-                        <a class="nav-link active" href="{{ route('user.index') }}">
+                        <a class="nav-link active {{ (Request::segment(2) == 'user') ? 'active' : '' }}" 
+                        href="{{ route('user.index') }}">
                             Akun Pengguna
                         </a>
                     </li>
