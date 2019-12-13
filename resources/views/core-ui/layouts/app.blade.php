@@ -5,12 +5,6 @@
 * @link https://coreui.io
 * Copyright (c) 2018 creativeLabs Łukasz Holeczek
 * Licensed under MIT (https://coreui.io/license)
-
-*
-* PT KRAKATAU INFORMATION TECHNOLOGY
-* kUROB
-* JCP@2019
-*
 -->
 
 <html lang="en">

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\TenagaKerja;
 
 use Illuminate\Http\Request;
-use App\Models\MasterOpd;
+use App\Http\Controllers\Controller;
 
-class DebugController extends Controller
+class HonorerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,7 @@ class DebugController extends Controller
      */
     public function index()
     {
-        // $MasterOpd = MasterOpd::all();
-        // $ret = datatables($MasterOpd)->toJson();
-        return route('opd.show','all');
+       return view('honorer.index');
     }
 
     /**

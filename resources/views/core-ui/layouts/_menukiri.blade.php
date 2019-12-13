@@ -9,14 +9,49 @@
 
             <li class="nav-title">Menu</li>
             @role('administrator')
-            <li class="nav-item nav-dropdown">
+            <li class="nav-item nav-dropdown {{ 
+                (
+                    (Request::segment(1) == 'user')
+                ) 
+                    ? 
+                'active open' : '' 
+            }}">
                 <a class="nav-link nav-dropdown-toggle " href="#">
                     <i class="nav-icon icon-people"></i> Pengguna
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item ">
-                        <a class="nav-link" href="{{ route('user.index') }}">
+                        <a class="nav-link active" href="{{ route('user.index') }}">
                             Akun Pengguna
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @endrole
+            @role('admin super')
+            <li class="nav-item nav-dropdown {{ (Request::segment(1) == 'master') ? 'active open' : '' }}">
+                <a class="nav-link nav-dropdown-toggle " href="#">
+                    <i class="nav-icon icon-screen-desktop"></i> Master
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item ">
+                        <a class="nav-link {{ (Request::segment(2) == 'opd') ? 'active' : '' }}" 
+                        href="{{ route('opd.index') }}">
+                            Master OPD
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @endrole
+            @role('admin super|admin opd')
+            <li class="nav-item nav-dropdown {{ (Request::segment(1) == 'tenaga-kerja') ? 'active open' : '' }}">
+                <a class="nav-link nav-dropdown-toggle " href="#">
+                    <i class="nav-icon icon-cup"></i> Tenaga Kerja
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item ">
+                        <a class="nav-link {{ (Request::segment(2) == 'honorer') ? 'active' : '' }}" href="{{ route('honorer.index') }}">
+                            Tenaga Kerja Kontrak
                         </a>
                     </li>
                 </ul>

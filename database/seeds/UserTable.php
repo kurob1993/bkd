@@ -18,22 +18,30 @@ class UserTable extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         //  Membuat Data Permision
-        Permission::create(['name' => 'create materis']);
-        Permission::create(['name' => 'read materis']);
-        Permission::create(['name' => 'update materis']);
-        Permission::create(['name' => 'delete materis']);
+        Permission::create(['name' => 'master opd create']);
+        Permission::create(['name' => 'master opd read']);
+        Permission::create(['name' => 'master opd update']);
+        Permission::create(['name' => 'master opd delete']);
+
+        Permission::create(['name' => 'tenaga kerja create']);
+        Permission::create(['name' => 'tenaga kerja read']);
+        Permission::create(['name' => 'tenaga kerja update']);
+        Permission::create(['name' => 'tenaga kerja delete']);
 
         //role administrator diberika semua permission
-        $adminisRole = Role::create(['name' => 'administrator'])
+        $administratorRole = Role::create(['name' => 'administrator']);
+
+        //role admin super
+        $adminiSuperRole = Role::create(['name' => 'admin super'])
         ->givePermissionTo( Permission::all() );
 
         //role admin
         $adminRole = Role::create(['name' => 'admin opd'])
         ->givePermissionTo([
-            'create materis',
-            'read materis',
-            'update materis',
-            'delete materis'
+            'tenaga kerja create',
+            'tenaga kerja read',
+            'tenaga kerja update',
+            'tenaga kerja delete'
         ]);
 
         $user = new User;
@@ -43,7 +51,16 @@ class UserTable extends Seeder
         $user->email_verified_at = date('Y-m-d H:i:s');
         $user->password = Hash::make('1');
         $user->save();
-        $user->assignRole($adminisRole);//tandai sebagai administrator
+        $user->assignRole($administratorRole);
+
+        $user = new User;
+        $user->name = 'admin super';
+        $user->username = 'adminsuper';
+        $user->email = 'adminsuper@gmail.com';
+        $user->email_verified_at = date('Y-m-d H:i:s');
+        $user->password = Hash::make('1');
+        $user->save();
+        $user->assignRole($adminiSuperRole);
 
         $user = new User;
         $user->name = 'kurob';
@@ -52,7 +69,7 @@ class UserTable extends Seeder
         $user->email_verified_at = date('Y-m-d H:i:s');
         $user->password = Hash::make('1');
         $user->save();
-        $user->assignRole($adminRole);//tandai sebagai admin
+        $user->assignRole($adminRole);
 
     }
 }

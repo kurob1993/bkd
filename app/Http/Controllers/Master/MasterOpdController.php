@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Master;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\MasterOpd;
 
-class DebugController extends Controller
+class MasterOpdController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +15,7 @@ class DebugController extends Controller
      */
     public function index()
     {
-        // $MasterOpd = MasterOpd::all();
-        // $ret = datatables($MasterOpd)->toJson();
-        return route('opd.show','all');
+        return view('opd.index');
     }
 
     /**
@@ -26,7 +25,7 @@ class DebugController extends Controller
      */
     public function create()
     {
-        //
+        return view('opd.create');
     }
 
     /**
@@ -37,7 +36,14 @@ class DebugController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $masterOpd = new MasterOpd();
+        $masterOpd->text = $request->post('text');
+        $masterOpd->ket = $request->post('ket');
+
+        if($masterOpd->save()){
+            return redirect()->route('opd.index');
+        }
+        return redirect()->back();
     }
 
     /**
@@ -48,7 +54,11 @@ class DebugController extends Controller
      */
     public function show($id)
     {
-        //
+        $MasterOpd = MasterOpd::all();
+        $ret = datatables($MasterOpd)
+            ->addColumn('action', 'opd._action')
+            ->toJson();
+        return $ret;
     }
 
     /**
@@ -59,7 +69,8 @@ class DebugController extends Controller
      */
     public function edit($id)
     {
-        //
+        $masterOpd = MasterOpd::find($id);
+        return view('opd.edit',compact('masterOpd'));
     }
 
     /**
@@ -71,7 +82,14 @@ class DebugController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $masterOpd = MasterOpd::find($id);
+        $masterOpd->text = $request->text;
+        $masterOpd->ket = $request->ket;
+
+        if($masterOpd->save()){
+            return redirect()->route('opd.index');
+        }
+        return redirect()->back();
     }
 
     /**
@@ -82,6 +100,7 @@ class DebugController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $masterOpd = MasterOpd::destroy($id);
+        return redirect()->back();
     }
 }

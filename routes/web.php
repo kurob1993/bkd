@@ -32,6 +32,14 @@ Route::group(['prefix'=>'pengguna','middleware' => ['auth','role:administrator']
     Route::resource('user', 'Pengguna\UserController')->parameters(['user' => 'id']);
 });
 
+Route::group(['prefix'=>'master','middleware' => ['auth','role:admin super']], function() {
+    Route::resource('opd', 'Master\MasterOpdController')->parameters(['opd' => 'id']);
+});
+
+Route::group(['prefix'=>'tenaga-kerja','middleware' => ['auth','role:admin super|admin opd']], function() {
+    Route::resource('honorer', 'TenagaKerja\HonorerController')->parameters(['honorer' => 'id']);
+});
+
 // Route::group(['middleware' => ['auth','role:administrator|admin']], function() {
 //     Route::resource('materi', 'MateriRakoorController')->parameters(['materi' => 'id']);
     
