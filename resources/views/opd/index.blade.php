@@ -15,7 +15,7 @@
                     columns: [
                         {data: 'id',
                             render: function(data, type, row, meta) {
-                                return meta.row+1;
+                                return 'OPD_'+data;
                             }
                         },
                         {data: 'text'},
