@@ -10,4 +10,9 @@ class MasterOpd extends Model
     {
         return $this->hasMany('App\user','master_opd_id');
     }
+
+    public function employees()
+    {
+        return $this->hasMany('App\Models\Employee','master_opd_id');
+    }
 }

@@ -18,12 +18,23 @@
                                 return meta.row+1;
                             }
                         },
-                        {data: 'nama'},
+                        {data: 'nama',
+                            render: function(data, type, row, meta) {
+                                var depan = row.gelar_depan ? row.gelar_depan : '';
+                                var belakang = row.gelar_belakang ? row.gelar_belakang : '';                                
+                                return depan+ ' ' +row.nama+ ' ' +belakang;
+                            }
+                        },
                         {data: 'tanggal_lahir'},
                         {data: 'jenis_kelamin'},
                         {data: 'tmt'},
-                        {data: 'status_tkk'},
-                        {data: 'master_opd_id'},
+                        {data: 'status_tkk',
+                            render: function(data, type, row, meta) {
+                                var status_tkk = row.status_tkk == 1 ? 'Aktif' : 'Tidak Aktif';                             
+                                return status_tkk;
+                            }
+                        },
+                        {data: 'opds.text'},
                         {data: 'keterangan'}
                     ]
                 });
