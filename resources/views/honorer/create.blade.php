@@ -120,7 +120,7 @@
                     <div class="form-group row">
                         <label for="ket" class="col-sm-2 col-form-label">Keterangan : </label>
                         <div class="col-sm-10">
-                            <input type="text" name="ket" id="ket" class="form-control" value="{{ old('ket') }}>
+                            <input type="text" name="ket" id="ket" class="form-control" value="{{ old('ket') }}" >
                         </div>
                     </div>
                     
