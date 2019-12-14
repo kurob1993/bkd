@@ -20,13 +20,18 @@
                         },
                         {data: 'nama',
                             render: function(data, type, row, meta) {
-                                var depan = row.gelar_depan ? row.gelar_depan : '';
-                                var belakang = row.gelar_belakang ? row.gelar_belakang : '';                                
-                                return depan+ ' ' +row.nama+ ' ' +belakang;
+                                var depan = row.gelar_depan ? row.gelar_depan+' ' : '';
+                                var belakang = row.gelar_belakang ? ', '+row.gelar_belakang : '';                                
+                                return depan+row.nama+belakang;
                             }
                         },
                         {data: 'tanggal_lahir'},
-                        {data: 'jenis_kelamin'},
+                        {data: 'jenis_kelamin',
+                            render: function(data, type, row, meta) {
+                                var jk = data == 'L' ? 'Laki - Laki' : 'Perempuan';                             
+                                return jk;
+                            }
+                        },
                         {data: 'tmt'},
                         {data: 'status_tkk',
                             render: function(data, type, row, meta) {
@@ -35,7 +40,8 @@
                             }
                         },
                         {data: 'opds.text'},
-                        {data: 'keterangan'}
+                        {data: 'keterangan'},
+                        {data: 'action'}
                     ]
                 });
             });
@@ -67,6 +73,7 @@
                         <th>STATUS TKK</th>
                         <th>ORGANISASI PERANGKAT DAERAH</th>
                         <th>KET</th>
+                        <th>AKSI</th>
                     </tr>
                 </thead>
             </table>

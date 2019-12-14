@@ -38,15 +38,18 @@ class HonorerController extends Controller
      */
     public function store(Request $request)
     {
+        $tanggal_lahir = date('Y-m-d', strtotime($request->tanggal_lahir));
+        $tmt = date('Y-m-d', strtotime($request->tmt));
+
         $emp = new Employee();
         $emp->nama = $request->nama;
         $emp->gelar_depan = $request->gelar_depan;
         $emp->gelar_belakang = $request->gelar_belakang;
         $emp->tempat_lahir = $request->tempat_lahir;
-        $emp->tanggal_lahir = $request->tanggal_lahir;
+        $emp->tanggal_lahir = $tanggal_lahir;
         $emp->jenis_kelamin = $request->jenis_kelamin;
         $emp->pendidikan = $request->pendidikan;
-        $emp->tmt = $request->tmt;
+        $emp->tmt = $tmt;
         $emp->status_tkk = $request->status_tkk;
         $emp->master_opd_id = $request->master_opd_id;
         $emp->save();
@@ -65,6 +68,7 @@ class HonorerController extends Controller
         $emp = Employee::with(['opds']);
 
         $ret = datatables($emp)
+            ->addColumn('action', 'honorer._action')
             ->toJson();
         return $ret;
     }
@@ -77,7 +81,9 @@ class HonorerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $emp = Employee::find($id);
+        $masterOpd = MasterOpd::all();
+        return view('honorer.edit',compact('masterOpd','emp'));
     }
 
     /**
@@ -89,7 +95,23 @@ class HonorerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tanggal_lahir = date('Y-m-d', strtotime($request->tanggal_lahir));
+        $tmt = date('Y-m-d', strtotime($request->tmt));
+
+        $emp = Employee::find($id);
+        $emp->nama = $request->nama;
+        $emp->gelar_depan = $request->gelar_depan;
+        $emp->gelar_belakang = $request->gelar_belakang;
+        $emp->tempat_lahir = $request->tempat_lahir;
+        $emp->tanggal_lahir = $tanggal_lahir;
+        $emp->jenis_kelamin = $request->jenis_kelamin;
+        $emp->pendidikan = $request->pendidikan;
+        $emp->tmt = $tmt;
+        $emp->status_tkk = $request->status_tkk;
+        $emp->master_opd_id = $request->master_opd_id;
+        $emp->save();
+
+        return redirect()->route('honorer.index');
     }
 
     /**
@@ -100,6 +122,7 @@ class HonorerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $emp = Employee::destroy($id);
+        return redirect()->back();
     }
 }

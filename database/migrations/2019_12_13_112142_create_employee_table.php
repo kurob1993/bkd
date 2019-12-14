@@ -23,7 +23,7 @@ class CreateEmployeeTable extends Migration
             $table->date('tanggal_lahir');
             $table->string('jenis_kelamin');
             $table->string('pendidikan');
-            $table->string('tmt');
+            $table->date('tmt');
             $table->string('status_tkk');
             $table->string('keterangan')->nullable();;
             $table->timestamps();
