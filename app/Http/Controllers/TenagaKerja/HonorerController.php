@@ -5,6 +5,7 @@ namespace App\Http\Controllers\TenagaKerja;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
+use App\Models\MasterOpd;
 
 class HonorerController extends Controller
 {
@@ -25,7 +26,8 @@ class HonorerController extends Controller
      */
     public function create()
     {
-        //
+        $MasterOpd = MasterOpd::all();
+        return view('honorer.create',compact('MasterOpd'));
     }
 
     /**
@@ -36,7 +38,20 @@ class HonorerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $emp = new Employee();
+        $emp->nama = $request->nama;
+        $emp->gelar_depan = $request->gelar_depan;
+        $emp->gelar_belakang = $request->gelar_belakang;
+        $emp->tempat_lahir = $request->tempat_lahir;
+        $emp->tanggal_lahir = $request->tanggal_lahir;
+        $emp->jenis_kelamin = $request->jenis_kelamin;
+        $emp->pendidikan = $request->pendidikan;
+        $emp->tmt = $request->tmt;
+        $emp->status_tkk = $request->status_tkk;
+        $emp->master_opd_id = $request->master_opd_id;
+        $emp->save();
+        // dd($request);
+        return redirect()->route('honorer.index');
     }
 
     /**
@@ -47,7 +62,7 @@ class HonorerController extends Controller
      */
     public function show($id)
     {
-        $emp = Employee::all();
+        $emp = Employee::with(['opds']);
 
         $ret = datatables($emp)
             ->toJson();
