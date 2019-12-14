@@ -16,7 +16,7 @@ class CreateMasterOpdsTable extends Migration
         Schema::create('master_opds', function (Blueprint $table) {
             $table->increments('id');
             $table->string('text');
-            $table->string('ket')->nullable(true);
+            $table->integer('parent_id')->nullable(true);
             $table->timestamps();
         });
     }

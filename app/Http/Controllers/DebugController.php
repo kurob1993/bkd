@@ -17,7 +17,7 @@ class DebugController extends Controller
     {
         // $MasterOpd = MasterOpd::all();
         // $ret = datatables($MasterOpd)->toJson();
-        $user = User::with(['roles','opds'])->get();
+        $user = MasterOpd::all();
         return $user;
     }
 

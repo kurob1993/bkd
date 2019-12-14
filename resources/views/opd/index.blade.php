@@ -19,7 +19,7 @@
                             }
                         },
                         {data: 'text'},
-                        {data: 'ket'},
+                        {data: 'parent_id'},
                         {data: 'action'}
                     ]
                 });
@@ -45,8 +45,8 @@
                 <thead>
                     <tr>
                         <th data-priority="1">NO</th>
+                        <th>UNIT KERJA</th>
                         <th>ORGANISASI PERANGKAT DAERAH</th>
-                        <th>KET</th>
                         <th>AKSI</th>
                     </tr>
                 </thead>

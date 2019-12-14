@@ -15,4 +15,10 @@ class MasterOpd extends Model
     {
         return $this->hasMany('App\Models\Employee','master_opd_id');
     }
+
+    public function getParentIdAttribute($value)
+    {
+        $mopd = MasterOpd::find($value);
+        return ucfirst($mopd['text']);
+    }
 }

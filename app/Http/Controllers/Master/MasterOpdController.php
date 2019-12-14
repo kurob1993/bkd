@@ -25,7 +25,8 @@ class MasterOpdController extends Controller
      */
     public function create()
     {
-        return view('opd.create');
+        $masterOpd = MasterOpd::all();
+        return view('opd.create',compact('masterOpd'));
     }
 
     /**
@@ -38,7 +39,7 @@ class MasterOpdController extends Controller
     {
         $masterOpd = new MasterOpd();
         $masterOpd->text = $request->post('text');
-        $masterOpd->ket = $request->post('ket');
+        $masterOpd->parent_id = $request->post('parent_id');
 
         if($masterOpd->save()){
             return redirect()->route('opd.index');
@@ -70,7 +71,8 @@ class MasterOpdController extends Controller
     public function edit($id)
     {
         $masterOpd = MasterOpd::find($id);
-        return view('opd.edit',compact('masterOpd'));
+        $comboMasterOpd = MasterOpd::all();
+        return view('opd.edit',compact('masterOpd','comboMasterOpd'));
     }
 
     /**
@@ -84,7 +86,7 @@ class MasterOpdController extends Controller
     {
         $masterOpd = MasterOpd::find($id);
         $masterOpd->text = $request->text;
-        $masterOpd->ket = $request->ket;
+        $masterOpd->parent_id = $request->parent_id;
 
         if($masterOpd->save()){
             return redirect()->route('opd.index');

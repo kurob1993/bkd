@@ -30,15 +30,20 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group row">
-                        <label for="text" class="col-sm-2 col-form-label">OPD : </label>
+                        <label for="text" class="col-sm-2 col-form-label">Unit Kerja : </label>
                         <div class="col-sm-10">
                             <input type="text" name="text" value="{{ $masterOpd->text }}" class="form-control" id="text" placeholder="OPD" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="ket" class="col-sm-2 col-form-label">KETERANGAN : </label>
+                        <label for="ket" class="col-sm-2 col-form-label">OPD : </label>
                         <div class="col-sm-10">
-                            <input type="text" name="ket" value="{{ $masterOpd->ket }}" class="form-control" id="email" placeholder="Keterangan">
+                            <select name="parent_id" id="parent" class="form-control">
+                                <option value=""> - </option>
+                                @foreach ($comboMasterOpd as $item)
+                                    <option value="{{$item->id}}" {{ $masterOpd->parent_id == $item->id ? 'selected' : '' }}>{{$item->text}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     
