@@ -58,6 +58,7 @@ class MasterOpdController extends Controller
         $MasterOpd = MasterOpd::all();
         $ret = datatables($MasterOpd)
             ->addColumn('action', 'opd._action')
+            // ->addColumn('action', 'opd._action')
             ->toJson();
         return $ret;
     }

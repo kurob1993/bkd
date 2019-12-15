@@ -19,7 +19,7 @@
                             }
                         },
                         {data: 'text'},
-                        {data: 'parent_id'},
+                        {data: 'parent'},
                         {data: 'action'}
                     ]
                 });

@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\MasterOpd;
+use PDF;
+use Excel;
+use App\Exports\EmployeeExport;
 
 class HonorerController extends Controller
 {
@@ -125,4 +128,18 @@ class HonorerController extends Controller
         $emp = Employee::destroy($id);
         return redirect()->back();
     }
+
+    public function pdf()
+    {
+        $emp = Employee::all();
+        // $pdf = PDF::loadview('honorer._pdf',compact('emp'));
+    	// return $pdf->download('laporan-pegawai-pdf.pdf');
+    	return view('honorer._pdf',compact('emp'));
+    }
+
+    public function excel() 
+    {
+        return Excel::download(new EmployeeExport, 'invoices.xlsx');
+    }
+    
 }

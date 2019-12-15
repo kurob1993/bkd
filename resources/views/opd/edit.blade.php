@@ -41,7 +41,9 @@
                             <select name="parent_id" id="parent" class="form-control">
                                 <option value=""> - </option>
                                 @foreach ($comboMasterOpd as $item)
-                                    <option value="{{$item->id}}" {{ $masterOpd->parent_id == $item->id ? 'selected' : '' }}>{{$item->text}}</option>
+                                <option value="{{$item->id}}" {{ $masterOpd->parent_id == $item->id ? 'selected' : '' }}>
+                                    {{$item->text}}
+                                </option>
                                 @endforeach
                             </select>
                         </div>

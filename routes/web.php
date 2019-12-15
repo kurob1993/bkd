@@ -37,6 +37,8 @@ Route::group(['prefix'=>'master','middleware' => ['auth','role:admin super']], f
 });
 
 Route::group(['prefix'=>'tenaga-kerja','middleware' => ['auth','role:admin super|admin opd']], function() {
+    Route::get('honorer/excel', 'TenagaKerja\HonorerController@excel')->name('honorer.excel');
+    Route::get('honorer/pdf', 'TenagaKerja\HonorerController@pdf')->name('honorer.pdf');
     Route::resource('honorer', 'TenagaKerja\HonorerController')->parameters(['honorer' => 'id']);
 });
 

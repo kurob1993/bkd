@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MasterOpd;
 use App\User;
+use App\Models\Employee;
 
 class DebugController extends Controller
 {
@@ -17,7 +18,7 @@ class DebugController extends Controller
     {
         // $MasterOpd = MasterOpd::all();
         // $ret = datatables($MasterOpd)->toJson();
-        $user = MasterOpd::all();
+        $user =Employee::paginate(100);
         return $user;
     }
 

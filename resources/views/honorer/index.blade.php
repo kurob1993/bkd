@@ -25,20 +25,16 @@
                                 return depan+row.nama+belakang;
                             }
                         },
-                        {data: 'tanggal_lahir'},
-                        {data: 'jenis_kelamin',
+                        {data: 'tanggal_lahir',
                             render: function(data, type, row, meta) {
-                                var jk = data == 'L' ? 'Laki - Laki' : 'Perempuan';                             
-                                return jk;
+                                var tempat_lahir = row.tempat_lahir;
+                                var tangagl_lahir = row.tanggal_lahir;                               
+                                return tempat_lahir+', '+tangagl_lahir;
                             }
                         },
+                        {data: 'jenis_kelamin_text'},
                         {data: 'tmt'},
-                        {data: 'status_tkk',
-                            render: function(data, type, row, meta) {
-                                var status_tkk = row.status_tkk == 1 ? 'Aktif' : 'Tidak Aktif';                             
-                                return status_tkk;
-                            }
-                        },
+                        {data: 'status_tkk_text'},
                         {data: 'opds.text'},
                         {data: 'keterangan'},
                         {data: 'action'}
@@ -56,6 +52,14 @@
 
         @CardDefault(['title' => 'Tenaga Kerja Honorer'])
             @push('card-button')
+            <a class="btn btn-outline-success btn-sm mx-1" href="">
+                <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                Unduh Excel
+            </a>
+            <a class="btn btn-outline-primary btn-sm mx-1" href="{{ route('honorer.pdf') }}">
+                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                Unduh PDF
+            </a>
             <a class="btn btn-outline-danger btn-sm mx-1" href="{{ route('honorer.create') }}">
                 <i class="fa fa-plus-circle fa-lg"></i>
                 Tambah Data Tenaga Kerja
