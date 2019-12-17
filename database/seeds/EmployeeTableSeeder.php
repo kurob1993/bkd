@@ -15,7 +15,7 @@ class EmployeeTableSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
  
-    	for($i = 1; $i <= 10000; $i++){
+    	for($i = 1; $i <= 100; $i++){
  
             $emp = new Employee;
             $emp->nama = $faker->name;

@@ -15,7 +15,7 @@ class MasterOpdTableSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
  
-    	for($i = 1; $i <= 50; $i++){
+    	for($i = 1; $i <= 15; $i++){
  
             $masterOpd = new MasterOpd();
             $masterOpd->text = $faker->company;
