@@ -40,6 +40,7 @@ Route::group(['prefix'=>'tenaga-kerja','middleware' => ['auth','role:admin super
     Route::get('honorer/excel', 'TenagaKerja\HonorerController@excel')->name('honorer.excel');
     Route::get('honorer/pdf', 'TenagaKerja\HonorerController@pdf')->name('honorer.pdf');
     Route::resource('honorer', 'TenagaKerja\HonorerController')->parameters(['honorer' => 'id']);
+    Route::resource('struktur-organisasi', 'StrukturOrganisasiController')->parameters(['struktur-organisasi' => 'id']);
 });
 
 // Route::group(['middleware' => ['auth','role:administrator|admin']], function() {

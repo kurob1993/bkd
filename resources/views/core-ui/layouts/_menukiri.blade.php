@@ -57,6 +57,11 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item}">
+                <a class="nav-link {{ (Request::segment(1) == 'struktur-organisasi') ? 'active' : '' }}" href="{{ route('struktur-organisasi.index') }}">
+                    <i class="nav-icon icon-cup"></i> Struktur Organisasi
+                </a>
+            </li>
             @endrole
             {{-- @can('read materis')
             <li class="nav-item">
