@@ -1,4 +1,4 @@
-<h1>Aplikasi Rapat Koordinasi <br>
+<h1>Aplikasi BKD <br>
     Base on Laravel 5.7
 </h1>
 
