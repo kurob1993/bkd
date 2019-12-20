@@ -3,13 +3,6 @@
 </h1>
 
 Tutorial Install : 
-<p>Jalankan pada terminal/cmd </p>
-
-<p>git Clone https://github.com/curlykun/rakordir.git</p>
-
-<p>cd rakordir</p>
-
-<p>composer update</p>
 <hr>
 
 <p>ubah nama file .env.example ke .env</p>
