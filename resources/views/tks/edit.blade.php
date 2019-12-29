@@ -41,7 +41,7 @@
                     </ul>
                 </div>
                 @endif
-                <form method="post" enctype="multipart/form-data" action="{{ route('honorer.update',$emp->id) }}">
+                <form method="post" enctype="multipart/form-data" action="{{ route('tks.update',$emp->id) }}">
                     @csrf
                     @method('PUT')
                     <div class="form-group row">
@@ -131,7 +131,7 @@
                     
                     <div class="form-group row">
                         <div class="col-sm-10">
-                            <a class="btn btn-outline-danger" href="{{ Route('honorer.index') }}">
+                            <a class="btn btn-outline-danger" href="{{ Route('tks.index') }}">
                                 <i class="fa fa-arrow-left"></i>
                                 Kembali
                             </a>

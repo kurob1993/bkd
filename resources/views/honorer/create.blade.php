@@ -126,7 +126,7 @@
                     
                     <div class="form-group row">
                         <div class="col-sm-10">
-                            <a class="btn btn-outline-danger" href="{{ Route('opd.index') }}">
+                            <a class="btn btn-outline-danger" href="{{ Route('honorer.index') }}">
                                 <i class="fa fa-arrow-left"></i>
                                 Kembali
                             </a>

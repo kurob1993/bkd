@@ -28,7 +28,7 @@
 <div class="container mt-1">
     <div class="row justify-content-center">
         <div class="col">
-            @CardDefault(['title' => 'Tambah Data User Rakordir'])
+            @CardDefault(['title' => 'Tambah Data User'])
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>

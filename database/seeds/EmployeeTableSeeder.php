@@ -26,6 +26,7 @@ class EmployeeTableSeeder extends Seeder
             $emp->tmt = $faker->date;
             $emp->status_tkk = $faker->numberBetween(1,2);
             $emp->master_opd_id = $faker->numberBetween(1,4);
+            $emp->employee_status_id = $faker->numberBetween(1,2);
             $emp->save();
  
     	}

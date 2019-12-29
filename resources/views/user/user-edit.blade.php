@@ -33,7 +33,7 @@
 <div class="container mt-1">
     <div class="row justify-content-center">
         <div class="col">
-            @CardDefault(['title' => 'Edit Data User Rakordir'])
+            @CardDefault(['title' => 'Edit Data User'])
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>

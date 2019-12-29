@@ -21,6 +21,11 @@ class Employee extends Model
         return $this->belongsTo('App\Models\MasterOpd','master_opd_id');
     }
 
+    public function employeeStatus()
+    {
+        return $this->belongsTo('App\Models\EmployeeStatus','employee_status_id');
+    }
+
     public function getStatusTkkTextAttribute($value)
     {
         return $this->status_tkk == '1' ? 'Aktif' : 'Tidak Aktif';

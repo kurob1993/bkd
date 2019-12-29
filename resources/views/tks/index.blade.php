@@ -12,7 +12,7 @@
                     processing: true,
                     serverSide: true,
                     ordering: false,
-                    ajax: "{{ route('honorer.show','') }}/all",
+                    ajax: "{{ route('tks.show','') }}/all",
                     columns: [
                         {data: 'id',
                             render: function(data, type, row, meta) {
@@ -51,17 +51,17 @@
 <div class="row justify-content-center">
     <div class="col m-3">
 
-        @CardDefault(['title' => 'Tenaga Kerja Honorer'])
+        @CardDefault(['title' => 'Tenaga Kerja Sukarela'])
             @push('card-button')
             <a class="btn btn-outline-success btn-sm mx-1" href="">
                 <i class="fa fa-file-excel-o" aria-hidden="true"></i>
                 Unduh Excel
             </a>
-            <a class="btn btn-outline-primary btn-sm mx-1" href="{{ route('honorer.pdf') }}">
+            <a class="btn btn-outline-primary btn-sm mx-1" href="{{ route('tks.pdf') }}">
                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                 Unduh PDF
             </a>
-            <a class="btn btn-outline-danger btn-sm mx-1" href="{{ route('honorer.create') }}">
+            <a class="btn btn-outline-danger btn-sm mx-1" href="{{ route('tks.create') }}">
                 <i class="fa fa-plus-circle fa-lg"></i>
                 Tambah Data Tenaga Kerja
             </a>

@@ -55,11 +55,16 @@
                             Tenaga Kerja Kontrak
                         </a>
                     </li>
+                    <li class="nav-item ">
+                        <a class="nav-link {{ (Request::segment(2) == 'tks') ? 'active' : '' }}" href="{{ route('tks.index') }}">
+                            Tenaga Kerja Sukarela
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item {{ (Request::segment(1) == 'struktur-organisasi') ? 'active' : '' }}">
                 <a class="nav-link " href="{{ route('struktur-organisasi.index') }}">
-                    <i class="nav-icon icon-cup"></i> Struktur Organisasi
+                    <i class="nav-icon icon-grid"></i> Struktur Organisasi
                 </a>
             </li>
             @endrole
