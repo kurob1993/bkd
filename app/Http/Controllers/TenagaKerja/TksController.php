@@ -19,7 +19,8 @@ class TksController extends Controller
      */
     public function index()
     {
-       return view('tks.index');
+        $opd = MasterOpd::all();
+        return view('tks.index', compact('opd') );
     }
 
     /**
@@ -130,12 +131,13 @@ class TksController extends Controller
         return redirect()->back();
     }
 
-    public function pdf()
+    public function pdf(Request $request)
     {
-        $emp = Employee::all();
-        $pdf = PDF::loadview('tks._pdf',compact('emp'));
-    	return $pdf->download('laporan-pegawai-pdf.pdf');
-    	// return view('tks._pdf',compact('emp'));
+        $opd        = $request->opd;
+        $master_opd = MasterOpd::find($opd);
+        $emp        = Employee::where('employee_status_id',2)->where('master_opd_id',$opd)->get();
+        $pdf        = PDF::loadview('tks._pdf',compact('emp'));
+    	return $pdf->download('laporan-pegawai-pdf-'.$master_opd->text.'.pdf');
     }
 
     public function excel() 

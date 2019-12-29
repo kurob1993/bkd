@@ -19,7 +19,8 @@ class HonorerController extends Controller
      */
     public function index()
     {
-       return view('honorer.index');
+        $opd = MasterOpd::all();
+        return view('honorer.index', compact('opd') );
     }
 
     /**
@@ -130,12 +131,13 @@ class HonorerController extends Controller
         return redirect()->back();
     }
 
-    public function pdf()
+    public function pdf(Request $request)
     {
-        $emp = Employee::all();
-        $pdf = PDF::loadview('honorer._pdf',compact('emp'));
-    	return $pdf->download('laporan-pegawai-pdf.pdf');
-    	// return view('honorer._pdf',compact('emp'));
+        $opd        = $request->opd;
+        $master_opd = MasterOpd::find($opd);
+        $emp        = Employee::where('employee_status_id',1)->where('master_opd_id',$opd)->get();
+        $pdf        = PDF::loadview('honorer._pdf',compact('emp'));
+    	return $pdf->download('laporan-pegawai-pdf-'.$master_opd->text.'.pdf');
     }
 
     public function excel() 

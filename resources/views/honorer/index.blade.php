@@ -57,10 +57,10 @@
                 <i class="fa fa-file-excel-o" aria-hidden="true"></i>
                 Unduh Excel
             </a>
-            <a class="btn btn-outline-primary btn-sm mx-1" href="{{ route('honorer.pdf') }}">
+            <button type="button" class="btn btn-outline-primary btn-sm mx-1" data-toggle="modal" data-target="#modelId">
                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                 Unduh PDF
-            </a>
+            </button>
             <a class="btn btn-outline-danger btn-sm mx-1" href="{{ route('honorer.create') }}">
                 <i class="fa fa-plus-circle fa-lg"></i>
                 Tambah Data Tenaga Kerja
@@ -86,4 +86,37 @@
 
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Unduh PDF</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+
+            <form action="{{ route('honorer.pdf') }}" method="GET">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="opd">OPD</label>
+                    <select name="opd" id="opd" class="form-control" placeholder="" aria-describedby="helpId">
+                        @foreach ($opd as $item)
+                        <option value="{{$item->id}}">{{$item->text}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Unduh</button>
+            </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
 @endsection

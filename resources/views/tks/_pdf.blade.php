@@ -41,7 +41,7 @@
                 <th align="center">TEMPAT, TGL LAHIR</th>
                 <th align="center">JENIS<br>KELAMIN</th>
                 <th align="center">TMT</th>
-                <th align="center">STATUS<br>TKK</th>
+                <th align="center">STATUS<br>TKS</th>
                 <th align="center">OPD</th>
                 <th align="center">KET</th>
             </tr>
