@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Organisasi;
+use App\Models\MasterOpd;
 
 class StrukturOrganisasiController extends Controller
 {
@@ -46,7 +47,7 @@ class StrukturOrganisasiController extends Controller
      */
     public function show($id)
     {
-        $Organisasi = Organisasi::select('id','text','parent_id')->get();
+        $Organisasi = MasterOpd::select('id','text','parent_id')->get();
         $Organisasi = $Organisasi->map(function($item, $key){
             return [
                 $item->text,

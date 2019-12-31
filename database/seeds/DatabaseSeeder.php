@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
             UserTable::class,
             MasterOpdTableSeeder::class,
             EmployeeTableSeeder::class,
-            EmployeStatusesTableSeeder::class,
+            EmployeStatusesTableSeeder::class
         ]);
     }
 }

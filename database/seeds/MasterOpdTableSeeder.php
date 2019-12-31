@@ -14,12 +14,48 @@ class MasterOpdTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create('id_ID');
- 
-    	for($i = 1; $i <= 15; $i++){
+        
+        $masterOpd = new MasterOpd();
+        $masterOpd->text = 'WALIKOTA';
+        $masterOpd->save();
+
+    	for($i = 1; $i <= 5; $i++){
  
             $masterOpd = new MasterOpd();
             $masterOpd->text = $faker->company;
-            $masterOpd->parent_id = $faker->numberBetween(1,10);
+            $masterOpd->parent_id = 1;
+            $masterOpd->save();
+        }
+        
+    	for($i = 1; $i <= 3; $i++){
+ 
+            $masterOpd = new MasterOpd();
+            $masterOpd->text = $faker->company;
+            $masterOpd->parent_id = 2;
+            $masterOpd->save();
+        }
+        
+    	for($i = 1; $i <= 2; $i++){
+ 
+            $masterOpd = new MasterOpd();
+            $masterOpd->text = $faker->company;
+            $masterOpd->parent_id = 3;
+            $masterOpd->save();
+        }
+        
+    	for($i = 1; $i <= 4; $i++){
+ 
+            $masterOpd = new MasterOpd();
+            $masterOpd->text = $faker->company;
+            $masterOpd->parent_id = 4;
+            $masterOpd->save();
+        }
+        
+    	for($i = 1; $i <= 2; $i++){
+ 
+            $masterOpd = new MasterOpd();
+            $masterOpd->text = $faker->company;
+            $masterOpd->parent_id = 5;
             $masterOpd->save();
     	}
     }
