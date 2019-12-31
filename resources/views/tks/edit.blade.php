@@ -111,7 +111,10 @@
                         <label for="opd" class="col-sm-2 col-form-label">OPD : </label>
                         <div class="col-sm-10">
                             <select name="master_opd_id" id="opd" class="form-control" required>
-                                <option value="">Pilih Data</option>
+                                @if (Auth::user()->master_opd_id)
+                                    <option value="{{Auth::user()->opds->id}}" selected>{{Auth::user()->opds->text}}</option>
+                                @else
+                                    <option value="">Pilih Data</option>
                                     @foreach ($masterOpd as $item)
                                         @php($selected = '')
                                         @if ($emp->master_opd_id == $item->id)
@@ -119,6 +122,7 @@
                                         @endif
                                         <option value="{{$item->id}}" {{$selected}}>{{$item->text}}</option>
                                     @endforeach
+                                @endif
                             </select>
                         </div>
                     </div>

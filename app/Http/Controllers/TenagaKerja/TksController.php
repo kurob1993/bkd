@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\TenagaKerja;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
@@ -70,8 +71,15 @@ class TksController extends Controller
      */
     public function show($id)
     {
-        $emp = Employee::where('employee_status_id',2)->with(['opds']);
+        $opd_id = Auth::user()->master_opd_id;
+        $emp = Employee::where('employee_status_id',2);
 
+        $adminSuper = Auth::user()->hasRole('admin super');
+        if (!$adminSuper) {
+            $emp->where('master_opd_id',$opd_id);
+        }
+        $emp->with(['opds']);
+        
         $ret = datatables($emp)
             ->addColumn('action', 'tks._action')
             ->toJson();

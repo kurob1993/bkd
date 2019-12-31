@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\MasterOpd;
 use App\User;
 use App\Models\Employee;
+use Illuminate\Support\Facades\Auth;
 
 class DebugController extends Controller
 {
@@ -16,10 +17,11 @@ class DebugController extends Controller
      */
     public function index()
     {
-        // $MasterOpd = MasterOpd::all();
-        // $ret = datatables($MasterOpd)->toJson();
-        $user =Employee::paginate(100);
-        return $user;
+        $opd_id = Auth::user()->hasRole('admin super');
+        // $emp = Employee::where('employee_status_id',1)
+        //         ->where('master_opd_id',$opd_id)
+        //         ->with(['opds'])->get();
+        dd($opd_id);
     }
 
     /**
