@@ -70,7 +70,7 @@
             <table class="table table-hover responsive no-wrap" id="dataTable" width="100%">
                 <thead>
                     <tr>
-                        <th data-priority="1">NO</th>
+                        <th data-priority="1">ID</th>
                         <th>NAMA</th>
                         <th>TEMPAT, TGL LAHIR</th>
                         <th>JENIS KELAMIN</th>
@@ -102,10 +102,15 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="opd">OPD</label>
-                    <select name="opd" id="opd" class="form-control" placeholder="" aria-describedby="helpId">
-                        @foreach ($opd as $item)
-                        <option value="{{$item->id}}">{{$item->text}}</option>
-                        @endforeach
+                    <select name="opd" id="opd" class="form-control" required>
+                        @if (Auth::user()->master_opd_id)
+                            <option value="{{Auth::user()->opds->id}}" selected>{{Auth::user()->opds->text}}</option>
+                        @else
+                            <option value="">Pilih Data</option>
+                            @foreach ($MasterOpd as $item)
+                            <option value="{{$item->id}}">{{$item->text}}</option>
+                            @endforeach
+                        @endif
                     </select>
                 </div>
             </div>

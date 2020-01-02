@@ -20,8 +20,8 @@ class TksController extends Controller
      */
     public function index()
     {
-        $opd = MasterOpd::all();
-        return view('tks.index', compact('opd') );
+        $MasterOpd = MasterOpd::all();
+        return view('tks.index', compact('MasterOpd') );
     }
 
     /**

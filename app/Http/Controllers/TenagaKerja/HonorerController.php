@@ -20,8 +20,8 @@ class HonorerController extends Controller
      */
     public function index()
     {
-        $opd = MasterOpd::all();
-        return view('honorer.index', compact('opd') );
+        $MasterOpd = MasterOpd::all();
+        return view('honorer.index', compact('MasterOpd') );
     }
 
     /**
