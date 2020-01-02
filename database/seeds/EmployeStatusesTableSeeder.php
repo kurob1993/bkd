@@ -19,5 +19,9 @@ class EmployeStatusesTableSeeder extends Seeder
         $emps = New EmployeeStatus();
         $emps->text = 'TKS';
         $emps->save();
+
+        $emps = New EmployeeStatus();
+        $emps->text = 'HKL';
+        $emps->save();
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
+use App\Models\EmployeeStatus;
 use App\Models\MasterOpd;
 use PDF;
 use Excel;
@@ -21,7 +22,8 @@ class HonorerController extends Controller
     public function index()
     {
         $MasterOpd = MasterOpd::all();
-        return view('honorer.index', compact('MasterOpd') );
+        $TipeTk = EmployeeStatus::all();
+        return view('honorer.index', compact('MasterOpd','TipeTk') );
     }
 
     /**
@@ -32,7 +34,8 @@ class HonorerController extends Controller
     public function create()
     {
         $MasterOpd = MasterOpd::all();
-        return view('honorer.create',compact('MasterOpd'));
+        $TipeTk = EmployeeStatus::all();
+        return view('honorer.create',compact('MasterOpd','TipeTk'));
     }
 
     /**
@@ -57,7 +60,7 @@ class HonorerController extends Controller
         $emp->tmt = $tmt;
         $emp->status_tkk = $request->status_tkk;
         $emp->master_opd_id = $request->master_opd_id;
-        $emp->employee_status_id = 1;
+        $emp->employee_status_id = $request->employee_status_id;
         $emp->save();
         // dd($request);
         return redirect()->route('honorer.index');
@@ -72,13 +75,15 @@ class HonorerController extends Controller
     public function show($id)
     {
         $opd_id = Auth::user()->master_opd_id;
-        $emp = Employee::where('employee_status_id',1);
+        $emp = Employee::with(['opds','employeeStatus']);
 
         $adminSuper = Auth::user()->hasRole('admin super');
         if (!$adminSuper) {
+            $emp = Employee::with(['opds','employeeStatus']);
             $emp->where('master_opd_id',$opd_id);
+            $emp->with(['opds']);
         }
-        $emp->with(['opds']);
+        
 
         $ret = datatables($emp)
             ->addColumn('action', 'honorer._action')
@@ -96,7 +101,8 @@ class HonorerController extends Controller
     {
         $emp = Employee::find($id);
         $masterOpd = MasterOpd::all();
-        return view('honorer.edit',compact('masterOpd','emp'));
+        $TipeTk = EmployeeStatus::all();
+        return view('honorer.edit',compact('masterOpd','emp','TipeTk'));
     }
 
     /**
@@ -142,8 +148,10 @@ class HonorerController extends Controller
     public function pdf(Request $request)
     {
         $opd        = $request->opd;
+        $employee_status_id        = $request->employee_status_id;
+
         $master_opd = MasterOpd::find($opd);
-        $emp        = Employee::where('employee_status_id',1)->where('master_opd_id',$opd)->get();
+        $emp        = Employee::where('employee_status_id',$employee_status_id)->where('master_opd_id',$opd)->get();
         $pdf        = PDF::loadview('honorer._pdf',compact('emp'));
     	return $pdf->download('laporan-pegawai-pdf-'.$master_opd->text.'.pdf');
     }

@@ -52,14 +52,14 @@
                 <ul class="nav-dropdown-items">
                     <li class="nav-item ">
                         <a class="nav-link {{ (Request::segment(2) == 'honorer') ? 'active' : '' }}" href="{{ route('honorer.index') }}">
-                            Tenaga Kerja Kontrak
+                            Tenaga Kerja Non PNS
                         </a>
                     </li>
-                    <li class="nav-item ">
+                    {{-- <li class="nav-item ">
                         <a class="nav-link {{ (Request::segment(2) == 'tks') ? 'active' : '' }}" href="{{ route('tks.index') }}">
                             Tenaga Kerja Sukarela
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
             <li class="nav-item {{ (Request::segment(1) == 'struktur-organisasi') ? 'active' : '' }}">

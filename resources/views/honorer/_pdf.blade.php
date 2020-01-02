@@ -41,7 +41,8 @@
                 <th align="center">TEMPAT, TGL LAHIR</th>
                 <th align="center">JENIS<br>KELAMIN</th>
                 <th align="center">TMT</th>
-                <th align="center">STATUS<br>TKK</th>
+                <th align="center">STATUS</th>
+                <th align="center">KATEGORI</th>
                 <th align="center">OPD</th>
                 <th align="center">KET</th>
             </tr>
@@ -55,6 +56,7 @@
                 <td>{{$item->jenis_kelamin_text}}</td>
                 <td>{{$item->tmt->format('d-M-y')}}</td>
                 <td>{{$item->status_tkk_text}}</td>
+                <td>{{$item->employeeStatus->text}}</td>
                 <td>{{$item->opds->text}}</td>
                 <td>{{$item->keterangan}}</td>
             </tr>

@@ -36,6 +36,7 @@
                         {data: 'jenis_kelamin_text'},
                         {data: 'tmt'},
                         {data: 'status_tkk_text'},
+                        {data: 'employee_status.text'},
                         {data: 'opds.text'},
                         {data: 'keterangan'},
                         {data: 'action'}
@@ -76,6 +77,7 @@
                         <th>JENIS KELAMIN</th>
                         <th>TMT</th>
                         <th>STATUS TKK</th>
+                        <th>KATEGORI</th>
                         <th>ORGANISASI PERANGKAT DAERAH</th>
                         <th>KET</th>
                         <th>AKSI</th>
@@ -100,6 +102,15 @@
 
             <form action="{{ route('honorer.pdf') }}" method="GET">
             <div class="modal-body">
+                <div class="form-group">
+                    <label for="employee_status_id">Kategori</label>
+                    <select name="employee_status_id" id="employee_status_id" class="form-control" required>
+                        <option value="">Pilih Data</option>
+                        @foreach ($TipeTk as $item)
+                        <option value="{{$item->id}}">{{$item->text}}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="form-group">
                     <label for="opd">OPD</label>
                     <select name="opd" id="opd" class="form-control" required>

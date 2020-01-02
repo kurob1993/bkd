@@ -17,11 +17,8 @@ class DebugController extends Controller
      */
     public function index()
     {
-        $opd_id = Auth::user()->hasRole('admin super');
-        // $emp = Employee::where('employee_status_id',1)
-        //         ->where('master_opd_id',$opd_id)
-        //         ->with(['opds'])->get();
-        dd($opd_id);
+        $emp = Employee::with(['opds','employeeStatus'])->get();
+        return $emp;
     }
 
     /**

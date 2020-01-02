@@ -107,6 +107,17 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="jk" class="col-sm-2 col-form-label">Kategori : </label>
+                        <div class="col-sm-10">
+                            <select name="employee_status_id" id="employee_status_id" class="form-control" required>
+                                <option value="">Pilih Data</option>
+                                @foreach ($TipeTk as $item)
+                                <option value="{{$item->id}}">{{$item->text}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="opd" class="col-sm-2 col-form-label">OPD : </label>
                         <div class="col-sm-10">
                             <select name="master_opd_id" id="opd" class="form-control" required>
