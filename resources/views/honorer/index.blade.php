@@ -103,8 +103,8 @@
                 <div class="form-group">
                     <label for="opd">OPD</label>
                     <select name="opd" id="opd" class="form-control" required>
-                        @if (Auth::user()->master_opd_id)
-                            <option value="{{Auth::user()->opds->id}}" selected>{{Auth::user()->opds->text}}</option>
+                        @if (Auth::user()->hasRole('admin opd'))
+                            <option value="{{Auth::user()->opds['id']}}" selected>{{Auth::user()->opds['text']}}</option>
                         @else
                             <option value="">Pilih Data</option>
                             @foreach ($MasterOpd as $item)
