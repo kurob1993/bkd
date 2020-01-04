@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\EmployeeStatus;
 use App\Models\MasterOpd;
+use App\Models\Position;
 use PDF;
 use Excel;
 use App\Exports\EmployeeExport;
@@ -50,16 +51,21 @@ class HonorerController extends Controller
         $tmt = date('Y-m-d', strtotime($request->tmt));
 
         $emp = new Employee();
-        $emp->nama = $request->nama;
-        $emp->gelar_depan = $request->gelar_depan;
-        $emp->gelar_belakang = $request->gelar_belakang;
-        $emp->tempat_lahir = $request->tempat_lahir;
-        $emp->tanggal_lahir = $tanggal_lahir;
-        $emp->jenis_kelamin = $request->jenis_kelamin;
-        $emp->pendidikan = $request->pendidikan;
-        $emp->tmt = $tmt;
-        $emp->status_tkk = $request->status_tkk;
-        $emp->master_opd_id = $request->master_opd_id;
+        $emp->nama              = $request->nama;
+        $emp->gelar_depan       = $request->gelar_depan;
+        $emp->gelar_belakang    = $request->gelar_belakang;
+        $emp->tempat_lahir      = $request->tempat_lahir;
+        $emp->tanggal_lahir     = $tanggal_lahir;
+        $emp->jenis_kelamin     = $request->jenis_kelamin;
+        $emp->pendidikan        = $request->pendidikan;
+        $emp->jurusan           = $request->jurusan;
+        $emp->no_telepon        = $request->no_telepon;
+        $emp->npwp              = $request->npwp;
+        $emp->posisi            = $request->posisi;
+        $emp->gapok             = $request->gapok;
+        $emp->tmt               = $tmt;
+        $emp->status_tkk        = $request->status_tkk;
+        $emp->master_opd_id     = $request->master_opd_id;
         $emp->employee_status_id = $request->employee_status_id;
         $emp->save();
         // dd($request);
@@ -74,12 +80,12 @@ class HonorerController extends Controller
      */
     public function show($id)
     {
-        $opd_id = Auth::user()->master_opd_id;
-        $emp = Employee::with(['opds','employeeStatus']);
+        $opd_id     = Auth::user()->master_opd_id;
+        $emp        = Employee::with(['opds','employeeStatus','position']);
 
         $adminSuper = Auth::user()->hasRole('admin super');
         if (!$adminSuper) {
-            $emp = Employee::with(['opds','employeeStatus']);
+            $emp = Employee::with(['opds','employeeStatus','position']);
             $emp->where('master_opd_id',$opd_id);
             $emp->with(['opds']);
         }
@@ -100,9 +106,9 @@ class HonorerController extends Controller
     public function edit($id)
     {
         $emp = Employee::find($id);
-        $masterOpd = MasterOpd::all();
+        $MasterOpd = MasterOpd::all();
         $TipeTk = EmployeeStatus::all();
-        return view('honorer.edit',compact('masterOpd','emp','TipeTk'));
+        return view('honorer.edit',compact('MasterOpd','emp','TipeTk'));
     }
 
     /**
@@ -118,16 +124,22 @@ class HonorerController extends Controller
         $tmt = date('Y-m-d', strtotime($request->tmt));
 
         $emp = Employee::find($id);
-        $emp->nama = $request->nama;
-        $emp->gelar_depan = $request->gelar_depan;
-        $emp->gelar_belakang = $request->gelar_belakang;
-        $emp->tempat_lahir = $request->tempat_lahir;
-        $emp->tanggal_lahir = $tanggal_lahir;
-        $emp->jenis_kelamin = $request->jenis_kelamin;
-        $emp->pendidikan = $request->pendidikan;
-        $emp->tmt = $tmt;
-        $emp->status_tkk = $request->status_tkk;
-        $emp->master_opd_id = $request->master_opd_id;
+        $emp->nama              = $request->nama;
+        $emp->gelar_depan       = $request->gelar_depan;
+        $emp->gelar_belakang    = $request->gelar_belakang;
+        $emp->tempat_lahir      = $request->tempat_lahir;
+        $emp->tanggal_lahir     = $tanggal_lahir;
+        $emp->jenis_kelamin     = $request->jenis_kelamin;
+        $emp->pendidikan        = $request->pendidikan;
+        $emp->jurusan           = $request->jurusan;
+        $emp->no_telepon        = $request->no_telepon;
+        $emp->npwp              = $request->npwp;
+        $emp->position_id       = $request->position_id;
+        $emp->gapok             = $request->gapok;
+        $emp->tmt               = $tmt;
+        $emp->status_tkk        = $request->status_tkk;
+        $emp->master_opd_id     = $request->master_opd_id;
+        $emp->employee_status_id = $request->employee_status_id;
         $emp->save();
 
         return redirect()->route('honorer.index');
@@ -151,8 +163,11 @@ class HonorerController extends Controller
         $employee_status_id        = $request->employee_status_id;
 
         $master_opd = MasterOpd::find($opd);
-        $emp        = Employee::where('employee_status_id',$employee_status_id)->where('master_opd_id',$opd)->get();
-        $pdf        = PDF::loadview('honorer._pdf',compact('emp'));
+        $emp        = Employee::where('employee_status_id',$employee_status_id)
+                        ->where('master_opd_id',$opd)
+                        ->with(['opds','position'])
+                        ->get();
+        $pdf        = PDF::loadview('honorer._pdf',compact('emp'))->setPaper('a4', 'landscape');;
     	return $pdf->download('laporan-pegawai-pdf-'.$master_opd->text.'.pdf');
     }
 
@@ -161,4 +176,10 @@ class HonorerController extends Controller
         return Excel::download(new EmployeeExport, 'invoices.xlsx');
     }
     
+    public function getPosisi(Request $request)
+    {
+        $opd_id = $request->opd_id;
+        $posisi = Position::where('master_opd_id',$opd_id)->get();
+        return $posisi;
+    }
 }

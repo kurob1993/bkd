@@ -2,10 +2,12 @@
 
 @push('style')
 <link href="{{ asset('vendors/datetimepicker/jquery.datetimepicker.min.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('vendors/select2/css/select2.min.css') }}">
 <style></style>
 @endpush
 
 @push('script')
+<script src="{{ asset('vendors/select2/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('vendors/datetimepicker/jquery.datetimepicker.full.min.js') }}"></script>
 <script>
     $(document).ready(function () {
@@ -19,7 +21,19 @@
             format:'d.m.Y',
             lang:'id'
         });
+
+        $('#opd').select2();
+        $('#posisi').select2();
     });
+
+    function setPosisi(value) {
+        $('#posisi').html('');
+        $.get("{{ route('honorer.posisi') }}",{opd_id:value},function(data){
+            for (let index = 0; index < data.length; index++) {                    
+                $('#posisi').append('<option value="'+data[index].id+'">'+data[index].text+'</option>');
+            }
+        });
+    }
 </script>
 @endpush
 
@@ -85,8 +99,36 @@
                     <div class="form-group row">
                         <label for="pendidikan" class="col-sm-2 col-form-label">Pendidikan : </label>
                         <div class="col-sm-10">
-                            <input type="text" name="pendidikan" value="{{ old('pendidikan') }}" class="form-control" \
+                            <input type="text" name="pendidikan" value="{{ old('pendidikan') }}" class="form-control"
                             id="pendidikan" placeholder="Pendidikan" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="jurusan" class="col-sm-2 col-form-label">Jurusan : </label>
+                        <div class="col-sm-10">
+                            <input type="text" name="jurusan" value="{{ old('jurusan') }}" class="form-control"
+                            id="jurusan" placeholder="Jurusan" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="no_telepon" class="col-sm-2 col-form-label">No Telepon : </label>
+                        <div class="col-sm-10">
+                            <input type="text" name="no_telepon" value="{{ old('no_telepon') }}" class="form-control"
+                            id="no_telepon" placeholder="No Telepon" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="npwp" class="col-sm-2 col-form-label">NPWP : </label>
+                        <div class="col-sm-10">
+                            <input type="text" name="npwp" value="{{ old('npwp') }}" class="form-control"
+                            id="npwp" placeholder="NPWP" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="GAPOK" class="col-sm-2 col-form-label">GAPOK : </label>
+                        <div class="col-sm-10">
+                            <input type="number" name="GAPOK" value="{{ old('GAPOK') }}" class="form-control"
+                            id="GAPOK" placeholder="GAPOK" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -97,7 +139,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="status_tkk" class="col-sm-2 col-form-label">STATUS TKK : </label>
+                        <label for="status_tkk" class="col-sm-2 col-form-label">Status : </label>
                         <div class="col-sm-10">
                             <select name="status_tkk" id="status_tkk" class="form-control" required>
                                 <option value="">Pilih Data</option>
@@ -120,7 +162,7 @@
                     <div class="form-group row">
                         <label for="opd" class="col-sm-2 col-form-label">OPD : </label>
                         <div class="col-sm-10">
-                            <select name="master_opd_id" id="opd" class="form-control" required>
+                            <select name="master_opd_id" id="opd" class="form-control" required onchange="setPosisi(this.value)">
                                 @if (Auth::user()->master_opd_id)
                                     <option value="{{Auth::user()->opds->id}}" selected>{{Auth::user()->opds->text}}</option>
                                 @else
@@ -129,6 +171,13 @@
                                     <option value="{{$item->id}}">{{$item->text}}</option>
                                     @endforeach
                                 @endif
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="posisi" class="col-sm-2 col-form-label">Penempatan Posisi : </label>
+                        <div class="col-sm-10">
+                            <select name="posisi" id="posisi" class="form-control" required>
                             </select>
                         </div>
                     </div>

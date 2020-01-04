@@ -57,6 +57,22 @@ class MasterOpdTableSeeder extends Seeder
             $masterOpd->text = $faker->company;
             $masterOpd->parent_id = 5;
             $masterOpd->save();
+        }
+        
+        for($i = 1; $i <= 3; $i++){
+ 
+            $masterOpd = new MasterOpd();
+            $masterOpd->text = $faker->company;
+            $masterOpd->parent_id = 7;
+            $masterOpd->save();
+        }
+        
+        for($i = 1; $i <= 3; $i++){
+ 
+            $masterOpd = new MasterOpd();
+            $masterOpd->text = $faker->company;
+            $masterOpd->parent_id = 20;
+            $masterOpd->save();
     	}
     }
 }

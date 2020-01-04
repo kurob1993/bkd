@@ -1,17 +1,11 @@
 @extends('core-ui.layouts.app')
 
 @push('style')
-<link rel="stylesheet" href="{{ asset('vendors/select2/css/select2.min.css') }}">
 <style></style>
 @endpush
 
 @push('script')
-<script src="{{ asset('vendors/select2/js/select2.full.min.js') }}"></script>
-<script>
-    $(document).ready(function() {
-        $('.opd').select2();
-    });
-</script>
+
 @endpush
 
 @include('core-ui.layouts._layout')
@@ -22,7 +16,7 @@
 <div class="container mt-1">
     <div class="row justify-content-center">
         <div class="col">
-            @CardDefault(['title' => 'Tambah Data OPD'])
+            @CardDefault(['title' => 'Sunting Data Posisi'])
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -32,36 +26,37 @@
                     </ul>
                 </div>
                 @endif
-                <form method="post" enctype="multipart/form-data" action="{{ route('opd.store') }}">
+                <form method="post" enctype="multipart/form-data" action="{{ route('posisi.update', $posisi->id) }}">
                     @csrf
-                    <div class="form-group row">
-                        <label for="text" class="col-sm-2 col-form-label">Unit Kerja : </label>
-                        <div class="col-sm-10">
-                            <input type="text" name="text" value="{{ old('text') }}" class="form-control" id="text" placeholder="Unit Kerja" required>
-                        </div>
-                    </div>
+                    @method('PUT')
+                    
                     <div class="form-group row">
                         <label for="ket" class="col-sm-2 col-form-label">OPD : </label>
                         <div class="col-sm-10">
-                            <select name="parent_id" id="parent" class="form-control opd">
-                                <option value="">-</option>
-                                @foreach ($masterOpd as $item)
-                                    <option value="{{$item->id}}">{{$item->text}}</option>
+                            <select name="master_opd_id" id="master_opd_id" class="form-control">
+                                <option value=""> - </option>
+                                @foreach ($comboMasterOpd as $item)
+                                <option value="{{$item->id}}" {{ $posisi->master_opd_id == $item->id ? 'selected' : '' }}>
+                                    {{$item->text}}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     
                     <div class="form-group row">
+                        <label for="text" class="col-sm-2 col-form-label">Posisi : </label>
                         <div class="col-sm-10">
-                            <a class="btn btn-outline-danger" href="{{ Route('opd.index') }}">
+                            <input type="text" name="text" value="{{ $posisi->text }}" class="form-control" id="text" placeholder="OPD" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <a class="btn btn-outline-danger" href="{{ Route('posisi.index') }}">
                                 <i class="fa fa-arrow-left"></i>
                                 Kembali
                             </a>
-                            <button type="reset" class="btn btn-outline-warning">
-                                <i class="fa fa-recycle"></i>
-                                Bersihkan
-                            </button>
                             <button type="submit" class="btn btn-primary">
                                 <i class="fa fa-save"></i>
                                 Simpan

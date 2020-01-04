@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Master;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\MasterOpd;
+use App\Models\Position;
 
-class MasterOpdController extends Controller
+class MasterPosisiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,7 @@ class MasterOpdController extends Controller
      */
     public function index()
     {
-        return view('opd.index');
+        return view('posisi.index');
     }
 
     /**
@@ -26,7 +27,7 @@ class MasterOpdController extends Controller
     public function create()
     {
         $masterOpd = MasterOpd::all();
-        return view('opd.create',compact('masterOpd'));
+        return view('posisi.create',compact('masterOpd'));
     }
 
     /**
@@ -37,12 +38,12 @@ class MasterOpdController extends Controller
      */
     public function store(Request $request)
     {
-        $masterOpd = new MasterOpd();
-        $masterOpd->text = $request->post('text');
-        $masterOpd->parent_id = $request->post('parent_id');
+        $posisi = new Position();
+        $posisi->text = $request->post('text');
+        $posisi->master_opd_id = $request->post('master_opd_id');
 
-        if($masterOpd->save()){
-            return redirect()->route('opd.index');
+        if($posisi->save()){
+            return redirect()->route('posisi.index');
         }
         return redirect()->back();
     }
@@ -55,9 +56,9 @@ class MasterOpdController extends Controller
      */
     public function show($id)
     {
-        $MasterOpd = MasterOpd::all();
-        $ret = datatables($MasterOpd)
-            ->addColumn('action', 'opd._action')
+        $posisi = Position::with(['opd']);
+        $ret = datatables($posisi)
+            ->addColumn('action', 'posisi._action')
             ->toJson();
         return $ret;
     }
@@ -70,9 +71,9 @@ class MasterOpdController extends Controller
      */
     public function edit($id)
     {
-        $masterOpd = MasterOpd::find($id);
+        $posisi = Position::find($id);
         $comboMasterOpd = MasterOpd::all();
-        return view('opd.edit',compact('masterOpd','comboMasterOpd'));
+        return view('posisi.edit',compact('posisi','comboMasterOpd'));
     }
 
     /**
@@ -84,12 +85,12 @@ class MasterOpdController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $masterOpd = MasterOpd::find($id);
-        $masterOpd->text = $request->text;
-        $masterOpd->parent_id = $request->parent_id;
+        $posisi = Position::find($id);
+        $posisi->text = $request->text;
+        $posisi->master_opd_id = $request->master_opd_id;
 
-        if($masterOpd->save()){
-            return redirect()->route('opd.index');
+        if($posisi->save()){
+            return redirect()->route('posisi.index');
         }
         return redirect()->back();
     }
@@ -102,7 +103,7 @@ class MasterOpdController extends Controller
      */
     public function destroy($id)
     {
-        $masterOpd = MasterOpd::destroy($id);
+        $posisi = Position::destroy($id);
         return redirect()->back();
     }
 }

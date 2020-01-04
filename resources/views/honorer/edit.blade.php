@@ -1,11 +1,13 @@
 @extends('core-ui.layouts.app')
 
 @push('style')
+<link rel="stylesheet" href="{{ asset('vendors/select2/css/select2.min.css') }}">
 <link href="{{ asset('vendors/datetimepicker/jquery.datetimepicker.min.css') }}" rel="stylesheet">
 <style></style>
 @endpush
 
 @push('script')
+<script src="{{ asset('vendors/select2/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('vendors/datetimepicker/jquery.datetimepicker.full.min.js') }}"></script>
 <script>
     $(document).ready(function () {
@@ -19,7 +21,27 @@
             format:'d.m.Y',
             lang:'id'
         });
+
+        $('#opd').select2();
+        $('#posisi').select2();
+
+        var opd = $('#opd').val();
+        setPosisi(opd);
     });
+
+    function setPosisi(value) {
+        $('#posisi').html('');
+        $('#posisi').append('<option>-</option>');
+        $.get("{{ route('honorer.posisi') }}",{opd_id:value},function(data){
+            for (let index = 0; index < data.length; index++) {  
+                var selected = '';
+                if (data[index].id == '{{ $emp->position_id }}') {
+                    selected = 'selected';
+                }                  
+                $('#posisi').append('<option value="'+data[index].id+'" '+selected+'>'+data[index].text+'</option>');
+            }
+        });
+    }
 </script>
 @endpush
 
@@ -91,6 +113,34 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="jurusan" class="col-sm-2 col-form-label">Jurusan : </label>
+                        <div class="col-sm-10">
+                            <input type="text" name="jurusan" value="{{ $emp->jurusan }}" class="form-control"
+                            id="jurusan" placeholder="Jurusan" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="no_telepon" class="col-sm-2 col-form-label">No Telepon : </label>
+                        <div class="col-sm-10">
+                            <input type="text" name="no_telepon" value="{{ $emp->no_telepon }}" class="form-control"
+                            id="no_telepon" placeholder="No Telepon" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="npwp" class="col-sm-2 col-form-label">NPWP : </label>
+                        <div class="col-sm-10">
+                            <input type="text" name="npwp" value="{{ $emp->npwp }}" class="form-control"
+                            id="npwp" placeholder="NPWP" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="GAPOK" class="col-sm-2 col-form-label">GAPOK : </label>
+                        <div class="col-sm-10">
+                            <input type="number" name="gapok" value="{{ $emp->gapok }}" class="form-control"
+                            id="GAPOK" placeholder="GAPOK" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="tmt" class="col-sm-2 col-form-label">TMT : </label>
                         <div class="col-sm-10">
                             <input type="text" name="tmt" value="{{ date('d.m.Y',strtotime($emp->tmt)) }}" class="form-control" id="tmt" 
@@ -125,12 +175,12 @@
                     <div class="form-group row">
                         <label for="opd" class="col-sm-2 col-form-label">OPD : </label>
                         <div class="col-sm-10">
-                            <select name="master_opd_id" id="opd" class="form-control" required>
+                            <select name="master_opd_id" id="opd" class="form-control" required onchange="setPosisi(this.value)">
                                 @if (Auth::user()->master_opd_id)
                                     <option value="{{Auth::user()->opds->id}}" selected>{{Auth::user()->opds->text}}</option>
                                 @else
                                     <option value="">Pilih Data</option>
-                                    @foreach ($masterOpd as $item)
+                                    @foreach ($MasterOpd as $item)
                                         @php($selected = '')
                                         @if ($emp->master_opd_id == $item->id)
                                             @php($selected = 'selected')
@@ -138,6 +188,13 @@
                                         <option value="{{$item->id}}" {{$selected}}>{{$item->text}}</option>
                                     @endforeach
                                 @endif
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="posisi" class="col-sm-2 col-form-label">Penempatan Posisi : </label>
+                        <div class="col-sm-10">
+                            <select name="position_id" id="posisi" class="form-control" required>
                             </select>
                         </div>
                     </div>

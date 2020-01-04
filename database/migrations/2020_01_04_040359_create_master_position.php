@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrganisasisTable extends Migration
+class CreateMasterPosition extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateOrganisasisTable extends Migration
      */
     public function up()
     {
-        Schema::create('organisasis', function (Blueprint $table) {
+        Schema::create('positions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('text');
-            $table->integer('parent_id')->nullable(true);
+            $table->integer('master_opd_id')->nullable(true);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateOrganisasisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('organisasis');
+        Schema::dropIfExists('positions');
     }
 }

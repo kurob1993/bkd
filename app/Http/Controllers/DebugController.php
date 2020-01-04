@@ -17,8 +17,8 @@ class DebugController extends Controller
      */
     public function index()
     {
-        $emp = Employee::with(['opds','employeeStatus'])->get();
-        return $emp;
+        $emp = new MasterOpd;
+        return  $emp->opdChild(1,[1]);
     }
 
     /**

@@ -65,7 +65,9 @@
 
         {{-- KONTEN --}}
         <main class="main">
-            @yield('content')
+            <div class="m-3">
+                @yield('content')
+            </div>
         </main>
         {{-- AKHIR KONTEN --}}
 

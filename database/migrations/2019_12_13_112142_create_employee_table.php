@@ -17,6 +17,7 @@ class CreateEmployeeTable extends Migration
             $table->increments('id');
             $table->integer('master_opd_id');
             $table->integer('employee_status_id');
+            $table->integer('position_id');
             $table->string('gelar_depan')->nullable();
             $table->string('nama');
             $table->string('gelar_belakang')->nullable();
@@ -24,6 +25,10 @@ class CreateEmployeeTable extends Migration
             $table->date('tanggal_lahir');
             $table->string('jenis_kelamin');
             $table->string('pendidikan');
+            $table->string('jurusan');
+            $table->string('no_telepon');
+            $table->string('npwp');
+            $table->bigInteger('gapok');
             $table->date('tmt');
             $table->string('status_tkk');
             $table->string('keterangan')->nullable();;

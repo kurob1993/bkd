@@ -2,9 +2,9 @@
 
     <div class="card-header">
         {{ $title }}
-        <div class="float-right">
+        <span class="float-xl-right" id="card-button">
             @stack('card-button')
-        </div>
+        </span>
     </div>
 
     <div class="card-body">

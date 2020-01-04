@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Organisasi;
 use App\Models\MasterOpd;
+use App\Models\Position;
 
 class StrukturOrganisasiController extends Controller
 {
@@ -15,7 +16,8 @@ class StrukturOrganisasiController extends Controller
      */
     public function index()
     {
-        return view('struktur-organisasi.index');
+        $mopd = MasterOpd::all();
+        return view('struktur-organisasi.index', compact('mopd') );
     }
 
     /**
@@ -47,15 +49,44 @@ class StrukturOrganisasiController extends Controller
      */
     public function show($id)
     {
-        $Organisasi = MasterOpd::select('id','text','parent_id')->get();
+        $mopd = new MasterOpd;
+        $opd = $mopd->opdChild($id,[$id]);
+        
+        $Organisasi = MasterOpd::select('id','text','parent_id')->whereIn('id',$opd)->with('employees')->get();
+        $mopd_id = $Organisasi->map(function($item, $key){
+            return $item->id;
+        });
+        $position   = Position::whereIn('master_opd_id',$mopd_id)->with(['opd','employees'])->get();
+
         $Organisasi = $Organisasi->map(function($item, $key){
             return [
-                $item->text,
+                [   
+                    'v'=>$item->text, 
+                    'f'=>$item->text.
+                        '<div class="node-style">'.
+                        $item->employees->where('position_id','0')->first()['nama'].
+                        '</div>'
+                ],
                 $item->parent,
                 (string)$item->id
             ];
         });
-        return $Organisasi;
+
+        $position = $position->map(function($item, $key){
+            return [
+                [   
+                    'v'=>$item->text, 
+                    'f'=>$item->text.
+                        '<div class="node-style">'.
+                        $item->employees['nama'].
+                        '</div>'
+                ],
+                $item->opd['text'],
+                (string)$item->id
+            ];
+        });
+
+        return $Organisasi->merge($position);
     }
 
     /**

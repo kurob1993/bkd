@@ -21,6 +21,11 @@ class Employee extends Model
         return $this->belongsTo('App\Models\MasterOpd','master_opd_id');
     }
 
+    public function position()
+    {
+        return $this->belongsTo('App\Models\Position');
+    }
+
     public function employeeStatus()
     {
         return $this->belongsTo('App\Models\EmployeeStatus','employee_status_id');

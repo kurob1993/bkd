@@ -1,10 +1,12 @@
 @extends('core-ui.layouts.app') 
     @push('style')
         <link href="{{ asset('vendors/DataTables/datatables.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('vendors/DataTables/Responsive-2.2.2/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
         <style></style>
     @endpush 
     @push('script')
         <script src="{{ asset('vendors/DataTables/datatables.min.js') }}"></script>
+        <script src="{{ asset('vendors/DataTables/Responsive-2.2.2/js/dataTables.responsive.min.js') }}"></script>
         <script>
             $(document).ready(function() {
                 $('#dataTable').DataTable({
@@ -30,13 +32,39 @@
                             render: function(data, type, row, meta) {
                                 var tempat_lahir = row.tempat_lahir;
                                 var tangagl_lahir = row.tanggal_lahir;                               
-                                return tempat_lahir+', '+tangagl_lahir;
+                                return tempat_lahir+', <br> '+tangagl_lahir;
                             }
                         },
-                        {data: 'jenis_kelamin_text'},
+                        {data: 'jenis_kelamin',
+                            render: function(data, type, row, meta) {                             
+                                return row.jenis_kelamin_text;
+                            }
+                        },
+                        {data: 'pendidikan'},
+                        {data: 'jurusan'},
+                        {data: 'no_telepon'},
+                        {data: 'npwp'},
+                        {data: 'gapok'},
+                        {data: 'position_id',
+                            render: function(data, type, row, meta) { 
+                                if(row.position !== null){
+                                    return row.position.text
+                                }else{
+                                    return '';
+                                }
+                            }
+                        },
                         {data: 'tmt'},
-                        {data: 'status_tkk_text'},
-                        {data: 'employee_status.text'},
+                        {data: 'status_tkk',
+                            render: function(data, type, row, meta) {                             
+                                return row.status_tkk_text;
+                            }
+                        },
+                        {data: 'employee_status_id',
+                            render: function(data, type, row, meta) {                             
+                                return row.employee_status.text;
+                            }
+                        },
                         {data: 'opds.text'},
                         {data: 'keterangan'},
                         {data: 'action'}
@@ -73,14 +101,20 @@
                     <tr>
                         <th data-priority="1">ID</th>
                         <th>NAMA</th>
-                        <th>TEMPAT, TGL LAHIR</th>
-                        <th>JENIS KELAMIN</th>
-                        <th>TMT</th>
-                        <th>STATUS TKK</th>
+                        <th>TTL</th>
+                        <th>JK</th>
+                        <th>PENDIDIKAN</th>
+                        <th>JURUSAN</th>
+                        <th class="none">NO TLP</th>
+                        <th class="none">NPWP</th>
+                        <th class="none">GAPOK</th>
+                        <th class="none">POSISI</th>
+                        <th class="none">TMT</th>
+                        <th>STATUS</th>
                         <th>KATEGORI</th>
-                        <th>ORGANISASI PERANGKAT DAERAH</th>
-                        <th>KET</th>
-                        <th>AKSI</th>
+                        <th>OPD</th>
+                        <th class="none">KET</th>
+                        <th class="all">AKSI</th>
                     </tr>
                 </thead>
             </table>

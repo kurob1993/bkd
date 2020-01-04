@@ -22,7 +22,7 @@
 <div class="container mt-1">
     <div class="row justify-content-center">
         <div class="col">
-            @CardDefault(['title' => 'Tambah Data OPD'])
+            @CardDefault(['title' => 'Tambah Data Posisi'])
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -32,18 +32,12 @@
                     </ul>
                 </div>
                 @endif
-                <form method="post" enctype="multipart/form-data" action="{{ route('opd.store') }}">
+                <form method="post" enctype="multipart/form-data" action="{{ route('posisi.store') }}">
                     @csrf
-                    <div class="form-group row">
-                        <label for="text" class="col-sm-2 col-form-label">Unit Kerja : </label>
-                        <div class="col-sm-10">
-                            <input type="text" name="text" value="{{ old('text') }}" class="form-control" id="text" placeholder="Unit Kerja" required>
-                        </div>
-                    </div>
                     <div class="form-group row">
                         <label for="ket" class="col-sm-2 col-form-label">OPD : </label>
                         <div class="col-sm-10">
-                            <select name="parent_id" id="parent" class="form-control opd">
+                            <select name="master_opd_id" id="master_opd_id" class="form-control opd">
                                 <option value="">-</option>
                                 @foreach ($masterOpd as $item)
                                     <option value="{{$item->id}}">{{$item->text}}</option>
@@ -51,7 +45,12 @@
                             </select>
                         </div>
                     </div>
-                    
+                    <div class="form-group row">
+                        <label for="text" class="col-sm-2 col-form-label">Posisi : </label>
+                        <div class="col-sm-10">
+                            <input type="text" name="text" value="{{ old('text') }}" class="form-control" id="text" placeholder="Posisi" required>
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <div class="col-sm-10">
                             <a class="btn btn-outline-danger" href="{{ Route('opd.index') }}">

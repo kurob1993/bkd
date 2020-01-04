@@ -38,7 +38,13 @@
                     <li class="nav-item ">
                         <a class="nav-link {{ (Request::segment(2) == 'opd') ? 'active' : '' }}" 
                         href="{{ route('opd.index') }}">
-                            Master OPD
+                            OPD
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link {{ (Request::segment(2) == 'posisi') ? 'active' : '' }}" 
+                        href="{{ route('posisi.index') }}">
+                            Posisi
                         </a>
                     </li>
                 </ul>

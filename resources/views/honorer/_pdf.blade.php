@@ -26,7 +26,7 @@
         }
     
         body {
-            font-size: 10px;
+            font-size: 8px;
         }
     </style>
 
@@ -38,8 +38,14 @@
             <tr>
                 <th align="center" data-priority="1">NO</th>
                 <th align="center">NAMA</th>
-                <th align="center">TEMPAT, TGL LAHIR</th>
+                <th align="center">TEMPAT,<br>TGL LAHIR</th>
                 <th align="center">JENIS<br>KELAMIN</th>
+                <th align="center">PENDIDIKAN</th>
+                <th align="center">JURUSAN</th>
+                <th align="center">NO TELEPON</th>
+                <th align="center">NPWP</th>
+                <th align="center">GAPOK</th>
+                <th align="center">PENEMPATAN<br>POSISI</th>
                 <th align="center">TMT</th>
                 <th align="center">STATUS</th>
                 <th align="center">KATEGORI</th>
@@ -52,12 +58,18 @@
             <tr>
                 <td align="center">{{$key+1}}</td>
                 <td>{{$item->gelar_depan}} {{$item->nama}}{{$item->gelar_belakang ? ', '.$item->gelar_belakang : ''}}</td>
-                <td>{{$item->tempat_lahir.', '.$item->tanggal_lahir->format('d-m-Y')}}</td>
+                <td>{{ $item->tempat_lahir.', '.$item->tanggal_lahir->format('d-m-Y') }}</td>
                 <td>{{$item->jenis_kelamin_text}}</td>
+                <td>{{$item->pendidikan}}</td>
+                <td>{{$item->jurusan}}</td>
+                <td>{{$item->no_telepon}}</td>
+                <td>{{$item->npwp}}</td>
+                <td>{{$item->gapok}}</td>
+                <td>{{$item->position['text']}}</td>
                 <td>{{$item->tmt->format('d-M-y')}}</td>
                 <td>{{$item->status_tkk_text}}</td>
                 <td>{{$item->employeeStatus->text}}</td>
-                <td>{{$item->opds->text}}</td>
+                <td>{{$item->opds['text']}}</td>
                 <td>{{$item->keterangan}}</td>
             </tr>
             @endforeach
