@@ -88,7 +88,7 @@
                 </select>
             </div>            
             @endpush
-            <div id="chart_div" style="overflow-x: scroll"></div>
+            <div id="chart_div" style="overflow-x: scroll; zoom: 80%;"></div>
         @endCardDefault()
 
     </div>
