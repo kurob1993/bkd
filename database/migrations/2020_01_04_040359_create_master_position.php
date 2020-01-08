@@ -16,6 +16,7 @@ class CreateMasterPosition extends Migration
         Schema::create('positions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('text');
+            $table->integer('parent_id')->nullable(true);
             $table->integer('master_opd_id')->nullable(true);
             $table->timestamps();
         });

@@ -49,15 +49,17 @@ class StrukturOrganisasiController extends Controller
      */
     public function show($id)
     {
-        $mopd = new MasterOpd;
-        $opd = $mopd->opdChild($id,[$id]);
-        
+        // mencari id anak, cucu, cicit dst dari parent yang di cari
+        $mopd   = new MasterOpd();
+        $opd    = $mopd->opdChild($id,[$id]);
+
+        // Cari organisasi opd berdasarkan id
         $Organisasi = MasterOpd::select('id','text','parent_id')->whereIn('id',$opd)->with('employees')->get();
         $mopd_id = $Organisasi->map(function($item, $key){
             return $item->id;
         });
-        $position   = Position::whereIn('master_opd_id',$mopd_id)->with(['opd','employees'])->get();
 
+        // format organisasi opd
         $Organisasi = $Organisasi->map(function($item, $key){
             return [
                 [   
@@ -72,7 +74,17 @@ class StrukturOrganisasiController extends Controller
             ];
         });
 
+        // mencari id anak, cucu, cicit dst dari parent yang di cari
+        $mposition   = new Position();
+        $position    = $mposition->positionChild($id,[$id]);
+
+        // Cari organisasi posisi berdasarkan master position id atau master opd id
+        $position   = Position::whereIn('master_opd_id',$opd)->with(['opd','employees'])->get();
+
+        // format organisasi posisi
         $position = $position->map(function($item, $key){
+            $parent = $item->parent_id == 0 ?  $item->opd['text'] : $item->parent;
+
             return [
                 [   
                     'v'=>$item->text, 
@@ -81,7 +93,7 @@ class StrukturOrganisasiController extends Controller
                         $item->employees['nama'].
                         '</div>'
                 ],
-                $item->opd['text'],
+                $parent,
                 (string)$item->id
             ];
         });

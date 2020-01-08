@@ -32,7 +32,7 @@
     function setPosisi(value) {
         $('#posisi').html('');
         $('#posisi').append('<option>-</option>');
-        $.get("{{ route('honorer.posisi') }}",{opd_id:value},function(data){
+        $.post("{{ route('api.position.opd') }}",{opd_id:value},function(data){
             for (let index = 0; index < data.length; index++) {  
                 var selected = '';
                 if (data[index].id == '{{ $emp->position_id }}') {

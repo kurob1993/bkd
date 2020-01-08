@@ -38,9 +38,11 @@ class MasterPosisiController extends Controller
      */
     public function store(Request $request)
     {
+        $parent = $request->input('parent_id');
         $posisi = new Position();
-        $posisi->text = $request->post('text');
-        $posisi->master_opd_id = $request->post('master_opd_id');
+        $posisi->text = $request->input('posisi');
+        $posisi->parent_id = $request->input('parent_posisi');
+        $posisi->master_opd_id = $request->input('master_opd_id');
 
         if($posisi->save()){
             return redirect()->route('posisi.index');

@@ -28,7 +28,7 @@
 
     function setPosisi(value) {
         $('#posisi').html('');
-        $.get("{{ route('honorer.posisi') }}",{opd_id:value},function(data){
+        $.post("{{ route('api.position.opd') }}",{opd_id:value},function(data){
             for (let index = 0; index < data.length; index++) {                    
                 $('#posisi').append('<option value="'+data[index].id+'">'+data[index].text+'</option>');
             }

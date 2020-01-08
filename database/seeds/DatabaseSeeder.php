@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             MasterOpdTableSeeder::class,
             EmployeeTableSeeder::class,
             EmployeStatusesTableSeeder::class,
-            PositionTableSeeder::class
+            // PositionTableSeeder::class
         ]);
     }
 }

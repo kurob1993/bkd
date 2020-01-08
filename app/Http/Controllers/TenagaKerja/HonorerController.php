@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\EmployeeStatus;
 use App\Models\MasterOpd;
-use App\Models\Position;
 use PDF;
 use Excel;
 use App\Exports\EmployeeExport;
@@ -174,12 +173,5 @@ class HonorerController extends Controller
     public function excel() 
     {
         return Excel::download(new EmployeeExport, 'invoices.xlsx');
-    }
-    
-    public function getPosisi(Request $request)
-    {
-        $opd_id = $request->opd_id;
-        $posisi = Position::where('master_opd_id',$opd_id)->get();
-        return $posisi;
     }
 }
