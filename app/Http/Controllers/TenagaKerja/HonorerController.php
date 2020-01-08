@@ -92,6 +92,7 @@ class HonorerController extends Controller
 
         $ret = datatables($emp)
             ->addColumn('action', 'honorer._action')
+            ->editColumn('gapok', 'Rp. {{number_format($gapok,2)}}')
             ->toJson();
         return $ret;
     }
