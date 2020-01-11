@@ -22,7 +22,7 @@ class EmployeeImport implements ToCollection
                 $emp->master_opd_id      = $row[0] ? $row[0] : 0;
                 $emp->employee_status_id = $row[1] ? $row[1] : 0;
                 $emp->position_id        = $row[2] ? $row[2] : 0;
-                $emp->gelar_depan        = $row[3] ? $row[3] : 0;
+                $emp->gelar_depan        = $row[3];
                 $emp->nama               = $row[4];
                 $emp->gelar_belakang     = $row[5];
                 $emp->tempat_lahir       = $row[6];
@@ -42,6 +42,10 @@ class EmployeeImport implements ToCollection
     }
     public function FormatDate($date)
     {
-        return \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($date);
+        if(ctype_digit($date)){
+            return \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($date);
+        }
+        return date('Y-m-d', strtotime($date) );
+        
     }
 }
