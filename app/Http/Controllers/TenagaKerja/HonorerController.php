@@ -9,8 +9,10 @@ use App\Models\Employee;
 use App\Models\EmployeeStatus;
 use App\Models\MasterOpd;
 use PDF;
-use Excel;
-use App\Exports\EmployeeExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\EmployeesExport;
+use App\Imports\EmployeeImport;
+use App\Exports\ExampleDataEmployeeExport;
 
 class HonorerController extends Controller
 {
@@ -173,6 +175,19 @@ class HonorerController extends Controller
 
     public function excel() 
     {
-        return Excel::download(new EmployeeExport, 'invoices.xlsx');
+        return Excel::download(new EmployeesExport, 'Tenaga-kerja.xlsx');
+    }
+
+    public function import(Request $request) 
+    {
+        $path1 = $request->file('file')->store('temp'); 
+        $path=storage_path('app').'/'.$path1;  
+        Excel::import(new EmployeeImport, $path);
+        return redirect()->back();
+    }
+
+    public function exampleData() 
+    {
+        return Excel::download(new ExampleDataEmployeeExport, 'Contoh_Data_Tenaga_Kerja.xlsx');
     }
 }

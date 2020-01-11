@@ -18,7 +18,7 @@
                     columns: [
                         {data: 'id',
                             render: function(data, type, row, meta) {
-                                return 'TKK_'+data;
+                                return row.employee_status.text+'_'+data;
                             }
                         },
                         {data: 'nama',
@@ -94,6 +94,10 @@
                 <i class="fa fa-plus-circle fa-lg"></i>
                 Tambah Data Tenaga Kerja
             </a>
+            <button class="btn btn-outline-warning btn-sm mx-1" data-toggle="modal" data-target="#modalImpor">
+                <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                Impor Data
+            </button>
             @endpush
             
             <table class="table table-hover responsive no-wrap" id="dataTable" width="100%">
@@ -169,4 +173,29 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="modalImpor" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Impor Data Tenaga Kerja</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+            <div class="modal-body">
+                <form action="{{ Route('honorer.import') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="container-fluid">
+                        <input type="file" name="file">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </form>
+                <a type="button" class="btn btn-secondary" href="{{ Route('honorer.example') }}">Unduh Contoh Data</a>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
