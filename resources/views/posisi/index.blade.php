@@ -19,10 +19,9 @@
                             }
                         },
                         {data: 'text'},
+                        {data: 'parent'},
                         {data: 'master_opd_id',
                             render: function(data, type, row, meta) {
-                                console.log(row);
-                                
                                 return row.opd.text;
                             }
                         },
@@ -52,6 +51,7 @@
                     <tr>
                         <th data-priority="1">NO</th>
                         <th>POSISI</th>
+                        <th>PARENT POSISI</th>
                         <th>ORGANISASI PERANGKAT DAERAH</th>
                         <th>AKSI</th>
                     </tr>

@@ -23,12 +23,6 @@
             }
         });
     }
-
-    function checkPosisi(value) {
-        console.log(value);
-        
-        $('#posisi').focus();
-    }
 </script>
 @endpush
 

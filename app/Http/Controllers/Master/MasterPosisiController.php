@@ -88,7 +88,8 @@ class MasterPosisiController extends Controller
     public function update(Request $request, $id)
     {
         $posisi = Position::find($id);
-        $posisi->text = $request->text;
+        $posisi->text = $request->posisi;
+        $posisi->parent_id = $request->parent_posisi;
         $posisi->master_opd_id = $request->master_opd_id;
 
         if($posisi->save()){
