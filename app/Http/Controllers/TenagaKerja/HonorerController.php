@@ -173,9 +173,11 @@ class HonorerController extends Controller
     	return $pdf->download('laporan-pegawai-pdf-'.$master_opd->text.'.pdf');
     }
 
-    public function excel() 
+    public function excel(Request $request) 
     {
-        return Excel::download(new EmployeesExport, 'Tenaga-kerja.xlsx');
+        ob_end_clean();
+        ob_start();
+        return (new EmployeesExport)->opd($request->opd)->kategori($request->employee_status_id)->download('Tenaga-kerja.xlsx');
     }
 
     public function import(Request $request) 
