@@ -191,10 +191,10 @@ class HomeController extends Controller
 
         $opdNonPns = new opdNonPns();
         $opdNonPns->labels($label);
-        $opdNonPns->dataset('', 'bar', $data)->backgroundColor('rgba(255,255,255,0.2)')->fill(false);
+        $opdNonPns->dataset('', 'line', $data)->backgroundColor('rgba(255,255,255,0.2)')->fill(true);
         $opdNonPns->displayLegend(false);
         $opdNonPns->displayAxes(false);
-        $opdNonPns->options(['responsive' => true]);
+        $opdNonPns->options(['responsive' => true, 'elements' => ['point' => ['radius' => 0] ] ]);
         return $opdNonPns;
     }
     public function KelasifikasiGajiTks()
@@ -209,10 +209,10 @@ class HomeController extends Controller
 
         $opdNonPns = new opdNonPns();
         $opdNonPns->labels($label);
-        $opdNonPns->dataset('', 'bar', $data)->backgroundColor('rgba(255,255,255,0.2)')->fill(false);
+        $opdNonPns->dataset('', 'line', $data)->backgroundColor('rgba(255,255,255,0.2)')->fill(true);
         $opdNonPns->displayLegend(false);
         $opdNonPns->displayAxes(false);
-        $opdNonPns->options(['responsive' => true]);
+        $opdNonPns->options(['responsive' => true, 'elements' => ['point' => ['radius' => 0] ] ]);
         return $opdNonPns;
     }
     public function KelasifikasiGajiHkl()
