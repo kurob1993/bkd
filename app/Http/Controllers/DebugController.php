@@ -7,6 +7,7 @@ use App\Models\MasterOpd;
 use App\Models\Position;
 use App\User;
 use App\Models\Employee;
+use App\Charts\opdNonPns;
 use Illuminate\Support\Facades\Auth;
 
 class DebugController extends Controller
@@ -18,10 +19,15 @@ class DebugController extends Controller
      */
     public function index()
     {
-        // return number_format(123123);
-        $emp = Employee::select('gapok')->tkk()->get();
-        return $emp->sum('gapok');
-        // // return $empOfOpd;
+        $opd = 1;
+
+        $mopdChart = MasterOpd::where('id',$opd)->get();
+        
+        $empOfOpd = $mopdChart->map(function($item, $key){
+            return $item->employees->count();
+        });
+
+        return $empOfOpd;
     }
 
     /**

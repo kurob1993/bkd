@@ -106,13 +106,18 @@ class HomeController extends Controller
 
         $opdNonPns = new opdNonPns();
         $opdNonPns->labels($mopdLabel);
-        foreach (Employee::select('pendidikan')->groupBy('pendidikan')->get() as $key => $value) {
-            $empOfOpd = $mopdChart->map(function($item, $key) use($value) {
+
+        $data = Employee::select('pendidikan')->groupBy('pendidikan');
+        foreach ( $data->get() as $key => $value) {
+            $empOfOpd = $mopdChart->map(function($item, $key) use ($value) {
                 return $item->employees->where('pendidikan',$value->pendidikan)->count();
             });
             $opdNonPns->dataset($value->pendidikan, 'bar', $empOfOpd)->backgroundColor('rgba('.rand(0,255).', '.rand(0,200).', '.rand(0,155).', 0.3)')->fill(false);
         }
 
+        if ($data->count() == 0) {
+            $opdNonPns->dataset('', 'bar', [])->backgroundColor('rgba('.rand(0,255).', '.rand(0,200).', '.rand(0,155).', 0.3)')->fill(false);
+        }
         return $opdNonPns;
     }
 
@@ -128,13 +133,17 @@ class HomeController extends Controller
 
         $opdNonPns = new opdNonPns();
         $opdNonPns->labels($mopdLabel);
-        foreach (Employee::select('jenis_kelamin')->groupBy('jenis_kelamin')->get() as $key => $value) {
+        $data = Employee::select('jenis_kelamin')->groupBy('jenis_kelamin');
+        foreach ( $data->get() as $key => $value) {
             $empOfOpd = $mopdChart->map(function($item, $key) use($value) {
                 return $item->employees->where('jenis_kelamin',$value->jenis_kelamin)->count();
             });
             $opdNonPns->dataset($value->jenis_kelamin, 'bar', $empOfOpd)->backgroundColor('rgba('.rand(0,255).', '.rand(0,200).', '.rand(0,155).', 0.3)')->fill(false);
         }
 
+        if ($data->count() == 0) {
+            $opdNonPns->dataset('', 'bar', [])->backgroundColor('rgba('.rand(0,255).', '.rand(0,200).', '.rand(0,155).', 0.3)')->fill(false);
+        }
         return $opdNonPns;
     }
 

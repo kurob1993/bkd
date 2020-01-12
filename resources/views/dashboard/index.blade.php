@@ -37,7 +37,7 @@
             @push('card-button')
             <div class="col-xs-10">
                 <select class="form-control-sm opd" onchange="chart(this.value)">
-                    <option> -- Pilih Data OPD -- </option>
+                    <option value=""> -- Pilih Data OPD -- </option>
                     @foreach ($mopd as $item)
                         @if ($item->id == $opd)
                         <option value="{{$item->id}}" selected> {{$item->text}} </option>
