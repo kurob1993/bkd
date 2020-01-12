@@ -18,9 +18,9 @@ class DebugController extends Controller
      */
     public function index()
     {
-        return number_format(123123);
-        // $emp = Employee::select('gapok')->where('master_opd_id',1)->get();
-        // return $emp->sum('gapok');
+        // return number_format(123123);
+        $emp = Employee::select('gapok')->tkk()->get();
+        return $emp->sum('gapok');
         // // return $empOfOpd;
     }
 

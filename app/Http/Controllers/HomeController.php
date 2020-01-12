@@ -32,11 +32,42 @@ class HomeController extends Controller
         $opd = isset($request->opd) ? $request->opd : 1;
         $mopd = MasterOpd::all();
 
+        $emp = Employee::select('gapok')->tkk()->get();
+        $totalTkk = $emp->sum('gapok');
+
+        $emp = Employee::select('gapok')->tks()->get();
+        $totalTks = $emp->sum('gapok');
+
+        $emp = Employee::select('gapok')->hkl()->get();
+        $totalHkl = $emp->sum('gapok');
+
+        $emp = Employee::select('gapok')->k2()->get();
+        $totalK2 = $emp->sum('gapok');
+
         $opdNonPns = $this->KategoriNonPns($opd);
         $opdPendidikan = $this->KelasifikasiPendidikan($opd);
         $opdJenisKelamin = $this->KelasifikasiJenisKelamin($opd);
-        $opdGaji = $this->KelasifikasiGaji($opd);
-        return view('dashboard.index', compact('mopd','opd','opdNonPns','opdPendidikan','opdJenisKelamin','opdGaji'));
+        $opdGaji = $this->KelasifikasiGaji();
+        $opdGajiTkk = $this->KelasifikasiGajiTkk();
+        $opdGajiTks = $this->KelasifikasiGajiTks();
+        $opdGajiHkl = $this->KelasifikasiGajiHkl();
+        $opdGajiK2 = $this->KelasifikasiGajiK2();
+        return view('dashboard.index', compact(
+            'mopd',
+            'opd',
+            'opdNonPns',
+            'opdPendidikan',
+            'opdJenisKelamin',
+            'opdGaji',
+            'opdGajiTkk',
+            'opdGajiTks',
+            'opdGajiHkl',
+            'opdGajiK2',
+            'totalTkk',
+            'totalTks',
+            'totalHkl',
+            'totalK2'
+        ));
     }
 
     public function KategoriNonPns($opd)
@@ -107,10 +138,8 @@ class HomeController extends Controller
         return $opdNonPns;
     }
 
-    public function KelasifikasiGaji($opd)
+    public function KelasifikasiGaji()
     {
-        $opd = isset($opd) ? $opd : 1;
-
         $mopdChart = MasterOpd::all();
         
         $mopdLabel = $mopdChart->map(function($item, $key){
@@ -129,12 +158,79 @@ class HomeController extends Controller
 
         $opdNonPns->dataset('', 'bar', $empOfOpd)->backgroundColor($mopdColor)->fill(false);
         $opdNonPns->displayLegend(false);
-        $opdNonPns->options(
-            [
-                'responsive' => true
-            ]
-        );
+        return $opdNonPns;
+    }
 
+    public function KelasifikasiGajiTkk()
+    {
+        $emp = Employee::tkk()->get();
+        $data = $emp->map(function($item, $key){
+            return $item->gapok;
+        });
+        $label = $emp->map(function($item, $key){
+            return $item->nama;
+        });
+
+        $opdNonPns = new opdNonPns();
+        $opdNonPns->labels($label);
+        $opdNonPns->dataset('', 'bar', $data)->backgroundColor('rgba(255,255,255,0.2)')->fill(false);
+        $opdNonPns->displayLegend(false);
+        $opdNonPns->displayAxes(false);
+        $opdNonPns->options(['responsive' => true]);
+        return $opdNonPns;
+    }
+    public function KelasifikasiGajiK2()
+    {
+        $emp = Employee::k2()->get();
+        $data = $emp->map(function($item, $key){
+            return $item->gapok;
+        });
+        $label = $emp->map(function($item, $key){
+            return $item->nama;
+        });
+
+        $opdNonPns = new opdNonPns();
+        $opdNonPns->labels($label);
+        $opdNonPns->dataset('', 'bar', $data)->backgroundColor('rgba(255,255,255,0.2)')->fill(false);
+        $opdNonPns->displayLegend(false);
+        $opdNonPns->displayAxes(false);
+        $opdNonPns->options(['responsive' => true]);
+        return $opdNonPns;
+    }
+    public function KelasifikasiGajiTks()
+    {
+        $emp = Employee::tks()->get();
+        $data = $emp->map(function($item, $key){
+            return $item->gapok;
+        });
+        $label = $emp->map(function($item, $key){
+            return $item->nama;
+        });
+
+        $opdNonPns = new opdNonPns();
+        $opdNonPns->labels($label);
+        $opdNonPns->dataset('', 'bar', $data)->backgroundColor('rgba(255,255,255,0.2)')->fill(false);
+        $opdNonPns->displayLegend(false);
+        $opdNonPns->displayAxes(false);
+        $opdNonPns->options(['responsive' => true]);
+        return $opdNonPns;
+    }
+    public function KelasifikasiGajiHkl()
+    {
+        $emp = Employee::hkl()->get();
+        $data = $emp->map(function($item, $key){
+            return $item->gapok;
+        });
+        $label = $emp->map(function($item, $key){
+            return $item->nama;
+        });
+
+        $opdNonPns = new opdNonPns();
+        $opdNonPns->labels($label);
+        $opdNonPns->dataset('', 'bar', $data)->backgroundColor('rgba(255,255,255,0.2)')->fill(false);
+        $opdNonPns->displayLegend(false);
+        $opdNonPns->displayAxes(false);
+        $opdNonPns->options(['responsive' => true]);
         return $opdNonPns;
     }
 

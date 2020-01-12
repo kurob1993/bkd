@@ -7,6 +7,10 @@
 {!! $opdPendidikan->script() !!}
 {!! $opdJenisKelamin->script() !!}
 {!! $opdGaji->script() !!}
+{!! $opdGajiTkk->script() !!}
+{!! $opdGajiTks->script() !!}
+{!! $opdGajiHkl->script() !!}
+{!! $opdGajiK2->script() !!}
 <script>
     $(document).ready(function() {
         $('.opd').select2();
@@ -45,7 +49,7 @@
             </div>            
             @endpush
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-12 col-lg-4">
                     <div class="card">
                       <div class="card-body">
                         <h4 class="card-title">Klasifikasi Kategori Non PNS ( <span class="title"></span> )</h4>
@@ -55,7 +59,7 @@
                       </div>
                     </div>                
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-12 col-lg-4">
                     <div class="card">
                         <div class="card-body">
                           <h4 class="card-title">Klasifikasi Pendidikan ( <span class="title"></span> )</h4>
@@ -65,7 +69,7 @@
                         </div>
                       </div>   
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-12 col-lg-4">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Klasifikasi Jenis Kelamin ( <span class="title"></span> )</h4>
@@ -79,12 +83,58 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Klasifikasi Gaji Per OPD</h4>
-                            <div style="position: relative; height:40vh; width:80vw">
+                            <div style="position: relative; height:40vh; width:80vw;">
                                 {!! $opdGaji->container() !!}
                             </div>
                         </div>
                     </div>  
                 </div>
+                
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body pb-0">
+                            <div class="text-value">Rp. {{ number_format( $totalTkk ) }}</div>
+                            <div>Total Gaji TKK</div>
+                        </div>
+                        <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+                            {!! $opdGajiTkk->container() !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card text-white bg-success">
+                        <div class="card-body pb-0">
+                            <div class="text-value">Rp. {{ number_format( $totalTks ) }}</div>
+                            <div>Total Gaji TKS</div>
+                        </div>
+                        <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+                            {!! $opdGajiTks->container() !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card text-white bg-danger">
+                        <div class="card-body pb-0">
+                            <div class="text-value">Rp. {{ number_format( $totalHkl ) }}</div>
+                            <div>Total Gaji HKL</div>
+                        </div>
+                        <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+                            {!! $opdGajiHkl->container() !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card text-white bg-warning">
+                        <div class="card-body pb-0">
+                            <div class="text-value">Rp. {{ number_format( $totalK2 ) }}</div>
+                            <div>Total Gaji K2</div>
+                        </div>
+                        <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+                            {!! $opdGajiK2->container() !!}
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         @endCardDefault()

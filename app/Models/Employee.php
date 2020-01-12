@@ -40,4 +40,25 @@ class Employee extends Model
     {
         return $this->jenis_kelamin == 'L' ? 'Laki-Laki' : 'Perempuan';
     }
+
+    public function scopeTkk($query)
+    {
+        return $query->where('employee_status_id', 1);
+    }
+
+    public function scopeTks($query)
+    {
+        return $query->where('employee_status_id', 2);
+    }
+
+    public function scopeHkl($query)
+    {
+        return $query->where('employee_status_id', 3);
+    }
+
+    public function scopeK2($query)
+    {
+        return $query->where('employee_status_id', 4);
+    }
+
 }
