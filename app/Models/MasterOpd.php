@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Employee;
 use function GuzzleHttp\json_decode;
 
 class MasterOpd extends Model
 {
     protected $appends = [
-        'parent'
+        'parent',
+        'total_gaji'
     ];
     
     public function users()
@@ -31,6 +32,12 @@ class MasterOpd extends Model
     {
         $mopd = MasterOpd::find($this->parent_id);
         return $mopd['text'];
+    }
+
+    public function getTotalGajiAttribute()
+    {
+        $mopd = Employee::select('gapok')->where('master_opd_id', $this->id)->get();
+        return $mopd->sum('gapok');
     }
 
     public function opd()

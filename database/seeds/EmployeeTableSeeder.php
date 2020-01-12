@@ -15,7 +15,7 @@ class EmployeeTableSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
  
-    	for($i = 1; $i <= 10; $i++){
+    	for($i = 1; $i <= 50; $i++){
  
             $emp = new Employee;
             $emp->nama                  = $faker->name;
@@ -29,13 +29,13 @@ class EmployeeTableSeeder extends Seeder
             $emp->gapok                 = $faker->numberBetween(1000000,10000000);
             $emp->tmt                   = $faker->date;
             $emp->status_tkk            = $faker->numberBetween(1,2);
-            $emp->master_opd_id         = $faker->numberBetween(1,17);
-            $emp->employee_status_id    = $faker->numberBetween(1,2);
+            $emp->master_opd_id         = $faker->numberBetween(1,60);
+            $emp->employee_status_id    = $faker->numberBetween(1,4);
             $emp->keterangan            = $faker->sentence(3);
             $emp->save();
  
         }
-        for($i = 1; $i <= 10; $i++){
+        for($i = 1; $i <= 50; $i++){
  
             $emp = new Employee;
             $emp->nama                  = $faker->name;
@@ -49,8 +49,8 @@ class EmployeeTableSeeder extends Seeder
             $emp->gapok                 = $faker->numberBetween(1000000,10000000);
             $emp->tmt                   = $faker->date;
             $emp->status_tkk            = $faker->numberBetween(1,2);
-            $emp->master_opd_id         = $faker->numberBetween(1,17);
-            $emp->employee_status_id    = $faker->numberBetween(1,2);
+            $emp->master_opd_id         = $faker->numberBetween(1,60);
+            $emp->employee_status_id    = $faker->numberBetween(1,4);
             $emp->position_id           = $i;
             $emp->keterangan            = $faker->sentence(3);
             $emp->save();

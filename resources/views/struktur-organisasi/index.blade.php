@@ -45,9 +45,7 @@
                 $getData = $.get("{{ route('struktur-organisasi.show','') }}/"+id, function(data, status){
                    daraRows = data;
                 });
-                $getData.done(function(){
-                    console.log(daraRows);
-                    
+                $getData.done(function(){                    
                     var data = new google.visualization.DataTable();
                     data.addColumn('string', 'Name');
                     data.addColumn('string', 'Manager');

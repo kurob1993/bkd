@@ -18,32 +18,10 @@ class DebugController extends Controller
      */
     public function index()
     {
-        $mopd = Employee::take(20)->get();
-        $mopd = $mopd->map(function($item, $key){
-            return [
-                'id'=>$item->id,
-                'master_opd_id'=>$item->master_opd_id,
-                'employee_status_id'=>$item->employee_status_id,
-                'position_id'=>$item->position_id,
-                'gelar_depan'=>$item->gelar_depan,
-                'nama'=>$item->nama,
-                'gelar_belakang'=>$item->gelar_belakang,
-                'tempat_lahir'=>$item->tempat_lahir,
-                'tanggal_lahir'=>$item->tanggal_lahir->format('Y-m-d'),
-                'jenis_kelamin'=>$item->jenis_kelamin,
-                'pendidikan'=>$item->pendidikan,
-                'jurusan'=>$item->jurusan,
-                'no_telepon'=>$item->no_telepon,
-                'npwp'=>$item->npwp,
-                'gapok'=>$item->gapok,
-                'tmt'=>$item->tmt->format('Y-m-d'),
-                'status_tkk'=>$item->status_tkk,
-                'keterangan'=>$item->keterangan,
-                'created_at'=>$item->created_at->format('Y-m-d'),
-                'updated_at'=>$item->updated_at->format('Y-m-d')
-            ];
-        });
-        return $mopd;
+        return number_format(123123);
+        // $emp = Employee::select('gapok')->where('master_opd_id',1)->get();
+        // return $emp->sum('gapok');
+        // // return $empOfOpd;
     }
 
     /**
