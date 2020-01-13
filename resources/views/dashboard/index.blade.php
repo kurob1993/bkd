@@ -81,7 +81,7 @@
                 </div>
                 <div class="col-sm-12">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body" style="overflow-x: scroll">
                             <h4 class="card-title">Klasifikasi Gaji Per OPD</h4>
                             <div style="position: relative; height:40vh; width:80vw;">
                                 {!! $opdGaji->container() !!}
