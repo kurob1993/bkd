@@ -77,7 +77,7 @@ class HomeController extends Controller
         $mopdChart = MasterOpd::where('id',$opd)->get();
         
         $mopdLabel = $mopdChart->map(function($item, $key){
-            return $item->text;
+            return Str::limit($item->text, 12);
         });
 
         $opdNonPns = new opdNonPns();
@@ -101,7 +101,7 @@ class HomeController extends Controller
         $mopdChart = MasterOpd::where('id',$opd)->get();
         
         $mopdLabel = $mopdChart->map(function($item, $key){
-            return $item->text;
+            return Str::limit($item->text, 12);
         });
 
         $opdNonPns = new opdNonPns();
@@ -128,7 +128,7 @@ class HomeController extends Controller
         $mopdChart = MasterOpd::where('id',$opd)->get();
         
         $mopdLabel = $mopdChart->map(function($item, $key){
-            return $item->text;
+            return Str::limit($item->text, 12);
         });
 
         $opdNonPns = new opdNonPns();
