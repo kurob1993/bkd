@@ -127,7 +127,7 @@
                     <div class="form-group row">
                         <label for="GAPOK" class="col-sm-2 col-form-label">GAPOK : </label>
                         <div class="col-sm-10">
-                            <input type="number" name="GAPOK" value="{{ old('GAPOK') }}" class="form-control"
+                            <input type="number" name="gapok" value="{{ old('gapok') }}" class="form-control"
                             id="GAPOK" placeholder="GAPOK" required>
                         </div>
                     </div>
@@ -177,14 +177,14 @@
                     <div class="form-group row">
                         <label for="posisi" class="col-sm-2 col-form-label">Penempatan Posisi : </label>
                         <div class="col-sm-10">
-                            <select name="posisi" id="posisi" class="form-control" required>
+                            <select name="posisi" id="posisi" class="form-control" >
                             </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="ket" class="col-sm-2 col-form-label">Keterangan : </label>
                         <div class="col-sm-10">
-                            <input type="text" name="ket" id="ket" class="form-control" value="{{ old('ket') }}" >
+                            <input type="text" name="keterangan" id="keterangan" class="form-control" value="{{ old('ket') }}" >
                         </div>
                     </div>
                     

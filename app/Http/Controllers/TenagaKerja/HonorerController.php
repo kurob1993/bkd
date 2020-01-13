@@ -62,12 +62,13 @@ class HonorerController extends Controller
         $emp->jurusan           = $request->jurusan;
         $emp->no_telepon        = $request->no_telepon;
         $emp->npwp              = $request->npwp;
-        $emp->posisi            = $request->posisi;
+        $emp->position_id       = $request->posisi;
         $emp->gapok             = $request->gapok;
         $emp->tmt               = $tmt;
         $emp->status_tkk        = $request->status_tkk;
         $emp->master_opd_id     = $request->master_opd_id;
         $emp->employee_status_id = $request->employee_status_id;
+        $emp->keterangan        = $request->keterangan;
         $emp->save();
         // dd($request);
         return redirect()->route('honorer.index');
@@ -142,6 +143,7 @@ class HonorerController extends Controller
         $emp->status_tkk        = $request->status_tkk;
         $emp->master_opd_id     = $request->master_opd_id;
         $emp->employee_status_id = $request->employee_status_id;
+        $emp->keterangan = $request->keterangan;
         $emp->save();
 
         return redirect()->route('honorer.index');
