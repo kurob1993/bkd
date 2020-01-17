@@ -12,17 +12,7 @@
 */
 Auth::routes();
 
-Route::get('/', function () {
-    if(!Auth::user()){
-        //untuk virutal host
-        return redirect()->route('login');
-
-        //jika tidak menggukalan virtual host
-        // return redirect()->guest('/public/login');
-    }else{
-        return redirect()->route('home');
-    }
-});
+Route::get('/', 'HomeController@root')->name('root');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/home', 'HomeController@index')->name('home');

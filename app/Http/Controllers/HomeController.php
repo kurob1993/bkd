@@ -27,6 +27,19 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    public function root()
+    {
+        if(!Auth::user()){
+            //untuk virutal host
+            return redirect()->route('login');
+    
+            //jika tidak menggukalan virtual host
+            // return redirect()->guest('/public/login');
+        }else{
+            return redirect()->route('home');
+        }
+    }
+    
     public function index(Request $request)
     {
         $opd = isset($request->opd) ? $request->opd : 1;
