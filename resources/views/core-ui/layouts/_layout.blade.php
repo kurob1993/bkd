@@ -5,7 +5,7 @@
     @include('core-ui.layouts._menukiri')
 @endpush
 @push('menukanan')
-    @include('core-ui.layouts._MenuKanan')
+    @include('core-ui.layouts._menukanan')
 @endpush
 @push('footer')
     @include('core-ui.layouts._footer')
