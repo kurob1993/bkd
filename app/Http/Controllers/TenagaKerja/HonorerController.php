@@ -101,6 +101,12 @@ class HonorerController extends Controller
             $opd_id     = Auth::user()->master_opd_id;
             $emp = Employee::with(['opds','employeeStatus','position','stage']);
             $emp->where('master_opd_id',$opd_id);
+
+            if ($request->input('stage')) {
+                $emp = Employee::where('stage_id',$request->input('stage'))
+                ->where('master_opd_id',$opd_id)
+                ->with(['opds','employeeStatus','position','stage']);
+            }
         }
         
 
