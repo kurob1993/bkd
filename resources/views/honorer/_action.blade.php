@@ -36,6 +36,7 @@
     </div>
 </div>
 
+@role('admin super')
 @if ($stage_id == 1)
 <button class="btn btn-primary btn-sm my-1" data-toggle="modal" data-target="#modal-approve{{$id}}">
     <i class="fa fa-check-circle" aria-hidden="true"></i>
@@ -69,3 +70,4 @@
     </div>
 </div>
 @endif
+@endrole
