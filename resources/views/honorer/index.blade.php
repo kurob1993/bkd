@@ -4,7 +4,7 @@
         <link href="{{ asset('vendors/DataTables/Responsive-2.2.2/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
         <style>
         .stage {
-            width: 60%;
+            width: 20%;
             height: 25px;
             margin: 0 auto;
             margin-top:10px;
@@ -118,11 +118,16 @@
 
         @CardDefault(['title' => 'Tenaga Kerja Honorer'])
             @push('card-button')
-            <button type="button" class="btn btn-outline-success btn-sm mx-1" data-toggle="modal" data-target="#downloadExcel">
+            <select class="stage mx-1 my-1" onchange="reload(this.value)"> \
+                <option value=""> All Stage </option> 
+                <option value="1"> Waiting Approval </option> 
+                <option value="2"> Approved </option> 
+            </select>
+            <button type="button" class="btn btn-outline-success btn-sm mx-1 my-1" data-toggle="modal" data-target="#downloadExcel">
                 <i class="fa fa-file-excel-o" aria-hidden="true"></i>
                 Unduh Excel
             </button>
-            <button type="button" class="btn btn-outline-primary btn-sm mx-1" data-toggle="modal" data-target="#modelId">
+            <button type="button" class="btn btn-outline-primary btn-sm mx-1 my-1" data-toggle="modal" data-target="#modelId">
                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                 Unduh PDF
             </button>
@@ -130,7 +135,7 @@
                 <i class="fa fa-plus-circle fa-lg"></i>
                 Tambah Data Tenaga Kerja
             </a>
-            <button class="btn btn-outline-warning btn-sm mx-1" data-toggle="modal" data-target="#modalImpor">
+            <button class="btn btn-outline-warning btn-sm mx-1 my-1" data-toggle="modal" data-target="#modalImpor">
                 <i class="fa fa-cloud-upload" aria-hidden="true"></i>
                 Impor Data
             </button>
@@ -153,13 +158,7 @@
                         <th>STATUS</th>
                         <th>KATEGORI</th>
                         <th>OPD</th>
-                        <th>
-                            <select class="stage" onchange="reload(this.value)">
-                                <option value=""> All Stage </option>
-                                <option value="1"> Waiting Approval </option>
-                                <option value="2"> Approved </option>
-                            </select>
-                        </th>
+                        <th>STAGE</th>
                         <th class="none">KET</th>
                         <th class="all" width="15%">AKSI</th>
                     </tr>
