@@ -51,24 +51,30 @@ class HonorerController extends Controller
         $tanggal_lahir = date('Y-m-d', strtotime($request->tanggal_lahir));
         $tmt = date('Y-m-d', strtotime($request->tmt));
 
+        $approve = null;
+        if($request->employee_status_id == 1 || $request->employee_status_id == 4){
+            $approve = 1;
+        }
+
         $emp = new Employee();
-        $emp->nama              = $request->nama;
-        $emp->gelar_depan       = $request->gelar_depan;
-        $emp->gelar_belakang    = $request->gelar_belakang;
-        $emp->tempat_lahir      = $request->tempat_lahir;
-        $emp->tanggal_lahir     = $tanggal_lahir;
-        $emp->jenis_kelamin     = $request->jenis_kelamin;
-        $emp->pendidikan        = $request->pendidikan;
-        $emp->jurusan           = $request->jurusan;
-        $emp->no_telepon        = $request->no_telepon;
-        $emp->npwp              = $request->npwp;
-        $emp->position_id       = $request->posisi;
-        $emp->gapok             = $request->gapok;
-        $emp->tmt               = $tmt;
-        $emp->status_tkk        = $request->status_tkk;
-        $emp->master_opd_id     = $request->master_opd_id;
+        $emp->nama               = $request->nama;
+        $emp->gelar_depan        = $request->gelar_depan;
+        $emp->gelar_belakang     = $request->gelar_belakang;
+        $emp->tempat_lahir       = $request->tempat_lahir;
+        $emp->tanggal_lahir      = $tanggal_lahir;
+        $emp->jenis_kelamin      = $request->jenis_kelamin;
+        $emp->pendidikan         = $request->pendidikan;
+        $emp->jurusan            = $request->jurusan;
+        $emp->no_telepon         = $request->no_telepon;
+        $emp->npwp               = $request->npwp;
+        $emp->position_id        = $request->posisi;
+        $emp->gapok              = $request->gapok;
+        $emp->tmt                = $tmt;
+        $emp->status_tkk         = $request->status_tkk;
+        $emp->master_opd_id      = $request->master_opd_id;
         $emp->employee_status_id = $request->employee_status_id;
-        $emp->keterangan        = $request->keterangan;
+        $emp->stage_id           = $approve;
+        $emp->keterangan         = $request->keterangan;
         $emp->save();
         // dd($request);
         return redirect()->route('honorer.index');
@@ -80,16 +86,21 @@ class HonorerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $opd_id     = Auth::user()->master_opd_id;
-        $emp        = Employee::with(['opds','employeeStatus','position']);
+        if($id == 'all'){
+            $emp        = Employee::with(['opds','employeeStatus','position','stage']);
+        }
+
+        if ($request->input('stage')) {
+            $emp        = Employee::where('stage_id',$request->input('stage'))->with(['opds','employeeStatus','position','stage']);
+        }
 
         $adminSuper = Auth::user()->hasRole('admin super');
         if (!$adminSuper) {
-            $emp = Employee::with(['opds','employeeStatus','position']);
+            $opd_id     = Auth::user()->master_opd_id;
+            $emp = Employee::with(['opds','employeeStatus','position','stage']);
             $emp->where('master_opd_id',$opd_id);
-            $emp->with(['opds']);
         }
         
 
@@ -125,25 +136,30 @@ class HonorerController extends Controller
     {
         $tanggal_lahir = date('Y-m-d', strtotime($request->tanggal_lahir));
         $tmt = date('Y-m-d', strtotime($request->tmt));
+        $approve = null;
+        if($request->employee_status_id == 1 || $request->employee_status_id == 4){
+            $approve = 1;
+        }
 
         $emp = Employee::find($id);
-        $emp->nama              = $request->nama;
-        $emp->gelar_depan       = $request->gelar_depan;
-        $emp->gelar_belakang    = $request->gelar_belakang;
-        $emp->tempat_lahir      = $request->tempat_lahir;
-        $emp->tanggal_lahir     = $tanggal_lahir;
-        $emp->jenis_kelamin     = $request->jenis_kelamin;
-        $emp->pendidikan        = $request->pendidikan;
-        $emp->jurusan           = $request->jurusan;
-        $emp->no_telepon        = $request->no_telepon;
-        $emp->npwp              = $request->npwp;
-        $emp->position_id       = $request->position_id;
-        $emp->gapok             = $request->gapok;
-        $emp->tmt               = $tmt;
-        $emp->status_tkk        = $request->status_tkk;
-        $emp->master_opd_id     = $request->master_opd_id;
+        $emp->nama               = $request->nama;
+        $emp->gelar_depan        = $request->gelar_depan;
+        $emp->gelar_belakang     = $request->gelar_belakang;
+        $emp->tempat_lahir       = $request->tempat_lahir;
+        $emp->tanggal_lahir      = $tanggal_lahir;
+        $emp->jenis_kelamin      = $request->jenis_kelamin;
+        $emp->pendidikan         = $request->pendidikan;
+        $emp->jurusan            = $request->jurusan;
+        $emp->no_telepon         = $request->no_telepon;
+        $emp->npwp               = $request->npwp;
+        $emp->position_id        = $request->position_id;
+        $emp->gapok              = $request->gapok;
+        $emp->tmt                = $tmt;
+        $emp->status_tkk         = $request->status_tkk;
+        $emp->master_opd_id      = $request->master_opd_id;
         $emp->employee_status_id = $request->employee_status_id;
-        $emp->keterangan = $request->keterangan;
+        $emp->stage_id           = $approve;
+        $emp->keterangan         = $request->keterangan;
         $emp->save();
 
         return redirect()->route('honorer.index');
@@ -193,5 +209,14 @@ class HonorerController extends Controller
     public function exampleData() 
     {
         return Excel::download(new ExampleDataEmployeeExport, 'Contoh_Data_Tenaga_Kerja.xlsx');
+    }
+
+    public function approve(Request $request, $id)
+    {
+        $emp = Employee::find($id);
+        $emp->stage_id = 2;
+        $emp->save();
+
+        return redirect()->back();
     }
 }

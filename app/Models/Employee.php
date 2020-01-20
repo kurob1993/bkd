@@ -26,6 +26,11 @@ class Employee extends Model
         return $this->belongsTo('App\Models\Position');
     }
 
+    public function stage()
+    {
+        return $this->belongsTo('App\Models\Stage');
+    }
+
     public function employeeStatus()
     {
         return $this->belongsTo('App\Models\EmployeeStatus','employee_status_id');

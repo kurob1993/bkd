@@ -2,13 +2,27 @@
     @push('style')
         <link href="{{ asset('vendors/DataTables/datatables.min.css') }}" rel="stylesheet">
         <link href="{{ asset('vendors/DataTables/Responsive-2.2.2/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
-        <style></style>
+        <style>
+        .stage {
+            width: 60%;
+            height: 25px;
+            margin: 0 auto;
+            margin-top:10px;
+            border: none;
+            border:solid 1px #ccc;
+            border-radius: 10px;
+        }
+        </style>
     @endpush 
     @push('script')
         <script src="{{ asset('vendors/DataTables/datatables.min.js') }}"></script>
         <script src="{{ asset('vendors/DataTables/Responsive-2.2.2/js/dataTables.responsive.min.js') }}"></script>
         <script>
             $(document).ready(function() {
+                load("{{ route('honorer.show','') }}/all");
+            });
+
+            function load(url) {
                 $('#dataTable').DataTable({
                     responsive: true,
                     processing: true,
@@ -32,7 +46,7 @@
                             render: function(data, type, row, meta) {
                                 var tempat_lahir = row.tempat_lahir;
                                 var tangagl_lahir = row.tanggal_lahir;                               
-                                return tempat_lahir+', <br> '+tangagl_lahir;
+                                return tempat_lahir+', '+tangagl_lahir;
                             }
                         },
                         {data: 'jenis_kelamin',
@@ -65,12 +79,34 @@
                                 return row.employee_status.text;
                             }
                         },
-                        {data: 'opds.text'},
+                        {data: 'master_opd_id',
+                            render: function(data, type, row, meta) { 
+                                return data ? row.opds.text : '';
+                            }
+                        },
+                        {data: 'stage_id',
+                            render: function(data, type, row, meta) {
+                                if (data) {
+                                    if (data == 1) {
+                                        return '<span class="badge badge-secondary">'+row.stage.text+'</span>';
+                                    }
+                                    if (data == 2) {
+                                        return '<span class="badge badge-primary">'+row.stage.text+'</span>';
+                                    }
+                                }
+                                return '';
+                            }
+                        },
                         {data: 'keterangan'},
                         {data: 'action'}
                     ]
                 });
-            });
+            }
+
+            function reload(value) {
+                var table = $('#dataTable').DataTable();
+                table.ajax.url( "{{ route('honorer.show','') }}/all?stage="+value ).load();
+            }
         </script>
     @endpush
 
@@ -105,9 +141,9 @@
                     <tr>
                         <th data-priority="1">ID</th>
                         <th>NAMA</th>
-                        <th>TTL</th>
+                        <th class="none">TTL</th>
                         <th>JK</th>
-                        <th>PENDIDIKAN</th>
+                        <th class="none">PENDIDIKAN</th>
                         <th>JURUSAN</th>
                         <th class="none">NO TLP</th>
                         <th class="none">NPWP</th>
@@ -117,8 +153,15 @@
                         <th>STATUS</th>
                         <th>KATEGORI</th>
                         <th>OPD</th>
+                        <th>
+                            <select class="stage" onchange="reload(this.value)">
+                                <option value=""> All Stage </option>
+                                <option value="1"> Waiting Approval </option>
+                                <option value="2"> Approved </option>
+                            </select>
+                        </th>
                         <th class="none">KET</th>
-                        <th class="all">AKSI</th>
+                        <th class="all" width="15%">AKSI</th>
                     </tr>
                 </thead>
             </table>
