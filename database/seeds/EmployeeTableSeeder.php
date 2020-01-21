@@ -29,7 +29,7 @@ class EmployeeTableSeeder extends Seeder
             $emp->gapok                 = $faker->numberBetween(1000000,10000000);
             $emp->tmt                   = $faker->date;
             $emp->status_tkk            = $faker->numberBetween(1,2);
-            $emp->master_opd_id         = $faker->numberBetween(1,60);
+            $emp->master_opd_id         = $faker->numberBetween(1,23);
             $emp->employee_status_id    = $faker->numberBetween(1,4);
             $emp->keterangan            = $faker->sentence(3);
             $emp->save();
@@ -49,7 +49,7 @@ class EmployeeTableSeeder extends Seeder
             $emp->gapok                 = $faker->numberBetween(1000000,10000000);
             $emp->tmt                   = $faker->date;
             $emp->status_tkk            = $faker->numberBetween(1,2);
-            $emp->master_opd_id         = $faker->numberBetween(1,60);
+            $emp->master_opd_id         = $faker->numberBetween(1,23);
             $emp->employee_status_id    = $faker->numberBetween(1,4);
             $emp->position_id           = $i;
             $emp->keterangan            = $faker->sentence(3);
