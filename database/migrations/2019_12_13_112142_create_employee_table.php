@@ -18,6 +18,7 @@ class CreateEmployeeTable extends Migration
             $table->integer('master_opd_id');
             $table->integer('employee_status_id');
             $table->integer('position_id')->nullable();
+            $table->integer('stage_id')->nullable();
             $table->string('gelar_depan')->nullable();
             $table->string('nama');
             $table->string('gelar_belakang')->nullable();
