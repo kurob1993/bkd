@@ -81,7 +81,7 @@
                         },
                         {data: 'master_opd_id',
                             render: function(data, type, row, meta) { 
-                                return data ? row.opds.text : '';
+                                return row.opds ? row.opds.text : '';
                             }
                         },
                         {data: 'stage_id',
