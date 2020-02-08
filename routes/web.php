@@ -14,20 +14,20 @@ Auth::routes();
 
 Route::get('/', 'HomeController@root')->name('root');
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['XSS','auth']], function() {
     Route::get('/home', 'HomeController@index')->name('home');
 });
 
-Route::group(['prefix'=>'pengguna','middleware' => ['auth','role:administrator|admin super']], function() {
+Route::group(['prefix'=>'pengguna','middleware' => ['XSS','auth','role:administrator|admin super']], function() {
     Route::resource('user', 'Pengguna\UserController')->parameters(['user' => 'id']);
 });
 
-Route::group(['prefix'=>'master','middleware' => ['auth','role:admin super']], function() {
+Route::group(['prefix'=>'master','middleware' => ['XSS','auth','role:admin super']], function() {
     Route::resource('opd', 'Master\MasterOpdController')->parameters(['opd' => 'id']);
     Route::resource('posisi', 'Master\MasterPosisiController')->parameters(['posisi' => 'id']);
 });
 
-Route::group(['prefix'=>'tenaga-kerja','middleware' => ['auth','role:admin super|admin opd']], function() {
+Route::group(['prefix'=>'tenaga-kerja','middleware' => ['XSS','auth','role:admin super|admin opd']], function() {
     Route::get('honorer/contoh-data', 'TenagaKerja\HonorerController@exampleData')->name('honorer.example');
     Route::get('honorer/excel', 'TenagaKerja\HonorerController@excel')->name('honorer.excel');
     Route::get('honorer/pdf', 'TenagaKerja\HonorerController@pdf')->name('honorer.pdf');
@@ -41,7 +41,7 @@ Route::group(['prefix'=>'tenaga-kerja','middleware' => ['auth','role:admin super
     Route::resource('tks', 'TenagaKerja\TksController')->parameters(['tks' => 'id']);
 });
 
-Route::group(['middleware' => ['auth','role:admin super|admin opd']], function() {
+Route::group(['middleware' => ['XSS','auth','role:admin super|admin opd']], function() {
     Route::resource('struktur-organisasi', 'StrukturOrganisasiController')->parameters(['struktur-organisasi' => 'id']);
 });
 
