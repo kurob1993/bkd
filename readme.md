@@ -15,3 +15,7 @@ Tutorial Install :
 <p>php artisan key:generate</p>
 <p>php artisan migrate:refresh --seed</p>
 <p>php artisan config:cache</p>
+
+<hr>
+Menjalankan aplikasi
+<p>php artisan serve</p>
