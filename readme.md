@@ -3,6 +3,8 @@
 </h1>
 
 Tutorial Install : 
+git clone https://github.com/kurob1993/bkd.git
+cd bkd
 <hr>
 
 <p>ubah nama file .env.example ke .env</p>
