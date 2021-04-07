@@ -33,7 +33,7 @@ class HomeController extends Controller
             //untuk virutal host
             return redirect()->route('login');
     
-            //jika tidak menggukalan virtual host
+            //jika tidak menggunakan virtual host
             // return redirect()->guest('/public/login');
         }else{
             return redirect()->route('home');
@@ -95,15 +95,40 @@ class HomeController extends Controller
 
         $opdNonPns = new opdNonPns();
         $opdNonPns->labels($mopdLabel);
+        
         foreach (EmployeeStatus::all() as $key => $value) {
 
             $empOfOpd = $mopdChart->map(function($item, $key) use($value) {
                 return $item->employees->where('employee_status_id',$value->id)->count();
             });
 
-            $opdNonPns->dataset($value->text, 'bar', $empOfOpd)->backgroundColor('rgba('.rand(0,255).', '.rand(0,255).', '.rand(0,255).', 0.3)')->fill(false);
+            $opdNonPns->dataset($value->text, 'bar', $empOfOpd)
+                ->backgroundColor('rgba('.rand(0,255).', '.rand(0,255).', '.rand(0,255).', 0.3)')
+                ->fill(false);
         }
-
+        $opdNonPns->options([
+            'scales' => [
+                'xAxes' => [
+                    [
+                        'gridLines' => [
+                            'display' => false,
+                            'drawBorder' => false
+                        ]
+                    ]
+                ],
+                'yAxes' => [
+                    [
+                        'gridLines' => [
+                            'color' => "rgb(234, 236, 244)",
+                            'zeroLineColor' => "rgb(234, 236, 244)",
+                            'drawBorder' => false,
+                            'borderDash' => [2],
+                            'zeroLineBorderDash' => [2]
+                        ]
+                    ]
+                ]
+            ]
+        ]);
         return $opdNonPns;
     }
 
@@ -131,6 +156,30 @@ class HomeController extends Controller
         if ($data->count() == 0) {
             $opdNonPns->dataset('', 'bar', [])->backgroundColor('rgba('.rand(0,255).', '.rand(0,200).', '.rand(0,155).', 0.3)')->fill(false);
         }
+
+        $opdNonPns->options([
+            'scales' => [
+                'xAxes' => [
+                    [
+                        'gridLines' => [
+                            'display' => false,
+                            'drawBorder' => false
+                        ]
+                    ]
+                ],
+                'yAxes' => [
+                    [
+                        'gridLines' => [
+                            'color' => "rgb(234, 236, 244)",
+                            'zeroLineColor' => "rgb(234, 236, 244)",
+                            'drawBorder' => false,
+                            'borderDash' => [2],
+                            'zeroLineBorderDash' => [2]
+                        ]
+                    ]
+                ]
+            ]
+        ]);
         return $opdNonPns;
     }
 
@@ -157,6 +206,29 @@ class HomeController extends Controller
         if ($data->count() == 0) {
             $opdNonPns->dataset('', 'bar', [])->backgroundColor('rgba('.rand(0,255).', '.rand(0,200).', '.rand(0,155).', 0.3)')->fill(false);
         }
+        $opdNonPns->options([
+            'scales' => [
+                'xAxes' => [
+                    [
+                        'gridLines' => [
+                            'display' => false,
+                            'drawBorder' => false
+                        ]
+                    ]
+                ],
+                'yAxes' => [
+                    [
+                        'gridLines' => [
+                            'color' => "rgb(234, 236, 244)",
+                            'zeroLineColor' => "rgb(234, 236, 244)",
+                            'drawBorder' => false,
+                            'borderDash' => [2],
+                            'zeroLineBorderDash' => [2]
+                        ]
+                    ]
+                ]
+            ]
+        ]);
         return $opdNonPns;
     }
 
@@ -180,6 +252,29 @@ class HomeController extends Controller
 
         $opdNonPns->dataset('', 'bar', $empOfOpd)->backgroundColor($mopdColor)->fill(false);
         $opdNonPns->displayLegend(false);
+        $opdNonPns->options([
+            'scales' => [
+                'xAxes' => [
+                    [
+                        'gridLines' => [
+                            'display' => false,
+                            'drawBorder' => false
+                        ]
+                    ]
+                ],
+                'yAxes' => [
+                    [
+                        'gridLines' => [
+                            'color' => "rgb(234, 236, 244)",
+                            'zeroLineColor' => "rgb(234, 236, 244)",
+                            'drawBorder' => false,
+                            'borderDash' => [2],
+                            'zeroLineBorderDash' => [2]
+                        ]
+                    ]
+                ]
+            ]
+        ]);
         return $opdNonPns;
     }
 
